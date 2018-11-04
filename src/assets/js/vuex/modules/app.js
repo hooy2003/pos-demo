@@ -22,25 +22,29 @@ const state = {
         "strange" : "不得包括特殊符號"
     },
     isLoading: false,
-    // billing: [
-    //     { "櫃檯出單機":
-    //         [
-    //             "結帳相關",
-    //             "顧客相關",
-    //             "廚房"
-    //         ]
-    //     },
-    //     { "廚房出單機":
-    //         [
-    //             "結帳相關",
-    //             "顧客相關",
-    //             "廚房"
-    //         ]
-    //     },
-    // ],
     billing: [
         "櫃檯出單機",
         "廚房出單機"
+    ],
+    mealclass: [
+        "沙拉類",
+        "串炸類",
+        "海鮮類",
+        "牛肉類"
+    ],
+    foodclass: [
+        {id: 1, types: '沙拉類', name: '沙拉1'},
+        {id: 2, types: '沙拉類', name: '沙拉2'},
+        {id: 3, types: '沙拉類', name: '沙拉3'},
+        {id: 4, types: '串炸類', name: '肉類'},
+        {id: 5, types: '串炸類', name: '蔬菜類'},
+        {id: 6, types: '串炸類', name: '天婦羅'}
+    ],
+    cookbookclass: [
+        "起司球",
+        "泡菜起司球",
+        "寧波年糕",
+        "義大利麵"
     ],
     rules: [
         "規則1",
@@ -55,6 +59,9 @@ const getters = {
     errorState: state => state.errorState,
     isLoading: state => state.isLoading,
     billing: state => state.billing,
+    mealclass: state => state.mealclass,
+    foodclass: state => state.foodclass,
+    cookbookclass: state => state.cookbookclass,
     rules: state => state.rules
 };
 

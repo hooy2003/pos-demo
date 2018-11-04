@@ -4,7 +4,7 @@
     box-sizing: border-box;
     .ivu-col {
         height: 100vh;   // 是否改為 flex格局？
-        overflow: auto; // 是否改為 flex格局？
+        overflow: visible; // 是否改為 flex格局？
         border-right: 1px $black solid;
         background-color: $lightWhite;
         &:last-child {
