@@ -42,16 +42,17 @@
                 </div>
                 <div class="union">
                     <h4>類別</h4>
-                    <CardA v-for="(item, index) in currentFoodClass"
-                           :class-name="item" 
+                    <CardB v-for="(item, index) in currentFoodClass"
+                           :class-name="item"
+                           @class-on-click="foodClassOnClick"
                     >
-                    </CardA>
+                    </CardB>
                     </CardA>
                     <h4>項目</h4>
-                    <CardA v-for="(item, index) in currentFoodClass"
+                    <CardB v-for="(item, index) in currentCookbookclass"
                            :class-name="item" 
                     >
-                    </CardA>
+                    </CardB>
                 </div>
             </Col>
             <Col span="6">
@@ -70,49 +71,11 @@
                     </Dropdown>
                 </div>
                 <div class="union">
-                    <h4>基本設定</h4>
-                    <Card>
-                        <div class="setting">
-                            <h3>列印名稱</h3>
-                            <p>和牛區</p>
-                        </div>
-                    </Card>
-                    <Card>
-                        <div class="setting">
-                            <h3>列印名稱</h3>
-                            <p>印單時機</p>
-                        </div>
-                    </Card>
-                    <h4>排列與切單</h4>
-                    <Card>
-                        <div class="setting">
-                            <h3>套餐排列</h3>
-                            <p>套餐內品項</p>
-                        </div>
-                    </Card>
-                    <Card>
-                        <div class="setting">
-                            <h3>相同品項顯示</h3>
-                            <p>同一行</p>
-                        </div>
-                    </Card>
-                    <Card>
-                        <div class="setting">
-                            <h3>切單方式</h3>
-                            <p>不切單</p>
-                        </div>
-                    </Card>
-                    <h4>編輯列印品項</h4>
-                    <Card>
-                        <div>
-                            <h3>編輯列印品項</h3>
-                        </div>
-                    </Card>
-                    <Card>
-                        <div>
-                            <h3>和牛上選牛舌</h3>
-                        </div>
-                    </Card>
+                    <h4>項目</h4>                    
+                    <CardC v-for="(item, index) in currentCuisineclass"
+                           :class-name="item" 
+                    >
+                    </CardC>
                 </div>
             </Col>
             <Col span="6"></Col>
@@ -122,15 +85,29 @@
 <script>
 import { mapGetters } from 'vuex';
 import CardA from './card.vue';
+import CardB from './cardB.vue';
 
   export default {
     components: {
-        CardA,  
+        CardA, 
+        CardB,
     },
     data() {
         return {
-            currentFoodClass: [],            
+            currentFoodClass: [],
+            currentCookbookclass: [],
+            currentCuisineclass: []
         }
+    },
+    mounted: function() {
+
+        // 找 mealclass中第一個name 來當初始值
+        console.log('mounted1');
+        // let fakeMealClass =[ "沙拉類", "串炸類", "海鮮類", "牛肉類" ];
+        // let firstFoodClassName = fakeMealClass[0];
+        // let foodClassName = _.partial(_.map, _, 'name');
+        // this.currentFoodClass = foodClassName( _.filter(this.foodclass, {types: firstFoodClassName} ) );
+        console.log('mounted2');
     },
     computed: {
       ...mapGetters([
@@ -140,25 +117,36 @@ import CardA from './card.vue';
         'cookbookclass',
         'rules'
       ]),
-    //   currentFoodClass: function() {
-    //     console.log('ddd2');
-    //   }
     },
     // watch: {
     //     currentFoodClass: function() {
     //         console.log('ddd');            
     //     }
     // },
+    // 改进vue的初始化数据调用时机 --
+    // https://www.jianshu.com/p/2048f1a66c33
     methods: {
         mealClassOnClick: function(mealClass) {
             console.log('mealClassOnClick', mealClass);
             this.changeFoodClass(mealClass);
+            this.changeCookbookclass(mealClass);
         },
+        foodClassOnClick: function(foodClass) {
+            console.log('foodClassOnClick', foodClass);
+            this.changeCuisineclass(foodClass);
+        },
+
         changeFoodClass: function(mealClass) {
             let foodClassName = _.partial(_.map, _, 'name');
-            console.log('changeFoodClass');
             this.currentFoodClass = foodClassName( _.filter(this.foodclass, {types: mealClass} ) );
-            console.log(this.currentFoodClas);
+        },
+        changeCookbookclass: function(mealClass) {
+            let cookBookClassName = _.partial(_.map, _, 'name');
+            this.currentCookbookclass = cookBookClassName( _.filter(this.cookbookclass, {types: mealClass} ) );
+        },
+        changeCuisineclass: function(foodClass) {
+            let cuisineClassName = _.partial(_.map, _, 'name');
+            this.currentCuisineclass = cuisineClassName( _.filter(this.cookbookclass, {types: foodClass} ) );
         }
     }
   }

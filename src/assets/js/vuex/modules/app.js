@@ -33,18 +33,20 @@ const state = {
         "牛肉類"
     ],
     foodclass: [
-        {id: 1, types: '沙拉類', name: '沙拉1'},
-        {id: 2, types: '沙拉類', name: '沙拉2'},
-        {id: 3, types: '沙拉類', name: '沙拉3'},
-        {id: 4, types: '串炸類', name: '肉類'},
-        {id: 5, types: '串炸類', name: '蔬菜類'},
-        {id: 6, types: '串炸類', name: '天婦羅'}
+        {floor: 2, types: '沙拉類', name: '沙拉1'},
+        {floor: 2, types: '沙拉類', name: '沙拉2'},
+        {floor: 2, types: '沙拉類', name: '沙拉3'},
+        {floor: 2, types: '串炸類', name: '肉類'},
+        {floor: 2, types: '串炸類', name: '蔬菜類'},
+        {floor: 2, types: '串炸類', name: '天婦羅'}
     ],
     cookbookclass: [
-        "起司球",
-        "泡菜起司球",
-        "寧波年糕",
-        "義大利麵"
+        {floor: 1, types: '串炸類', name: '起司球'},
+        {floor: 1, types: '串炸類', name: '泡菜起司球'},
+        {floor: 1, types: '串炸類', name: '寧波年糕'},
+        {floor: 1, types: '天婦羅', name: '天婦羅1'},
+        {floor: 1, types: '天婦羅', name: '天婦羅2'},
+        {floor: 1, types: '天婦羅', name: '天婦羅3'}
     ],
     rules: [
         "規則1",

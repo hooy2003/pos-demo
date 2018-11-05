@@ -1,5 +1,5 @@
 <template>
-    <div class="card-class ff"
+    <div class="card-class js-card-class-a"
          @click="clickCard()">
         <div class="content">
             <Icon type="md-print"></Icon>
@@ -14,7 +14,7 @@
         methods: {
             clickCard: function() {
                 this.$emit('class-on-click', this.className);
-                $('.card-class').removeClass('active');
+                $('.js-card-class-a').removeClass('active');
                 $(this.$el).addClass('active');
             },
         }

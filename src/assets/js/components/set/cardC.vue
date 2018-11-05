@@ -1,0 +1,50 @@
+<template>
+    <div class="card-class js-card-class-c"
+         @click="clickCard()">
+        <div class="content">
+            <Icon type="md-print"></Icon>
+            <h3>{{className}}</h3>
+        </div>
+    </div>
+</template>
+<script>
+    export default {
+        name: 'CardC',
+        props: ['className'],
+        methods: {
+            clickCard: function() {
+                this.$emit('class-on-click', this.className);
+                $('.js-card-class-c').removeClass('active');
+                $(this.$el).addClass('active');
+            },
+        }
+    }
+</script>
+<style lang="scss">
+    .card-class {
+        border: 1px solid #dcdee2;
+        border-color: #e8eaec;
+        background: #fff;
+        border-radius: 4px;
+        font-size: 14px;
+        position: relative;
+        cursor: pointer;
+        transition: all .2s ease-in-out;
+        .content {
+            padding: 16px;
+        }
+        h3 {
+            display: inline-block;
+        }
+        &::after {
+            content: '>';
+            display: block;
+            position:absolute;
+            right: 10px;
+            top: 15px;
+        }
+        &.active {
+             background: red;
+        }
+    }
+</style>
