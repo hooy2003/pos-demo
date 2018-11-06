@@ -43,6 +43,27 @@ nav button {
     top: 15px; }
   .card-class.active {
     background: red; }
+.card-class {
+  border: 1px solid #dcdee2;
+  border-color: #e8eaec;
+  background: #fff;
+  border-radius: 4px;
+  font-size: 14px;
+  position: relative;
+  cursor: pointer;
+  transition: all .2s ease-in-out; }
+  .card-class .content {
+    padding: 16px; }
+  .card-class h3 {
+    display: inline-block; }
+  .card-class::after {
+    content: '>';
+    display: block;
+    position: absolute;
+    right: 10px;
+    top: 15px; }
+  .card-class.active {
+    background: red; }
 .ivu-card-body h3 {
   display: inline-block; }
 

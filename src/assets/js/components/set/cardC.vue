@@ -4,6 +4,18 @@
         <div class="content">
             <Icon type="md-print"></Icon>
             <h3>{{className}}</h3>
+            <Dropdown trigger="click"
+                      @on-click="handleDropDownClick($event)"
+            >
+                <a href="javascript:void(0)">
+                    <Icon type="md-create"></Icon>
+                </a>
+                <DropdownMenu slot="list">
+                    <DropdownItem><Icon type="ios-add-circle"></Icon>編輯名稱</DropdownItem>
+                    <DropdownItem><Icon type="md-copy"></Icon>複製項目</DropdownItem>
+                    <DropdownItem><Icon type="ios-add-circle"></Icon>刪除項目</DropdownItem>
+                </DropdownMenu>
+            </Dropdown>
         </div>
     </div>
 </template>
@@ -17,6 +29,10 @@
                 $('.js-card-class-c').removeClass('active');
                 $(this.$el).addClass('active');
             },
+            handleDropDownClick: function (name) {
+                // https://github.com/iview/iview/issues/493
+                console.log('name');
+            }
         }
     }
 </script>

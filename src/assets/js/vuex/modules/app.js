@@ -26,27 +26,27 @@ const state = {
         "櫃檯出單機",
         "廚房出單機"
     ],
-    mealclass: [
-        "沙拉類",
-        "串炸類",
-        "海鮮類",
-        "牛肉類"
+    setClass: [
+        "沙拉套餐",
+        "串炸套餐",
+        "海鮮套餐",
+        "牛肉套餐"
     ],
-    foodclass: [
-        {floor: 2, types: '沙拉類', name: '沙拉1'},
-        {floor: 2, types: '沙拉類', name: '沙拉2'},
-        {floor: 2, types: '沙拉類', name: '沙拉3'},
-        {floor: 2, types: '串炸類', name: '肉類'},
-        {floor: 2, types: '串炸類', name: '蔬菜類'},
-        {floor: 2, types: '串炸類', name: '天婦羅'}
+    setSubClass: [
+        {level: 'B', types: '沙拉套餐', name: '沙拉1'},
+        {level: 'B', types: '沙拉套餐', name: '沙拉2'},
+        {level: 'B', types: '沙拉套餐', name: '沙拉3'},
+        {level: 'B', types: '串炸套餐', name: '肉串炸'},
+        {level: 'B', types: '串炸套餐', name: '蔬菜串炸'},
+        {level: 'B', types: '串炸套餐', name: '天婦羅串炸'}
     ],
-    cookbookclass: [
-        {floor: 1, types: '串炸類', name: '起司球'},
-        {floor: 1, types: '串炸類', name: '泡菜起司球'},
-        {floor: 1, types: '串炸類', name: '寧波年糕'},
-        {floor: 1, types: '天婦羅', name: '天婦羅1'},
-        {floor: 1, types: '天婦羅', name: '天婦羅2'},
-        {floor: 1, types: '天婦羅', name: '天婦羅3'}
+    setItem: [
+        {level: 'C', types: '串炸套餐', name: '起司球'},
+        {level: 'C', types: '串炸套餐', name: '泡菜起司球'},
+        {level: 'C', types: '串炸套餐', name: '寧波年糕'},
+        {level: 'C', types: '天婦羅串炸', name: '蝦'},
+        {level: 'C', types: '天婦羅串炸', name: '花枝'},
+        {level: 'C', types: '天婦羅串炸', name: '蛋'}
     ],
     rules: [
         "規則1",
@@ -61,9 +61,9 @@ const getters = {
     errorState: state => state.errorState,
     isLoading: state => state.isLoading,
     billing: state => state.billing,
-    mealclass: state => state.mealclass,
-    foodclass: state => state.foodclass,
-    cookbookclass: state => state.cookbookclass,
+    setClass: state => state.setClass,
+    setSubClass: state => state.setSubClass,
+    setItem: state => state.setItem,
     rules: state => state.rules
 };
 

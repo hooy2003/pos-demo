@@ -2,7 +2,7 @@
     <section class="content">
         <Row>
             <Col span="6">
-                <div class="title">餐點管理
+                <div class="title">餐點
                     <Dropdown trigger="click">
                         <a href="javascript:void(0)">
                             <Icon type="md-create"></Icon>
@@ -18,9 +18,9 @@
                 </div>
                 <div style="margin-bottom:40px"></div>
                 <div class="union">
-                    <CardA v-for="(item, index) in mealclass"
+                    <CardA v-for="(item, index) in setClass"
                            :class-name="item"
-                           @class-on-click="mealClassOnClick"
+                           @class-on-click="setClassOnClick"
                     >
                     </CardA>
                 </div>
@@ -42,21 +42,21 @@
                 </div>
                 <div class="union">
                     <h4>類別</h4>
-                    <CardB v-for="(item, index) in currentFoodClass"
+                    <CardB v-for="(item, index) in currentSetSubClass"
                            :class-name="item"
-                           @class-on-click="foodClassOnClick"
+                           @class-on-click="setSubClassOnClick"
                     >
                     </CardB>
                     </CardA>
                     <h4>項目</h4>
-                    <CardB v-for="(item, index) in currentCookbookclass"
+                    <CardB v-for="(item, index) in currentSetItem"
                            :class-name="item" 
                     >
                     </CardB>
                 </div>
             </Col>
             <Col span="6">
-                <div class="title">和牛區
+                <div class="title">{{currentSetSubClassName}}
                     <Dropdown trigger="click">
                         <a href="javascript:void(0)">
                             <Icon type="md-create"></Icon>
@@ -78,7 +78,22 @@
                     </CardC>
                 </div>
             </Col>
-            <Col span="6"></Col>
+            <Col span="6">
+                <div class="title">餐點名
+                    <Dropdown trigger="click">
+                        <a href="javascript:void(0)">
+                            <Icon type="md-create"></Icon>
+                        </a>
+                        <DropdownMenu slot="list">
+                            <DropdownItem><Icon type="ios-add-circle"></Icon>新增廚房聯規則</DropdownItem>
+                            <DropdownItem><Icon type="ios-add-circle"></Icon>新增標籤貼紙規則</DropdownItem>
+                            <DropdownItem><Icon type="ios-add-circle"></Icon>新增客戶聯規則</DropdownItem>
+                            <DropdownItem><Icon type="md-create"></Icon>編輯出單名稱</DropdownItem>
+                            <DropdownItem><Icon type="md-copy"></Icon>複製此出單機</DropdownItem>
+                        </DropdownMenu>
+                    </Dropdown>
+                </div>
+            </Col>
         </Row>        
     </section>
 </template>
@@ -86,67 +101,73 @@
 import { mapGetters } from 'vuex';
 import CardA from './card.vue';
 import CardB from './cardB.vue';
+import CardC from './cardC.vue';
 
   export default {
     components: {
         CardA, 
         CardB,
+        CardC,
     },
     data() {
         return {
-            currentFoodClass: [],
-            currentCookbookclass: [],
+            currentSetSubClass: [],
+            currentSetSubClassName: '無',
+            currentSetItem: [],
+            currentSetItemName: '無',
             currentCuisineclass: []
         }
     },
     mounted: function() {
 
-        // 找 mealclass中第一個name 來當初始值
+        // 找 setClass中第一個name 來當初始值
         console.log('mounted1');
-        // let fakeMealClass =[ "沙拉類", "串炸類", "海鮮類", "牛肉類" ];
-        // let firstFoodClassName = fakeMealClass[0];
-        // let foodClassName = _.partial(_.map, _, 'name');
-        // this.currentFoodClass = foodClassName( _.filter(this.foodclass, {types: firstFoodClassName} ) );
+        // let fakesetClass =[ "沙拉類", "串炸類", "海鮮類", "牛肉類" ];
+        // let firstsetSubClassName = fakesetClass[0];
+        // let setSubClassName = _.partial(_.map, _, 'name');
+        // this.currentsetSubClass = setSubClassName( _.filter(this.setSubClass, {types: firstsetSubClassName} ) );
         console.log('mounted2');
     },
     computed: {
       ...mapGetters([
         'User',
-        'mealclass',
-        'foodclass',
-        'cookbookclass',
+        'setClass',
+        'setSubClass',
+        'setItem',
         'rules'
       ]),
     },
     // watch: {
-    //     currentFoodClass: function() {
+    //     currentSetSubClass: function() {
     //         console.log('ddd');            
     //     }
     // },
     // 改进vue的初始化数据调用时机 --
     // https://www.jianshu.com/p/2048f1a66c33
     methods: {
-        mealClassOnClick: function(mealClass) {
-            console.log('mealClassOnClick', mealClass);
-            this.changeFoodClass(mealClass);
-            this.changeCookbookclass(mealClass);
+        setClassOnClick: function(setClass) {
+            console.log('setClassOnClick', setClass);
+            this.changeSetSubClass(setClass);
+            this.changeSetItem(setClass);
         },
-        foodClassOnClick: function(foodClass) {
-            console.log('foodClassOnClick', foodClass);
-            this.changeCuisineclass(foodClass);
+        setSubClassOnClick: function(setSubClass) {
+            console.log('setSubClassOnClick', setSubClass);
+            this.currentSetSubClassName = setSubClass;
+            this.changeCuisineclass(setSubClass);
         },
 
-        changeFoodClass: function(mealClass) {
-            let foodClassName = _.partial(_.map, _, 'name');
-            this.currentFoodClass = foodClassName( _.filter(this.foodclass, {types: mealClass} ) );
+        changeSetSubClass: function(setClass) {
+            let setSubClassName = _.partial(_.map, _, 'name');
+            this.currentSetSubClass = setSubClassName( _.filter(this.setSubClass, {types: setClass} ) );
         },
-        changeCookbookclass: function(mealClass) {
-            let cookBookClassName = _.partial(_.map, _, 'name');
-            this.currentCookbookclass = cookBookClassName( _.filter(this.cookbookclass, {types: mealClass} ) );
+        changeSetItem: function(setClass) {
+            let setItemName = _.partial(_.map, _, 'name');
+            this.currentSetItem = setItemName( _.filter(this.setItem, {types: setClass} ) );
         },
-        changeCuisineclass: function(foodClass) {
+        changeCuisineclass: function(setSubClass) {
+            console.log('changeCuisineclass');
             let cuisineClassName = _.partial(_.map, _, 'name');
-            this.currentCuisineclass = cuisineClassName( _.filter(this.cookbookclass, {types: foodClass} ) );
+            this.currentCuisineclass = cuisineClassName( _.filter(this.setItem, {types: setSubClass} ) );
         }
     }
   }
