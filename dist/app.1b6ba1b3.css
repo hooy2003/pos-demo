@@ -56,6 +56,8 @@ nav button {
     padding: 16px; }
   .card-class h3 {
     display: inline-block; }
+    .card-class h3.hide {
+      display: none; }
   .card-class::after {
     content: '>';
     display: block;
@@ -64,6 +66,16 @@ nav button {
     top: 15px; }
   .card-class.active {
     background: red; }
+.add-new-card {
+  width: 200px;
+  text-align: center;
+  list-style: none;
+  cursor: pointer;
+  height: 50px;
+  transition: all .2s ease;
+  position: relative; }
+  .add-new-card .ivu-icon {
+    font-size: 50px; }
 .ivu-card-body h3 {
   display: inline-block; }
 
@@ -204,6 +216,11 @@ body {
 
 .fadeIn.fourth {
   animation-delay: 1s; }
+
+.ivu-input-wrapper {
+  width: 75%; }
+  .ivu-input-wrapper.hide {
+    display: none; }
 
 nav {
   background-color: #969696;

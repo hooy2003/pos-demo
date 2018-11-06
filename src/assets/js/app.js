@@ -11,7 +11,6 @@ import store from './vuex/store';
 
 // 載入 iview
 import iView from 'iview';
-import 'iview/dist/styles/iview.css';
 
 // 載入 App scss
 import '../sass/app.scss';

@@ -62,7 +62,7 @@
                             <Icon type="md-create"></Icon>
                         </a>
                         <DropdownMenu slot="list">
-                            <DropdownItem><Icon type="ios-add-circle"></Icon>新增廚房聯規則</DropdownItem>
+                            <DropdownItem><Icon type="ios-add-circle"></Icon>新增廚房規則</DropdownItem>
                             <DropdownItem><Icon type="ios-add-circle"></Icon>新增標籤貼紙規則</DropdownItem>
                             <DropdownItem><Icon type="ios-add-circle"></Icon>新增客戶聯規則</DropdownItem>
                             <DropdownItem><Icon type="md-create"></Icon>編輯出單名稱</DropdownItem>
@@ -72,10 +72,16 @@
                 </div>
                 <div class="union">
                     <h4>項目</h4>                    
-                    <CardC v-for="(item, index) in currentCuisineclass"
+                    <CardC v-for="(item, index) in currentSetSubItemClass"
                            :class-name="item" 
                     >
                     </CardC>
+                    <div @click="addNewCard($event)"
+                         class="add-new-card"
+                         ref="js-add-new-card"
+                         >
+                         <Icon type="ios-add" /></Icon>新增項目
+                    <div>
                 </div>
             </Col>
             <Col span="6">
@@ -103,6 +109,9 @@ import CardA from './card.vue';
 import CardB from './cardB.vue';
 import CardC from './cardC.vue';
 
+// let WebHelper = require('../../utils/wehelper');
+
+
   export default {
     components: {
         CardA, 
@@ -115,7 +124,7 @@ import CardC from './cardC.vue';
             currentSetSubClassName: '無',
             currentSetItem: [],
             currentSetItemName: '無',
-            currentCuisineclass: []
+            currentSetSubItemClass: []
         }
     },
     mounted: function() {
@@ -153,7 +162,7 @@ import CardC from './cardC.vue';
         setSubClassOnClick: function(setSubClass) {
             console.log('setSubClassOnClick', setSubClass);
             this.currentSetSubClassName = setSubClass;
-            this.changeCuisineclass(setSubClass);
+            this.changeSetSubItem(setSubClass);
         },
 
         changeSetSubClass: function(setClass) {
@@ -164,11 +173,40 @@ import CardC from './cardC.vue';
             let setItemName = _.partial(_.map, _, 'name');
             this.currentSetItem = setItemName( _.filter(this.setItem, {types: setClass} ) );
         },
-        changeCuisineclass: function(setSubClass) {
-            console.log('changeCuisineclass');
-            let cuisineClassName = _.partial(_.map, _, 'name');
-            this.currentCuisineclass = cuisineClassName( _.filter(this.setItem, {types: setSubClass} ) );
+        changeSetSubItem: function(setSubClass) {
+            console.log('changeSetSubItem');
+            let setSubItemName = _.partial(_.map, _, 'name');
+            this.currentSetSubItemClass = setSubItemName( _.filter(this.setItem, {types: setSubClass} ) );
+        },
+
+        addNewCard: function() {
+
+            console.log(this.setItem);
+            this.currentSetSubItemClass.push('新項目');
+            // vuex 控制 陣列
+            this.setItem.push({
+                level: 'C', types: '天婦羅串炸', name: '新項目'
+            });
+            console.log(this.setItem);
+            // let template = makeNewCard();
+            // var $template = $(template);
+            // $('.js-add-new-card').before($template);
         }
     }
   }
 </script>
+
+<style lang="scss">
+    .add-new-card {
+        width: 200px;
+        text-align: center;
+        list-style: none;
+        cursor: pointer;
+        height: 50px;
+        transition: all .2s ease;
+        position: relative;
+        .ivu-icon {
+            font-size: 50px
+        }
+    }
+</style>
