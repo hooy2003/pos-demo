@@ -74,11 +74,11 @@
                     <h4>項目</h4>                    
                     <CardC v-for="(item, index) in currentSetSubItemClass"
                            :class-name="item" 
+                           @class-delete="deleteCard($event, index)"
                     >
                     </CardC>
                     <div @click="addNewCard($event)"
                          class="add-new-card"
-                         ref="js-add-new-card"
                          >
                          <Icon type="ios-add" /></Icon>新增項目
                     <div>
@@ -130,11 +130,7 @@ import CardC from './cardC.vue';
     mounted: function() {
 
         // 找 setClass中第一個name 來當初始值
-        console.log('mounted1');
-        // let fakesetClass =[ "沙拉類", "串炸類", "海鮮類", "牛肉類" ];
-        // let firstsetSubClassName = fakesetClass[0];
-        // let setSubClassName = _.partial(_.map, _, 'name');
-        // this.currentsetSubClass = setSubClassName( _.filter(this.setSubClass, {types: firstsetSubClassName} ) );
+        console.log('mounted1');        
         console.log('mounted2');
     },
     computed: {
@@ -146,11 +142,6 @@ import CardC from './cardC.vue';
         'rules'
       ]),
     },
-    // watch: {
-    //     currentSetSubClass: function() {
-    //         console.log('ddd');            
-    //     }
-    // },
     // 改进vue的初始化数据调用时机 --
     // https://www.jianshu.com/p/2048f1a66c33
     methods: {
@@ -170,27 +161,63 @@ import CardC from './cardC.vue';
             this.currentSetSubClass = setSubClassName( _.filter(this.setSubClass, {types: setClass} ) );
         },
         changeSetItem: function(setClass) {
-            let setItemName = _.partial(_.map, _, 'name');
-            this.currentSetItem = setItemName( _.filter(this.setItem, {types: setClass} ) );
+
+            let filterArray =  _.filter(this.setItem, {types: setClass} );
+            this.currentSetItem = filterArray[0].name;
+
+            console.log(' this.currentSetItem',  this.currentSetItem);
         },
         changeSetSubItem: function(setSubClass) {
+
             console.log('changeSetSubItem');
-            let setSubItemName = _.partial(_.map, _, 'name');
-            this.currentSetSubItemClass = setSubItemName( _.filter(this.setItem, {types: setSubClass} ) );
+
+            let filterArray =  _.filter(this.setItem, {types: setSubClass} );
+            this.currentSetSubItemClass = filterArray[0].name;
+
         },
 
-        addNewCard: function() {
+        addNewCard: function($event) {
+            // 如果沒有su 類別的話?
+            // 1108 正確版本
+            let currentType = this.currentSetSubClassName;
+            console.log('currentType', currentType);
 
-            console.log(this.setItem);
-            this.currentSetSubItemClass.push('新項目');
+            //find object in list
+            let result = $.map(this.setItem, function(item, index) {
+            return item.types
+            }).indexOf(currentType);
+            console.log(result);
+
             // vuex 控制 陣列
-            this.setItem.push({
-                level: 'C', types: '天婦羅串炸', name: '新項目'
+            let cloneItem = this.setItem;
+            cloneItem[result].name.push('新項目');
+
+            this.$store.commit({
+                type: 'addCard',
+                newArray: cloneItem,
             });
+            console.log('addNewCard~~');
             console.log(this.setItem);
-            // let template = makeNewCard();
-            // var $template = $(template);
-            // $('.js-add-new-card').before($template);
+        },
+        deleteCard: function($event, index) {
+            console.log(this);
+            console.log(this.$el);
+            // this.currentSetSubItemClass = _.remove(this.currentSetSubItemClass, function(n) {
+            //     return n !== $event;
+            // });
+            this.currentSetSubItemClass.splice(index, 1);
+
+            // let setSubItemName = _.partial(_.map, _, 'name');
+            // let cloneItem = setSubItemName( _.filter(this.setItem, {name: $event} ) );
+            // cloneItem.splice(index, 1);
+
+            this.$store.commit({
+                type: 'deleteCard',
+                newArray: cloneItem,
+            });
+
+            console.log('deleteCard~~');
+            console.log(this.setItem);
         }
     }
   }

@@ -42,6 +42,10 @@
                     $(this.$el).find('h3').addClass('hide');
                     $(this.$el).find('.ivu-input-wrapper').removeClass('hide');
                 }
+                 if (name == "delete") {
+                    console.log(name);
+                    this.$emit('class-delete', this.className);                 
+                }
             },
             addedName () {
                 $(this.$el).find('.ivu-input-wrapper').addClass('hide');

@@ -40,18 +40,39 @@ const state = {
         {level: 'B', types: '串炸套餐', name: '蔬菜串炸'},
         {level: 'B', types: '串炸套餐', name: '天婦羅串炸'}
     ],
-    setItem: [
-        {level: 'C', types: '串炸套餐', name: '起司球'},
-        {level: 'C', types: '串炸套餐', name: '泡菜起司球'},
-        {level: 'C', types: '串炸套餐', name: '寧波年糕'},
-        {level: 'C', types: '天婦羅串炸', name: '蝦'},
-        {level: 'C', types: '天婦羅串炸', name: '花枝'},
-        {level: 'C', types: '天婦羅串炸', name: '蛋'}
-    ],
+    // setItem: [
+    //     {level: 'C', types: '串炸套餐', name: '起司球'},
+    //     {level: 'C', types: '串炸套餐', name: '泡菜起司球'},
+    //     {level: 'C', types: '串炸套餐', name: '寧波年糕'},
+    //     {level: 'C', types: '天婦羅串炸', name: '蝦'},
+    //     {level: 'C', types: '天婦羅串炸', name: '花枝'},
+    //     {level: 'C', types: '天婦羅串炸', name: '蛋'}
+    // ],
     rules: [
         "規則1",
         "規則2",
         "規則3"
+    ],
+    setItem: [
+        {
+            types:'串炸套餐',
+            level: 'C',
+            name: [
+                '起司球',
+                '泡菜起司球',
+                '寧波年糕'
+            ]
+        },
+        {
+            types:'天婦羅串炸',
+            level: 'C',
+            name: [
+                '蝦',
+                '花枝',
+                '蛋'
+            ]
+        }
+
     ]
 };
 
@@ -87,6 +108,13 @@ const mutations = {
     },
     isLoading (state) {
         state.isLoading = !state.isLoading
+    },
+
+    addCard    (state, { newArray } ) {
+        state.setItem = newArray;
+    },
+    deleteCard (state, { newArray }) {
+        state.setItem = newArray;
     }
 };
 

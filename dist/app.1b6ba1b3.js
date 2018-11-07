@@ -61400,32 +61400,24 @@ var state = {
     types: '串炸套餐',
     name: '天婦羅串炸'
   }],
+  // setItem: [
+  //     {level: 'C', types: '串炸套餐', name: '起司球'},
+  //     {level: 'C', types: '串炸套餐', name: '泡菜起司球'},
+  //     {level: 'C', types: '串炸套餐', name: '寧波年糕'},
+  //     {level: 'C', types: '天婦羅串炸', name: '蝦'},
+  //     {level: 'C', types: '天婦羅串炸', name: '花枝'},
+  //     {level: 'C', types: '天婦羅串炸', name: '蛋'}
+  // ],
+  rules: ["規則1", "規則2", "規則3"],
   setItem: [{
-    level: 'C',
     types: '串炸套餐',
-    name: '起司球'
-  }, {
     level: 'C',
-    types: '串炸套餐',
-    name: '泡菜起司球'
+    name: ['起司球', '泡菜起司球', '寧波年糕']
   }, {
-    level: 'C',
-    types: '串炸套餐',
-    name: '寧波年糕'
-  }, {
-    level: 'C',
     types: '天婦羅串炸',
-    name: '蝦'
-  }, {
     level: 'C',
-    types: '天婦羅串炸',
-    name: '花枝'
-  }, {
-    level: 'C',
-    types: '天婦羅串炸',
-    name: '蛋'
-  }],
-  rules: ["規則1", "規則2", "規則3"]
+    name: ['蝦', '花枝', '蛋']
+  }]
 };
 var getters = {
   User: function User(state) {
@@ -61475,6 +61467,14 @@ var mutations = {
   },
   isLoading: function isLoading(state) {
     state.isLoading = !state.isLoading;
+  },
+  addCard: function addCard(state, _ref3) {
+    var newArray = _ref3.newArray;
+    state.setItem = newArray;
+  },
+  deleteCard: function deleteCard(state, _ref4) {
+    var newArray = _ref4.newArray;
+    state.setItem = newArray;
   }
 };
 var actions = {};
@@ -63043,6 +63043,11 @@ var _default = {
         $(this.$el).find('h3').addClass('hide');
         $(this.$el).find('.ivu-input-wrapper').removeClass('hide');
       }
+
+      if (name == "delete") {
+        console.log(name);
+        this.$emit('class-delete', this.className);
+      }
     },
     addedName: function addedName() {
       $(this.$el).find('.ivu-input-wrapper').addClass('hide');
@@ -63235,19 +63240,10 @@ var _default = {
   },
   mounted: function mounted() {
     // 找 setClass中第一個name 來當初始值
-    console.log('mounted1'); // let fakesetClass =[ "沙拉類", "串炸類", "海鮮類", "牛肉類" ];
-    // let firstsetSubClassName = fakesetClass[0];
-    // let setSubClassName = _.partial(_.map, _, 'name');
-    // this.currentsetSubClass = setSubClassName( _.filter(this.setSubClass, {types: firstsetSubClassName} ) );
-
+    console.log('mounted1');
     console.log('mounted2');
   },
   computed: _objectSpread({}, (0, _vuex.mapGetters)(['User', 'setClass', 'setSubClass', 'setItem', 'rules'])),
-  // watch: {
-  //     currentSetSubClass: function() {
-  //         console.log('ddd');            
-  //     }
-  // },
   // 改进vue的初始化数据调用时机 --
   // https://www.jianshu.com/p/2048f1a66c33
   methods: {
@@ -63269,33 +63265,58 @@ var _default = {
       }));
     },
     changeSetItem: function changeSetItem(setClass) {
-      var setItemName = _.partial(_.map, _, 'name');
-
-      this.currentSetItem = setItemName(_.filter(this.setItem, {
+      var filterArray = _.filter(this.setItem, {
         types: setClass
-      }));
+      });
+
+      this.currentSetItem = filterArray[0].name;
+      console.log(' this.currentSetItem', this.currentSetItem);
     },
     changeSetSubItem: function changeSetSubItem(setSubClass) {
       console.log('changeSetSubItem');
 
-      var setSubItemName = _.partial(_.map, _, 'name');
-
-      this.currentSetSubItemClass = setSubItemName(_.filter(this.setItem, {
+      var filterArray = _.filter(this.setItem, {
         types: setSubClass
-      }));
-    },
-    addNewCard: function addNewCard() {
-      console.log(this.setItem);
-      this.currentSetSubItemClass.push('新項目'); // vuex 控制 陣列
-
-      this.setItem.push({
-        level: 'C',
-        types: '天婦羅串炸',
-        name: '新項目'
       });
-      console.log(this.setItem); // let template = makeNewCard();
-      // var $template = $(template);
-      // $('.js-add-new-card').before($template);
+
+      this.currentSetSubItemClass = filterArray[0].name;
+    },
+    addNewCard: function addNewCard($event) {
+      // 如果沒有su 類別的話?
+      // 1108 正確版本
+      var currentType = this.currentSetSubClassName;
+      console.log('currentType', currentType); //find object in list
+
+      var result = $.map(this.setItem, function (item, index) {
+        return item.types;
+      }).indexOf(currentType);
+      console.log(result); // vuex 控制 陣列
+
+      var cloneItem = this.setItem;
+      cloneItem[result].name.push('新項目');
+      this.$store.commit({
+        type: 'addCard',
+        newArray: cloneItem
+      });
+      console.log('addNewCard~~');
+      console.log(this.setItem);
+    },
+    deleteCard: function deleteCard($event, index) {
+      console.log(this);
+      console.log(this.$el); // this.currentSetSubItemClass = _.remove(this.currentSetSubItemClass, function(n) {
+      //     return n !== $event;
+      // });
+
+      this.currentSetSubItemClass.splice(index, 1); // let setSubItemName = _.partial(_.map, _, 'name');
+      // let cloneItem = setSubItemName( _.filter(this.setItem, {name: $event} ) );
+      // cloneItem.splice(index, 1);
+
+      this.$store.commit({
+        type: 'deleteCard',
+        newArray: cloneItem
+      });
+      console.log('deleteCard~~');
+      console.log(this.setItem);
     }
   }
 };
@@ -63590,13 +63611,19 @@ exports.default = _default;
                 _c("h4", [_vm._v("項目")]),
                 _vm._v(" "),
                 _vm._l(_vm.currentSetSubItemClass, function(item, index) {
-                  return _c("CardC", { attrs: { "class-name": item } })
+                  return _c("CardC", {
+                    attrs: { "class-name": item },
+                    on: {
+                      "class-delete": function($event) {
+                        _vm.deleteCard($event, index)
+                      }
+                    }
+                  })
                 }),
                 _vm._v(" "),
                 _c(
                   "div",
                   {
-                    ref: "js-add-new-card",
                     staticClass: "add-new-card",
                     on: {
                       click: function($event) {
@@ -115603,7 +115630,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52189" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49872" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
