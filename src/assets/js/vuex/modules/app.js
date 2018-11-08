@@ -144,10 +144,10 @@ const mutations = {
         state.isLoading = !state.isLoading
     },
 
-    addCard    (state, { newArray } ) {
+    addNewItem (state, { newArray } ) {
         state.setItem = newArray;
     },
-    deleteCard (state, { newArray }) {
+    deleteItem (state, { newArray }) {
         state.setItem = newArray;
     }
 };

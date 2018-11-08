@@ -43,8 +43,9 @@
                     $(this.$el).find('.ivu-input-wrapper').removeClass('hide');
                 }
                  if (name == "delete") {
-                    console.log(name);
-                    this.$emit('class-delete', this.className);                 
+                    console.log('cardC', name);
+                    this.$emit('class-delete', this.className);   
+                    return;                
                 }
             },
             addedName () {
