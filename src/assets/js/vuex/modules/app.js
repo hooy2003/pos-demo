@@ -26,28 +26,6 @@ const state = {
         "櫃檯出單機",
         "廚房出單機"
     ],
-    setClass: [
-        "沙拉套餐",
-        "串炸套餐",
-        "海鮮套餐",
-        "牛肉套餐"
-    ],
-    setSubClass: [
-        {level: 'B', types: '沙拉套餐', name: '沙拉1'},
-        {level: 'B', types: '沙拉套餐', name: '沙拉2'},
-        {level: 'B', types: '沙拉套餐', name: '沙拉3'},
-        {level: 'B', types: '串炸套餐', name: '肉串炸'},
-        {level: 'B', types: '串炸套餐', name: '蔬菜串炸'},
-        {level: 'B', types: '串炸套餐', name: '天婦羅串炸'}
-    ],
-    // setItem: [
-    //     {level: 'C', types: '串炸套餐', name: '起司球'},
-    //     {level: 'C', types: '串炸套餐', name: '泡菜起司球'},
-    //     {level: 'C', types: '串炸套餐', name: '寧波年糕'},
-    //     {level: 'C', types: '天婦羅串炸', name: '蝦'},
-    //     {level: 'C', types: '天婦羅串炸', name: '花枝'},
-    //     {level: 'C', types: '天婦羅串炸', name: '蛋'}
-    // ],
     rules: [
         "規則1",
         "規則2",
@@ -55,8 +33,47 @@ const state = {
     ],
     setItem: [
         {
-            types:'串炸套餐',
+            types:'套餐',
+            level: 'A',
+            name: [
+                '沙拉套餐',
+                '串炸套餐',
+                '海鮮套餐',
+                '牛排套餐'
+            ]
+        },
+        {
+            types:'沙拉套餐',
+            level: 'B',
+            name: [
+                '千島沙拉',
+                '凱薩沙拉',
+                '日式沙拉'
+            ]
+        },
+        {
+            parent:'沙拉套餐',
+            types:'沙拉A套餐',
             level: 'C',
+            name: [
+                '沙拉A',
+                '沙拉B',
+                '沙拉C'
+            ]
+        },
+        {
+            parent:'沙拉套餐',
+            types:'沙拉B套餐',
+            level: 'C',
+            name: [
+                '沙拉D',
+                '沙拉E',
+                '沙拉F'
+            ]
+        },
+        {
+            types:'串炸套餐',
+            level: 'B',
             name: [
                 '起司球',
                 '泡菜起司球',
@@ -64,6 +81,25 @@ const state = {
             ]
         },
         {
+            parent:'串炸套餐',
+            types:'肉串炸',
+            level: 'C',
+            name: [
+                '豬肉',
+                '牛肉',
+            ]
+        },
+        {
+            parent:'串炸套餐',
+            types:'蔬菜串炸',
+            level: 'C',
+            name: [
+                '花椰菜',
+                '高麗菜',
+            ]
+        },
+        {
+            parent:'串炸套餐',
             types:'天婦羅串炸',
             level: 'C',
             name: [
@@ -82,8 +118,6 @@ const getters = {
     errorState: state => state.errorState,
     isLoading: state => state.isLoading,
     billing: state => state.billing,
-    setClass: state => state.setClass,
-    setSubClass: state => state.setSubClass,
     setItem: state => state.setItem,
     rules: state => state.rules
 };

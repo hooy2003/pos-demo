@@ -2,7 +2,7 @@
     <section class="content">
         <Row>
             <Col span="6">
-                <div class="title">餐點
+                <div class="title">套餐
                     <Dropdown trigger="click">
                         <a href="javascript:void(0)">
                             <Icon type="md-create"></Icon>
@@ -18,7 +18,7 @@
                 </div>
                 <div style="margin-bottom:40px"></div>
                 <div class="union">
-                    <CardA v-for="(item, index) in setClass"
+                    <CardA v-for="(item, index) in currentSetClass"
                            :class-name="item"
                            @class-on-click="setClassOnClick"
                     >
@@ -136,11 +136,15 @@ import CardC from './cardC.vue';
     computed: {
       ...mapGetters([
         'User',
-        'setClass',
-        'setSubClass',
         'setItem',
         'rules'
       ]),
+      currentSetClass: function() {
+        let result = $.map(this.setItem, function(item, index) {
+            return item.level
+        }).indexOf('A');
+        return this.setItem[result].name;
+      },
     },
     // 改进vue的初始化数据调用时机 --
     // https://www.jianshu.com/p/2048f1a66c33
@@ -157,8 +161,15 @@ import CardC from './cardC.vue';
         },
 
         changeSetSubClass: function(setClass) {
-            let setSubClassName = _.partial(_.map, _, 'name');
-            this.currentSetSubClass = setSubClassName( _.filter(this.setSubClass, {types: setClass} ) );
+            // 先篩上層是setClass的陣列
+            let filterArray =  _.filter(this.setItem, {parent: setClass} );
+            //只要 type的值
+            let findTypesValue = _.partial(_.map, _, 'types');
+            // Render currentSetSubClass 的值
+            this.currentSetSubClass = findTypesValue( filterArray );
+
+            console.log('testClass ======', this.currentSetSubClass);
+
         },
         changeSetItem: function(setClass) {
 
@@ -171,8 +182,7 @@ import CardC from './cardC.vue';
 
             console.log('改變第三欄的項目');
             console.log('當前類型項目', this.currentSetSubItemClass);
-            console.log('vuex 陣列', this.setItem);
-            console.log('類型', setSubClass);
+            console.log('vuex 陣列', this.setItem);            
             //find object in list
             let result = $.map(this.setItem, function(item, index) {
                 return item.types
@@ -211,23 +221,24 @@ import CardC from './cardC.vue';
             // 得到當前項目的名字
             let currentItem = $event;
 
-            // 找到當前項目的類型在陣列的第幾個
+            // 找到當前項目的類型在'當前陣列'的第幾個
+            let result998 = $.map(this.currentSetSubItemClass, function(item, index) {
+                return item
+            }).indexOf(currentItem);
+            console.log('result998 indexof',result998);
+
+            // 找到當前項目的類型在'setItem陣列'的第幾個obj組別
             let result = $.map(this.setItem, function(item, index) {
                 return item.types
             }).indexOf(currentType);
-            console.log('deleteCard indexof',result);
+            console.log('result indexof',result);
             
             // 對複製的陣列刪去項目
             let cloneItem = this.setItem;
-            // 克隆的陣列移除到某個currentItem值
-            cloneItem[result].name = _.remove(cloneItem[result].name, function(n) {
-                return n !== currentItem;
-            });
-            console.log('cloneItem =====', cloneItem);
-
-            // let setSubItemName = _.partial(_.map, _, 'name');
-            // let cloneItem = setSubItemName( _.filter(this.setItem, {name: $event} ) );
-            // cloneItem.splice(index, 1);
+            // 克隆的陣列移除到某個在'當前陣列'的第X個被選取的東西
+            console.log('999995 =====', cloneItem[result].name);
+            cloneItem[result].name.splice(result998, 1)
+            console.log('cloneItem =====', cloneItem[result].name);
 
             this.$store.commit({
                 type: 'deleteCard',

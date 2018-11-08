@@ -46060,46 +46060,41 @@ var state = {
   },
   isLoading: false,
   billing: ["櫃檯出單機", "廚房出單機"],
-  setClass: ["沙拉套餐", "串炸套餐", "海鮮套餐", "牛肉套餐"],
-  setSubClass: [{
-    level: 'B',
-    types: '沙拉套餐',
-    name: '沙拉1'
-  }, {
-    level: 'B',
-    types: '沙拉套餐',
-    name: '沙拉2'
-  }, {
-    level: 'B',
-    types: '沙拉套餐',
-    name: '沙拉3'
-  }, {
-    level: 'B',
-    types: '串炸套餐',
-    name: '肉串炸'
-  }, {
-    level: 'B',
-    types: '串炸套餐',
-    name: '蔬菜串炸'
-  }, {
-    level: 'B',
-    types: '串炸套餐',
-    name: '天婦羅串炸'
-  }],
-  // setItem: [
-  //     {level: 'C', types: '串炸套餐', name: '起司球'},
-  //     {level: 'C', types: '串炸套餐', name: '泡菜起司球'},
-  //     {level: 'C', types: '串炸套餐', name: '寧波年糕'},
-  //     {level: 'C', types: '天婦羅串炸', name: '蝦'},
-  //     {level: 'C', types: '天婦羅串炸', name: '花枝'},
-  //     {level: 'C', types: '天婦羅串炸', name: '蛋'}
-  // ],
   rules: ["規則1", "規則2", "規則3"],
   setItem: [{
-    types: '串炸套餐',
+    types: '套餐',
+    level: 'A',
+    name: ['沙拉套餐', '串炸套餐', '海鮮套餐', '牛排套餐']
+  }, {
+    types: '沙拉套餐',
+    level: 'B',
+    name: ['千島沙拉', '凱薩沙拉', '日式沙拉']
+  }, {
+    parent: '沙拉套餐',
+    types: '沙拉A套餐',
     level: 'C',
+    name: ['沙拉A', '沙拉B', '沙拉C']
+  }, {
+    parent: '沙拉套餐',
+    types: '沙拉B套餐',
+    level: 'C',
+    name: ['沙拉D', '沙拉E', '沙拉F']
+  }, {
+    types: '串炸套餐',
+    level: 'B',
     name: ['起司球', '泡菜起司球', '寧波年糕']
   }, {
+    parent: '串炸套餐',
+    types: '肉串炸',
+    level: 'C',
+    name: ['豬肉', '牛肉']
+  }, {
+    parent: '串炸套餐',
+    types: '蔬菜串炸',
+    level: 'C',
+    name: ['花椰菜', '高麗菜']
+  }, {
+    parent: '串炸套餐',
     types: '天婦羅串炸',
     level: 'C',
     name: ['蝦', '花枝', '蛋']
@@ -46117,12 +46112,6 @@ var getters = {
   },
   billing: function billing(state) {
     return state.billing;
-  },
-  setClass: function setClass(state) {
-    return state.setClass;
-  },
-  setSubClass: function setSubClass(state) {
-    return state.setSubClass;
   },
   setItem: function setItem(state) {
     return state.setItem;
@@ -47929,7 +47918,14 @@ var _default = {
     console.log('mounted1');
     console.log('mounted2');
   },
-  computed: _objectSpread({}, (0, _vuex.mapGetters)(['User', 'setClass', 'setSubClass', 'setItem', 'rules'])),
+  computed: _objectSpread({}, (0, _vuex.mapGetters)(['User', 'setItem', 'rules']), {
+    currentSetClass: function currentSetClass() {
+      var result = $.map(this.setItem, function (item, index) {
+        return item.level;
+      }).indexOf('A');
+      return this.setItem[result].name;
+    }
+  }),
   // 改进vue的初始化数据调用时机 --
   // https://www.jianshu.com/p/2048f1a66c33
   methods: {
@@ -47944,11 +47940,17 @@ var _default = {
       this.changeSetSubItem(setSubClass);
     },
     changeSetSubClass: function changeSetSubClass(setClass) {
-      var setSubClassName = _.partial(_.map, _, 'name');
+      // 先篩上層是setClass的陣列
+      var filterArray = _.filter(this.setItem, {
+        parent: setClass
+      }); //只要 type的值
 
-      this.currentSetSubClass = setSubClassName(_.filter(this.setSubClass, {
-        types: setClass
-      }));
+
+      var findTypesValue = _.partial(_.map, _, 'types'); // Render currentSetSubClass 的值
+
+
+      this.currentSetSubClass = findTypesValue(filterArray);
+      console.log('testClass ======', this.currentSetSubClass);
     },
     changeSetItem: function changeSetItem(setClass) {
       var filterArray = _.filter(this.setItem, {
@@ -47961,8 +47963,7 @@ var _default = {
     changeSetSubItem: function changeSetSubItem(setSubClass) {
       console.log('改變第三欄的項目');
       console.log('當前類型項目', this.currentSetSubItemClass);
-      console.log('vuex 陣列', this.setItem);
-      console.log('類型', setSubClass); //find object in list
+      console.log('vuex 陣列', this.setItem); //find object in list
 
       var result = $.map(this.setItem, function (item, index) {
         return item.types;
@@ -47993,22 +47994,23 @@ var _default = {
       // 得到當前項目的類型
       var currentType = this.currentSetSubClassName; // 得到當前項目的名字
 
-      var currentItem = $event; // 找到當前項目的類型在陣列的第幾個
+      var currentItem = $event; // 找到當前項目的類型在'當前陣列'的第幾個
+
+      var result998 = $.map(this.currentSetSubItemClass, function (item, index) {
+        return item;
+      }).indexOf(currentItem);
+      console.log('result998 indexof', result998); // 找到當前項目的類型在'setItem陣列'的第幾個obj組別
 
       var result = $.map(this.setItem, function (item, index) {
         return item.types;
       }).indexOf(currentType);
-      console.log('deleteCard indexof', result); // 對複製的陣列刪去項目
+      console.log('result indexof', result); // 對複製的陣列刪去項目
 
-      var cloneItem = this.setItem; // 克隆的陣列移除到某個currentItem值
+      var cloneItem = this.setItem; // 克隆的陣列移除到某個在'當前陣列'的第X個被選取的東西
 
-      cloneItem[result].name = _.remove(cloneItem[result].name, function (n) {
-        return n !== currentItem;
-      });
-      console.log('cloneItem =====', cloneItem); // let setSubItemName = _.partial(_.map, _, 'name');
-      // let cloneItem = setSubItemName( _.filter(this.setItem, {name: $event} ) );
-      // cloneItem.splice(index, 1);
-
+      console.log('999995 =====', cloneItem[result].name);
+      cloneItem[result].name.splice(result998, 1);
+      console.log('cloneItem =====', cloneItem[result].name);
       this.$store.commit({
         type: 'deleteCard',
         newArray: cloneItem
@@ -48045,7 +48047,7 @@ exports.default = _default;
               "div",
               { staticClass: "title" },
               [
-                _vm._v("餐點\n                "),
+                _vm._v("套餐\n                "),
                 _c(
                   "Dropdown",
                   { attrs: { trigger: "click" } },
@@ -48120,7 +48122,7 @@ exports.default = _default;
             _c(
               "div",
               { staticClass: "union" },
-              _vm._l(_vm.setClass, function(item, index) {
+              _vm._l(_vm.currentSetClass, function(item, index) {
                 return _c("CardA", {
                   attrs: { "class-name": item },
                   on: { "class-on-click": _vm.setClassOnClick }
@@ -100330,7 +100332,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49601" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54335" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
