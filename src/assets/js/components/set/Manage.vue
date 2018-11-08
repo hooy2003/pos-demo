@@ -74,7 +74,7 @@
                     <h4>項目</h4>                    
                     <CardC v-for="(item, index) in currentSetSubItemClass"
                            :class-name="item" 
-                           @class-delete="deleteCard($event, index)"
+                           @class-delete="deleteCard($event)"
                     >
                     </CardC>
                     <div @click="addNewCard($event)"
@@ -169,11 +169,16 @@ import CardC from './cardC.vue';
         },
         changeSetSubItem: function(setSubClass) {
 
-            console.log('changeSetSubItem');
-
-            let filterArray =  _.filter(this.setItem, {types: setSubClass} );
-            this.currentSetSubItemClass = filterArray[0].name;
-
+            console.log('改變第三欄的項目');
+            console.log('當前類型項目', this.currentSetSubItemClass);
+            console.log('vuex 陣列', this.setItem);
+            console.log('類型', setSubClass);
+            //find object in list
+            let result = $.map(this.setItem, function(item, index) {
+                return item.types
+            }).indexOf(setSubClass);
+            
+            this.currentSetSubItemClass = this.setItem[result].name;
         },
 
         addNewCard: function($event) {
@@ -184,9 +189,8 @@ import CardC from './cardC.vue';
 
             //find object in list
             let result = $.map(this.setItem, function(item, index) {
-            return item.types
+                return item.types
             }).indexOf(currentType);
-            console.log(result);
 
             // vuex 控制 陣列
             let cloneItem = this.setItem;
@@ -197,15 +201,29 @@ import CardC from './cardC.vue';
                 newArray: cloneItem,
             });
             console.log('addNewCard~~');
+            console.log('this.currentSetSubItemClass',this.currentSetSubItemClass);
             console.log(this.setItem);
         },
-        deleteCard: function($event, index) {
-            console.log(this);
-            console.log(this.$el);
-            // this.currentSetSubItemClass = _.remove(this.currentSetSubItemClass, function(n) {
-            //     return n !== $event;
-            // });
-            this.currentSetSubItemClass.splice(index, 1);
+        deleteCard: function($event) {
+
+            // 得到當前項目的類型
+            let currentType = this.currentSetSubClassName;
+            // 得到當前項目的名字
+            let currentItem = $event;
+
+            // 找到當前項目的類型在陣列的第幾個
+            let result = $.map(this.setItem, function(item, index) {
+                return item.types
+            }).indexOf(currentType);
+            console.log('deleteCard indexof',result);
+            
+            // 對複製的陣列刪去項目
+            let cloneItem = this.setItem;
+            // 克隆的陣列移除到某個currentItem值
+            cloneItem[result].name = _.remove(cloneItem[result].name, function(n) {
+                return n !== currentItem;
+            });
+            console.log('cloneItem =====', cloneItem);
 
             // let setSubItemName = _.partial(_.map, _, 'name');
             // let cloneItem = setSubItemName( _.filter(this.setItem, {name: $event} ) );
@@ -215,9 +233,10 @@ import CardC from './cardC.vue';
                 type: 'deleteCard',
                 newArray: cloneItem,
             });
-
+            // 這邊要把更改狀態的東西一並處理好，這邊太瑣碎了 
             console.log('deleteCard~~');
             console.log(this.setItem);
+            this.changeSetSubItem(currentType);
         }
     }
   }
