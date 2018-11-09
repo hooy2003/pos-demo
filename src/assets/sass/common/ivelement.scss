@@ -1,6 +1,72 @@
+
+$links-color: #0179fe;
+
 .ivu-input-wrapper {
-    width: 75%;
-    &.hide {
-        display: none;
+	width: 75%;
+	&.hide {
+		display: none;
+	}
+}
+
+.union {
+	.card-class {
+        border-top: 0;
+		&.active {
+			background-color: transparent;
+			i {
+				color: $links-color;
+			}
+		}
+		&.card-class-a {
+			&:first-child {
+				border-top: 1px solid #dcdee2;
+			}
+		}
+        &.card-class-b,
+        &.card-class-c {
+			margin-left: 10px;
+            margin-right: 10px;			
+        }
+        &.lastcard {
+            border-radius: 0 0 8px 8px;
+        }
+	}
+    h4 + .card-class-b,
+    h4 + .card-class-c, {
+		border-top: 1px solid #dcdee2;
+		border-radius: 8px 8px 0 0;
     }
 }
+
+.content {
+	.ivu-col {
+		border-right: 0;
+		box-shadow: inset 1px 0 0 rgba(0, 0, 0, .1);
+		.title {
+			text-align: left ;
+			background-color: rgba(255, 255, 255, 0.3);
+			border-bottom: 1px #e7e7e7 solid;
+		}
+	}
+}
+
+.add-new-card {
+    width: 100%;
+    position: relative;
+    text-align: left;
+    list-style: none;
+    border-top: 1px solid #e7e7e7;
+	box-shadow: inset 1px 0 0 rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    cursor: pointer;
+    margin-top: 6px;
+    height: 50px;
+    transition: all .2s ease;
+    position: relative;
+    .ivu-icon {
+        font-size: 50px
+    }
+}
+
+
+

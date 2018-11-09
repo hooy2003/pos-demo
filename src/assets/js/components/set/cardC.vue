@@ -1,7 +1,7 @@
 <template>
-    <div class="card-class js-card-class-c"
-         @click="clickCard()">
-        <div class="content">
+    <div class="card-class card-class-c js-card-class-c"
+         >
+        <div class="content" @click.self="clickCard()">
             <Icon type="md-print"></Icon>
             <h3>{{className}}</h3>
             <Input v-model="className"
@@ -31,6 +31,7 @@
         methods: {
             clickCard: function() {
                 this.$emit('class-on-click', this.className);
+                $('.js-card-class-b:not(.B-class)').removeClass('active');
                 $('.js-card-class-c').removeClass('active');
                 $(this.$el).addClass('active');
             },
@@ -60,7 +61,6 @@
         border: 1px solid #dcdee2;
         border-color: #e8eaec;
         background: #fff;
-        border-radius: 4px;
         font-size: 14px;
         position: relative;
         cursor: pointer;

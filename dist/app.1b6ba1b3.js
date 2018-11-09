@@ -61412,6 +61412,14 @@ var state = {
     types: '天婦羅串炸',
     level: 'C',
     name: ['蝦', '花枝', '蛋']
+  }, {
+    types: '海鮮套餐',
+    level: 'B',
+    name: ['烤蝦', '秋刀魚']
+  }, {
+    types: '牛排套餐',
+    level: 'B',
+    name: []
   }]
 };
 var getters = {
@@ -62828,29 +62836,28 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "card-class js-card-class-a",
-      on: {
-        click: function($event) {
-          _vm.clickCard()
+  return _c("div", { staticClass: "card-class card-class-a js-card-class-a" }, [
+    _c(
+      "div",
+      {
+        staticClass: "content",
+        on: {
+          click: function($event) {
+            if ($event.target !== $event.currentTarget) {
+              return null
+            }
+            _vm.clickCard()
+          }
         }
-      }
-    },
-    [
-      _c(
-        "div",
-        { staticClass: "content" },
-        [
-          _c("Icon", { attrs: { type: "md-print" } }),
-          _vm._v(" "),
-          _c("h3", [_vm._v(_vm._s(_vm.className))])
-        ],
-        1
-      )
-    ]
-  )
+      },
+      [
+        _c("Icon", { attrs: { type: "md-print" } }),
+        _vm._v(" "),
+        _c("h3", [_vm._v(_vm._s(_vm.className))])
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -62926,6 +62933,7 @@ var _default = {
       console.log('loo this on ??');
       this.$emit('class-on-click', this.className);
       $('.js-card-class-b').removeClass('active');
+      $('.js-card-class-c').removeClass('active');
       $(this.$el).addClass('active');
     },
     handleDropDownClick: function handleDropDownClick(name) {
@@ -62961,107 +62969,103 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "card-class js-card-class-b",
-      on: {
-        click: function($event) {
-          if ($event.target !== $event.currentTarget) {
-            return null
+  return _c("div", { staticClass: "card-class card-class-b js-card-class-b" }, [
+    _c(
+      "div",
+      {
+        staticClass: "content",
+        on: {
+          click: function($event) {
+            if ($event.target !== $event.currentTarget) {
+              return null
+            }
+            _vm.clickCard()
           }
-          _vm.clickCard()
         }
-      }
-    },
-    [
-      _c(
-        "div",
-        { staticClass: "content" },
-        [
-          _c("Icon", { attrs: { type: "md-print" } }),
-          _vm._v(" "),
-          _c("h3", [_vm._v(_vm._s(_vm.className))]),
-          _vm._v(" "),
-          _c("Input", {
-            staticClass: "hide",
-            attrs: { placeholder: "Something", icon: "ios-checkmark-circle" },
+      },
+      [
+        _c("Icon", { attrs: { type: "md-print" } }),
+        _vm._v(" "),
+        _c("h3", [_vm._v(_vm._s(_vm.className))]),
+        _vm._v(" "),
+        _c("Input", {
+          staticClass: "hide",
+          attrs: { placeholder: "Something", icon: "ios-checkmark-circle" },
+          on: {
+            "on-click": function($event) {
+              _vm.addedName()
+            }
+          },
+          model: {
+            value: _vm.className,
+            callback: function($$v) {
+              _vm.className = $$v
+            },
+            expression: "className"
+          }
+        }),
+        _vm._v(" "),
+        _c(
+          "Dropdown",
+          {
+            attrs: { trigger: "click" },
             on: {
               "on-click": function($event) {
-                _vm.addedName()
+                _vm.handleDropDownClick($event)
               }
-            },
-            model: {
-              value: _vm.className,
-              callback: function($$v) {
-                _vm.className = $$v
-              },
-              expression: "className"
             }
-          }),
-          _vm._v(" "),
-          _c(
-            "Dropdown",
-            {
-              attrs: { trigger: "click" },
-              on: {
-                "on-click": function($event) {
-                  _vm.handleDropDownClick($event)
-                }
-              }
-            },
-            [
-              _c(
-                "a",
-                { attrs: { href: "javascript:void(0)" } },
-                [_c("Icon", { attrs: { type: "md-create" } })],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "DropdownMenu",
-                { attrs: { slot: "list" }, slot: "list" },
-                [
-                  _c(
-                    "DropdownItem",
-                    { attrs: { name: "edit" } },
-                    [
-                      _c("Icon", { attrs: { type: "ios-add-circle" } }),
-                      _vm._v("編輯名稱")
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "DropdownItem",
-                    { attrs: { name: "copy" } },
-                    [
-                      _c("Icon", { attrs: { type: "md-copy" } }),
-                      _vm._v("複製項目")
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "DropdownItem",
-                    { attrs: { name: "delete" } },
-                    [
-                      _c("Icon", { attrs: { type: "ios-add-circle" } }),
-                      _vm._v("刪除項目")
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ]
-  )
+          },
+          [
+            _c(
+              "a",
+              { attrs: { href: "javascript:void(0)" } },
+              [_c("Icon", { attrs: { type: "md-create" } })],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "DropdownMenu",
+              { attrs: { slot: "list" }, slot: "list" },
+              [
+                _c(
+                  "DropdownItem",
+                  { attrs: { name: "edit" } },
+                  [
+                    _c("Icon", { attrs: { type: "ios-add-circle" } }),
+                    _vm._v("編輯名稱")
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "DropdownItem",
+                  { attrs: { name: "copy" } },
+                  [
+                    _c("Icon", { attrs: { type: "md-copy" } }),
+                    _vm._v("複製項目")
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "DropdownItem",
+                  { attrs: { name: "delete" } },
+                  [
+                    _c("Icon", { attrs: { type: "ios-add-circle" } }),
+                    _vm._v("刪除項目")
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -63135,6 +63139,7 @@ var _default = {
   methods: {
     clickCard: function clickCard() {
       this.$emit('class-on-click', this.className);
+      $('.js-card-class-b:not(.B-class)').removeClass('active');
       $('.js-card-class-c').removeClass('active');
       $(this.$el).addClass('active');
     },
@@ -63172,104 +63177,103 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "card-class js-card-class-c",
-      on: {
-        click: function($event) {
-          _vm.clickCard()
+  return _c("div", { staticClass: "card-class card-class-c js-card-class-c" }, [
+    _c(
+      "div",
+      {
+        staticClass: "content",
+        on: {
+          click: function($event) {
+            if ($event.target !== $event.currentTarget) {
+              return null
+            }
+            _vm.clickCard()
+          }
         }
-      }
-    },
-    [
-      _c(
-        "div",
-        { staticClass: "content" },
-        [
-          _c("Icon", { attrs: { type: "md-print" } }),
-          _vm._v(" "),
-          _c("h3", [_vm._v(_vm._s(_vm.className))]),
-          _vm._v(" "),
-          _c("Input", {
-            staticClass: "hide",
-            attrs: { placeholder: "Something", icon: "ios-checkmark-circle" },
+      },
+      [
+        _c("Icon", { attrs: { type: "md-print" } }),
+        _vm._v(" "),
+        _c("h3", [_vm._v(_vm._s(_vm.className))]),
+        _vm._v(" "),
+        _c("Input", {
+          staticClass: "hide",
+          attrs: { placeholder: "Something", icon: "ios-checkmark-circle" },
+          on: {
+            "on-click": function($event) {
+              _vm.addedName()
+            }
+          },
+          model: {
+            value: _vm.className,
+            callback: function($$v) {
+              _vm.className = $$v
+            },
+            expression: "className"
+          }
+        }),
+        _vm._v(" "),
+        _c(
+          "Dropdown",
+          {
+            attrs: { trigger: "click" },
             on: {
               "on-click": function($event) {
-                _vm.addedName()
+                _vm.handleDropDownClick($event)
               }
-            },
-            model: {
-              value: _vm.className,
-              callback: function($$v) {
-                _vm.className = $$v
-              },
-              expression: "className"
             }
-          }),
-          _vm._v(" "),
-          _c(
-            "Dropdown",
-            {
-              attrs: { trigger: "click" },
-              on: {
-                "on-click": function($event) {
-                  _vm.handleDropDownClick($event)
-                }
-              }
-            },
-            [
-              _c(
-                "a",
-                { attrs: { href: "javascript:void(0)" } },
-                [_c("Icon", { attrs: { type: "md-create" } })],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "DropdownMenu",
-                { attrs: { slot: "list" }, slot: "list" },
-                [
-                  _c(
-                    "DropdownItem",
-                    { attrs: { name: "edit" } },
-                    [
-                      _c("Icon", { attrs: { type: "ios-add-circle" } }),
-                      _vm._v("編輯名稱")
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "DropdownItem",
-                    { attrs: { name: "copy" } },
-                    [
-                      _c("Icon", { attrs: { type: "md-copy" } }),
-                      _vm._v("複製項目")
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "DropdownItem",
-                    { attrs: { name: "delete" } },
-                    [
-                      _c("Icon", { attrs: { type: "ios-add-circle" } }),
-                      _vm._v("刪除項目")
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ]
-  )
+          },
+          [
+            _c(
+              "a",
+              { attrs: { href: "javascript:void(0)" } },
+              [_c("Icon", { attrs: { type: "md-create" } })],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "DropdownMenu",
+              { attrs: { slot: "list" }, slot: "list" },
+              [
+                _c(
+                  "DropdownItem",
+                  { attrs: { name: "edit" } },
+                  [
+                    _c("Icon", { attrs: { type: "ios-add-circle" } }),
+                    _vm._v("編輯名稱")
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "DropdownItem",
+                  { attrs: { name: "copy" } },
+                  [
+                    _c("Icon", { attrs: { type: "md-copy" } }),
+                    _vm._v("複製項目")
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "DropdownItem",
+                  { attrs: { name: "delete" } },
+                  [
+                    _c("Icon", { attrs: { type: "ios-add-circle" } }),
+                    _vm._v("刪除項目")
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -63368,7 +63372,9 @@ var _default = {
     AClassOnClick: function AClassOnClick(setClass) {
       console.log('哪張卡備點了', setClass); // 給B區塊名字
 
-      this.currentBItemName = setClass;
+      this.currentBItemName = setClass; // 清空C區塊
+
+      this.currentCItem = '';
       this.changeBClass(setClass);
       this.changeBItem(setClass);
     },
@@ -63698,6 +63704,8 @@ exports.default = _default;
                 _vm._v(" "),
                 _vm._l(_vm.currentBClass, function(item, index) {
                   return _c("CardB", {
+                    staticClass: "B-class",
+                    class: { lastcard: index === _vm.currentBClass.length - 1 },
                     attrs: { "class-name": item },
                     on: {
                       "class-on-click": _vm.BClassOnClick,
@@ -63719,8 +63727,8 @@ exports.default = _default;
                       {
                         name: "show",
                         rawName: "v-show",
-                        value: _vm.currentBClass.length > 0,
-                        expression: "currentBClass.length > 0"
+                        value: _vm.currentBClass.length >= 0,
+                        expression: "currentBClass.length >= 0"
                       }
                     ],
                     staticClass: "add-new-card",
@@ -63741,6 +63749,7 @@ exports.default = _default;
                 _vm._v(" "),
                 _vm._l(_vm.currentBItem, function(item, index) {
                   return _c("CardB", {
+                    class: { lastcard: index === _vm.currentBItem.length - 1 },
                     attrs: { "class-name": item },
                     on: {
                       "class-on-click": _vm.BItemOnClick,
@@ -63762,8 +63771,8 @@ exports.default = _default;
                       {
                         name: "show",
                         rawName: "v-show",
-                        value: _vm.currentBClass.length > 0,
-                        expression: "currentBClass.length > 0"
+                        value: _vm.currentBItem.length >= 0,
+                        expression: "currentBItem.length >= 0"
                       }
                     ],
                     staticClass: "add-new-card",
@@ -63867,6 +63876,7 @@ exports.default = _default;
                 _vm._v(" "),
                 _vm._l(_vm.currentCItem, function(item, index) {
                   return _c("CardC", {
+                    class: { lastcard: index === _vm.currentCItem.length - 1 },
                     attrs: { "class-name": item },
                     on: {
                       "class-delete": function($event) {
@@ -115897,7 +115907,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55487" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61084" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

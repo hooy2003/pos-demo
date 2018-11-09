@@ -1,7 +1,7 @@
 <template>
-    <div class="card-class js-card-class-b"
-         @click.self="clickCard()">
-        <div class="content">
+    <div class="card-class card-class-b js-card-class-b"
+         >
+        <div class="content" @click.self="clickCard()">
             <Icon type="md-print"></Icon>
             <h3>{{className}}</h3>
             <Input v-model="className"
@@ -33,6 +33,7 @@
                 console.log('loo this on ??');
                 this.$emit('class-on-click', this.className);
                 $('.js-card-class-b').removeClass('active');
+                $('.js-card-class-c').removeClass('active');
                 $(this.$el).addClass('active');
             },
             handleDropDownClick: function (name) {
@@ -60,7 +61,6 @@
         border: 1px solid #dcdee2;
         border-color: #e8eaec;
         background: #fff;
-        border-radius: 4px;
         font-size: 14px;
         position: relative;
         cursor: pointer;

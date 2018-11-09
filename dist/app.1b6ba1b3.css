@@ -5,7 +5,6 @@ nav button {
   border: 1px solid #dcdee2;
   border-color: #e8eaec;
   background: #fff;
-  border-radius: 4px;
   font-size: 14px;
   position: relative;
   cursor: pointer;
@@ -26,7 +25,6 @@ nav button {
   border: 1px solid #dcdee2;
   border-color: #e8eaec;
   background: #fff;
-  border-radius: 4px;
   font-size: 14px;
   position: relative;
   cursor: pointer;
@@ -47,7 +45,6 @@ nav button {
   border: 1px solid #dcdee2;
   border-color: #e8eaec;
   background: #fff;
-  border-radius: 4px;
   font-size: 14px;
   position: relative;
   cursor: pointer;
@@ -66,16 +63,6 @@ nav button {
     top: 15px; }
   .card-class.active {
     background: red; }
-.add-new-card {
-  width: 200px;
-  text-align: center;
-  list-style: none;
-  cursor: pointer;
-  height: 50px;
-  transition: all .2s ease;
-  position: relative; }
-  .add-new-card .ivu-icon {
-    font-size: 50px; }
 .ivu-card-body h3 {
   display: inline-block; }
 
@@ -217,13 +204,9 @@ body {
 .fadeIn.fourth {
   animation-delay: 1s; }
 
-.ivu-input-wrapper {
-  width: 75%; }
-  .ivu-input-wrapper.hide {
-    display: none; }
-
 nav {
-  background-color: #969696;
+  background-color: #ccc;
+  box-shadow: 0 0.1rem 1rem rgba(0, 0, 0, 0.15);
   display: flex; }
   nav > a {
     display: flex;
@@ -313,7 +296,7 @@ nav {
   top: 45px;
   right: 142px;
   z-index: 5;
-  color: #969696;
+  color: #ccc;
   background-color: #e6e6e6;
   box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.2);
   box-sizing: border-box; }
@@ -373,7 +356,7 @@ nav {
       border-radius: 0;
       display: inline-block;
       border: none;
-      background-color: #969696;
+      background-color: #ccc;
       color: #fff; }
 
 .header nav .navGroup .navWrap ul.icon li.memberIcon {
@@ -404,7 +387,7 @@ nav {
   top: 45px;
   right: 142px;
   z-index: 5;
-  color: #969696;
+  color: #ccc;
   background-color: #e6e6e6;
   box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.2);
   box-sizing: border-box; }
@@ -464,7 +447,7 @@ nav {
       border-radius: 0;
       display: inline-block;
       border: none;
-      background-color: #969696;
+      background-color: #ccc;
       color: #fff; }
 
 /**
@@ -538,7 +521,7 @@ nav {
     position: relative;
     margin: 13px 0;
     border: none;
-    color: #969696; }
+    color: #ccc; }
   .login p.singup_error {
     color: #ff3964;
     text-align: left;
@@ -583,7 +566,7 @@ nav {
         content: "";
         position: absolute;
         display: inline-block;
-        background-color: #969696;
+        background-color: #ccc;
         height: 50%;
         width: 1px;
         top: 25%;
@@ -633,7 +616,7 @@ nav {
     margin-top: 30px; }
     .login .form_buttonbar p {
       flex: 1;
-      color: #969696;
+      color: #ccc;
       font-weight: 900; }
       .login .form_buttonbar p:nth-of-type(1) {
         text-align: left; }
@@ -691,7 +674,7 @@ main.mamager {
   flex-wrap: wrap; }
   .profile_wrap h3 {
     font-size: 20px;
-    color: #969696;
+    color: #ccc;
     text-align: center;
     flex-basis: 100%;
     margin-bottom: 40px; }
@@ -702,7 +685,7 @@ main.mamager {
     flex-basis: 100%;
     height: auto;
     margin: 0 auto 40px auto;
-    color: #969696; }
+    color: #ccc; }
     @media screen and (min-width: 35.5em) {
       .profile_wrap .form_wrap {
         flex-basis: 0;
@@ -738,7 +721,7 @@ main.mamager {
       margin-bottom: 15px;
       box-sizing: border-box;
       font-size: 16px;
-      color: #969696;
+      color: #ccc;
       border: none;
       outline: none; }
     .profile_wrap .form_wrap .input__wrap:last-child input {
@@ -786,7 +769,7 @@ main.mamager {
       border-radius: 30px;
       margin: 0 auto; }
       .profile_wrap .profile_picture .button_wrap svg {
-        fill: #969696;
+        fill: #ccc;
         width: 30px;
         height: 30px;
         margin-top: 50px; }
@@ -841,3 +824,51 @@ main.mamager {
       padding: 10px; }
     .content .ivu-col .union .setting p {
       display: inline-block; }
+
+.ivu-input-wrapper {
+  width: 75%; }
+  .ivu-input-wrapper.hide {
+    display: none; }
+
+.union .card-class {
+  border-top: 0; }
+  .union .card-class.active {
+    background-color: transparent; }
+    .union .card-class.active i {
+      color: #0179fe; }
+  .union .card-class.card-class-a:first-child {
+    border-top: 1px solid #dcdee2; }
+  .union .card-class.card-class-b, .union .card-class.card-class-c {
+    margin-left: 10px;
+    margin-right: 10px; }
+  .union .card-class.lastcard {
+    border-radius: 0 0 8px 8px; }
+
+.union h4 + .card-class-b,
+.union h4 + .card-class-c {
+  border-top: 1px solid #dcdee2;
+  border-radius: 8px 8px 0 0; }
+
+.content .ivu-col {
+  border-right: 0;
+  box-shadow: inset 1px 0 0 rgba(0, 0, 0, 0.1); }
+  .content .ivu-col .title {
+    text-align: left;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-bottom: 1px #e7e7e7 solid; }
+
+.add-new-card {
+  width: 100%;
+  position: relative;
+  text-align: left;
+  list-style: none;
+  border-top: 1px solid #e7e7e7;
+  box-shadow: inset 1px 0 0 rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  cursor: pointer;
+  margin-top: 6px;
+  height: 50px;
+  transition: all .2s ease;
+  position: relative; }
+  .add-new-card .ivu-icon {
+    font-size: 50px; }

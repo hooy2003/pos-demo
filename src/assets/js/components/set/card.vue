@@ -1,7 +1,7 @@
 <template>
-    <div class="card-class js-card-class-a"
-         @click="clickCard()">
-        <div class="content">
+    <div class="card-class card-class-a js-card-class-a"
+         >
+        <div class="content" @click.self="clickCard()">
             <Icon type="md-print"></Icon>
             <h3>{{className}}</h3>
         </div>
@@ -25,7 +25,6 @@
         border: 1px solid #dcdee2;
         border-color: #e8eaec;
         background: #fff;
-        border-radius: 4px;
         font-size: 14px;
         position: relative;
         cursor: pointer;

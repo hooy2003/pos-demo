@@ -43,14 +43,16 @@
                 <div class="union">
                     <h4>類別</h4>
                     <CardB v-for="(item, index) in currentBClass"
+                           class="B-class"
                            :class-name="item"
+                           :class="{ lastcard: index === (currentBClass.length-1) }"
                            @class-on-click="BClassOnClick"
                            @class-delete="deleteC($event, currentBItemName, currentBClass)"
                     >
                     </CardB>
                     <div @click="addNewC($event, currentBItemName)"
                          class="add-new-card"
-                         v-show="currentBClass.length > 0"
+                         v-show="currentBClass.length >= 0"
                          >
                          <Icon type="ios-add" /></Icon>新增項目
                     </div>
@@ -58,13 +60,14 @@
                     <h4>項目</h4>
                     <CardB v-for="(item, index) in currentBItem"
                            :class-name="item" 
+                           :class="{ lastcard: index === (currentBItem.length-1) }"
                            @class-on-click="BItemOnClick"
                            @class-delete="deleteItem($event, currentBItemName, currentBItem)"
                     >
                     </CardB>
                     <div @click="addNewItem($event, currentBItemName)"
                          class="add-new-card"
-                         v-show="currentBClass.length > 0"
+                         v-show="currentBItem.length >= 0"
                          >
                          <Icon type="ios-add" /></Icon>新增項目
                     </div>
@@ -89,6 +92,7 @@
                     <h4>項目</h4>                    
                     <CardC v-for="(item, index) in currentCItem"
                            :class-name="item" 
+                           :class="{ lastcard: index === (currentCItem.length-1) }"
                            @class-delete="deleteItem($event, currentBClassName, currentCItem)"
                     >
                     </CardC>
@@ -179,6 +183,8 @@ import CardC from './cardC.vue';
 
             // 給B區塊名字
             this.currentBItemName = setClass;
+            // 清空C區塊
+            this.currentCItem = '';
             this.changeBClass(setClass);
             this.changeBItem(setClass);
         },
@@ -335,17 +341,5 @@ console.log('C',currentArray);
   }
 </script>
 
-<style lang="scss">
-    .add-new-card {
-        width: 200px;
-        text-align: center;
-        list-style: none;
-        cursor: pointer;
-        height: 50px;
-        transition: all .2s ease;
-        position: relative;
-        .ivu-icon {
-            font-size: 50px
-        }
-    }
+<style lang="scss">    
 </style>
