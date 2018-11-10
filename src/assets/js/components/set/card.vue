@@ -3,17 +3,17 @@
          >
         <div class="content" @click.self="clickCard()">
             <Icon type="md-print"></Icon>
-            <h3>{{className}}</h3>
+            <h3>{{cardName}}</h3>
         </div>
     </div>
 </template>
 <script>
     export default {
         name: 'CardA',
-        props: ['className'],
+        props: ['cardName'],
         methods: {
             clickCard: function() {
-                this.$emit('class-on-click', this.className);
+                this.$emit('card-on-click', this.cardName);
                 $('.js-card-class-a').removeClass('active');
                 $(this.$el).addClass('active');
             },

@@ -3,8 +3,8 @@
          >
         <div class="content" @click.self="clickCard()">
             <Icon type="md-print"></Icon>
-            <h3>{{className}}</h3>
-            <Input v-model="className"
+            <h3>{{cloneCardName}}</h3>
+            <Input v-model="cloneCardName"
                    @on-click="addedName()"
                    class="hide"
                    placeholder="Something"
@@ -27,11 +27,28 @@
 <script>
     export default {
         name: 'CardB',
-        props: ['className'],
+        props: ['cardName'],
+        data() {
+            return {
+                // 把父的抓下來改成自己的
+                innerCardcardName: this.cardName
+            }
+        },
+        computed: {
+            cloneCardName : {
+                get: function() {
+                    console.log('in card b');
+                    return this.cardName;
+                },
+                set: function(newValue) {
+                    //把input值傳給父
+                    this.$emit('card-change-name', newValue);
+                }
+            }
+        },
         methods: {
             clickCard: function() {
-                console.log('loo this on ??');
-                this.$emit('class-on-click', this.className);
+                this.$emit('card-on-click', this.cardName);
                 $('.js-card-class-b').removeClass('active');
                 $('.js-card-class-c').removeClass('active');
                 $(this.$el).addClass('active');
@@ -39,14 +56,11 @@
             handleDropDownClick: function (name) {
                 // https://github.com/iview/iview/issues/493
                 if (name == "edit") {
-                    console.log(name);
-                    console.log($(this.$el).find('h3'));
                     $(this.$el).find('h3').addClass('hide');
                     $(this.$el).find('.ivu-input-wrapper').removeClass('hide');
                 }
-                 if (name == "delete") {
-                    console.log('cardB',name);
-                    this.$emit('class-delete', this.className);
+                if (name == "delete") {
+                    this.$emit('card-delete', this.cardName);
                 }
             },
             addedName () {

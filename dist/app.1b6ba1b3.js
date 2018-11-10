@@ -61374,53 +61374,7 @@ var state = {
   },
   isLoading: false,
   billing: ["櫃檯出單機", "廚房出單機"],
-  rules: ["規則1", "規則2", "規則3"],
-  setItem: [{
-    types: '套餐',
-    level: 'A',
-    name: ['沙拉套餐', '串炸套餐', '海鮮套餐', '牛排套餐']
-  }, {
-    types: '沙拉套餐',
-    level: 'B',
-    name: ['千島沙拉', '凱薩沙拉', '日式沙拉']
-  }, {
-    parent: '沙拉套餐',
-    types: '沙拉A套餐',
-    level: 'C',
-    name: ['沙拉A', '沙拉B', '沙拉C']
-  }, {
-    parent: '沙拉套餐',
-    types: '沙拉B套餐',
-    level: 'C',
-    name: ['沙拉D', '沙拉E', '沙拉F']
-  }, {
-    types: '串炸套餐',
-    level: 'B',
-    name: ['起司球', '泡菜起司球', '寧波年糕']
-  }, {
-    parent: '串炸套餐',
-    types: '肉串炸',
-    level: 'C',
-    name: ['豬肉', '牛肉']
-  }, {
-    parent: '串炸套餐',
-    types: '蔬菜串炸',
-    level: 'C',
-    name: ['花椰菜', '高麗菜']
-  }, {
-    parent: '串炸套餐',
-    types: '天婦羅串炸',
-    level: 'C',
-    name: ['蝦', '花枝', '蛋']
-  }, {
-    types: '海鮮套餐',
-    level: 'B',
-    name: ['烤蝦', '秋刀魚']
-  }, {
-    types: '牛排套餐',
-    level: 'B',
-    name: []
-  }]
+  rules: ["規則1", "規則2", "規則3"]
 };
 var getters = {
   User: function User(state) {
@@ -61434,9 +61388,6 @@ var getters = {
   },
   billing: function billing(state) {
     return state.billing;
-  },
-  setItem: function setItem(state) {
-    return state.setItem;
   },
   rules: function rules(state) {
     return state.rules;
@@ -61464,6 +61415,93 @@ var mutations = {
   },
   isLoading: function isLoading(state) {
     state.isLoading = !state.isLoading;
+  }
+};
+var actions = {};
+var _default = {
+  state: state,
+  getters: getters,
+  mutations: mutations
+};
+exports.default = _default;
+},{}],"src/assets/js/vuex/modules/set.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var state = {
+  setAClass: [{
+    parent: '套餐',
+    level: 'A',
+    name: ['沙拉套餐', '串炸套餐', '海鮮套餐', '牛排套餐']
+  }],
+  setBClass: [{
+    parent: '沙拉套餐',
+    level: 'B',
+    name: ['沙拉A套餐', '沙拉B套餐']
+  }, {
+    parent: '串炸套餐',
+    level: 'B',
+    name: ['肉串炸', '蔬菜串炸', '天婦羅串炸']
+  }],
+  setBItem: [{
+    parent: '沙拉套餐',
+    level: 'B',
+    name: ['千島沙拉', '凱薩沙拉', '日式沙拉']
+  }, {
+    parent: '串炸套餐',
+    level: 'B',
+    name: ['起司球', '泡菜起司球', '寧波年糕']
+  }],
+  setCItem: [{
+    parent: '沙拉套餐',
+    level: 'C',
+    class: [{
+      parent: '沙拉A套餐',
+      name: ['沙拉A', '沙拉B', '沙拉C']
+    }, {
+      parent: '沙拉B套餐',
+      name: ['沙拉D', '沙拉E', '沙拉F']
+    }]
+  }, {
+    parent: '串炸套餐',
+    level: 'C',
+    class: [{
+      parent: '肉串炸',
+      name: ['豬肉', '牛肉']
+    }, {
+      parent: '蔬菜串炸',
+      name: ['花椰菜', '高麗菜']
+    }, {
+      parent: '天婦羅串炸',
+      name: ['蝦', '花枝', '蛋']
+    }]
+  }]
+};
+var getters = {
+  setAClass: function setAClass(state) {
+    return state.setAClass;
+  },
+  setBClass: function setBClass(state) {
+    return state.setBClass;
+  },
+  setBItem: function setBItem(state) {
+    return state.setBItem;
+  },
+  setCItem: function setCItem(state) {
+    return state.setCItem;
+  }
+};
+var mutations = {
+  changeCardName: function changeCardName(state, _ref) {
+    var newArray = _ref.newArray;
+    state.setItem = newArray;
+  },
+  addNewClass: function addNewClass(state, _ref2) {
+    var newArray = _ref2.newArray;
+    state.setItem = newArray;
   },
   addNewItem: function addNewItem(state, _ref3) {
     var newArray = _ref3.newArray;
@@ -61495,18 +61533,21 @@ var _vuex = _interopRequireDefault(require("vuex"));
 
 var _app = _interopRequireDefault(require("./modules/app"));
 
+var _set = _interopRequireDefault(require("./modules/set"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _vue.default.use(_vuex.default);
 
 var store = new _vuex.default.Store({
   modules: {
-    app: _app.default
+    app: _app.default,
+    set: _set.default
   }
 });
 var _default = store;
 exports.default = _default;
-},{"vue":"node_modules/vue/dist/vue.runtime.esm.js","vuex":"node_modules/vuex/dist/vuex.esm.js","./modules/app":"src/assets/js/vuex/modules/app.js"}],"src/assets/js/utils/form.js":[function(require,module,exports) {
+},{"vue":"node_modules/vue/dist/vue.runtime.esm.js","vuex":"node_modules/vuex/dist/vuex.esm.js","./modules/app":"src/assets/js/vuex/modules/app.js","./modules/set":"src/assets/js/vuex/modules/set.js"}],"src/assets/js/utils/form.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -62814,10 +62855,10 @@ exports.default = void 0;
 //
 var _default = {
   name: 'CardA',
-  props: ['className'],
+  props: ['cardName'],
   methods: {
     clickCard: function clickCard() {
-      this.$emit('class-on-click', this.className);
+      this.$emit('card-on-click', this.cardName);
       $('.js-card-class-a').removeClass('active');
       $(this.$el).addClass('active');
     }
@@ -62853,7 +62894,7 @@ exports.default = _default;
       [
         _c("Icon", { attrs: { type: "md-print" } }),
         _vm._v(" "),
-        _c("h3", [_vm._v(_vm._s(_vm.className))])
+        _c("h3", [_vm._v(_vm._s(_vm.cardName))])
       ],
       1
     )
@@ -62927,11 +62968,28 @@ exports.default = void 0;
 //
 var _default = {
   name: 'CardB',
-  props: ['className'],
+  props: ['cardName'],
+  data: function data() {
+    return {
+      // 把父的抓下來改成自己的
+      innerCardcardName: this.cardName
+    };
+  },
+  computed: {
+    cloneCardName: {
+      get: function get() {
+        console.log('in card b');
+        return this.cardName;
+      },
+      set: function set(newValue) {
+        //把input值傳給父
+        this.$emit('card-change-name', newValue);
+      }
+    }
+  },
   methods: {
     clickCard: function clickCard() {
-      console.log('loo this on ??');
-      this.$emit('class-on-click', this.className);
+      this.$emit('card-on-click', this.cardName);
       $('.js-card-class-b').removeClass('active');
       $('.js-card-class-c').removeClass('active');
       $(this.$el).addClass('active');
@@ -62939,15 +62997,12 @@ var _default = {
     handleDropDownClick: function handleDropDownClick(name) {
       // https://github.com/iview/iview/issues/493
       if (name == "edit") {
-        console.log(name);
-        console.log($(this.$el).find('h3'));
         $(this.$el).find('h3').addClass('hide');
         $(this.$el).find('.ivu-input-wrapper').removeClass('hide');
       }
 
       if (name == "delete") {
-        console.log('cardB', name);
-        this.$emit('class-delete', this.className);
+        this.$emit('card-delete', this.cardName);
       }
     },
     addedName: function addedName() {
@@ -62986,7 +63041,7 @@ exports.default = _default;
       [
         _c("Icon", { attrs: { type: "md-print" } }),
         _vm._v(" "),
-        _c("h3", [_vm._v(_vm._s(_vm.className))]),
+        _c("h3", [_vm._v(_vm._s(_vm.cloneCardName))]),
         _vm._v(" "),
         _c("Input", {
           staticClass: "hide",
@@ -62997,11 +63052,11 @@ exports.default = _default;
             }
           },
           model: {
-            value: _vm.className,
+            value: _vm.cloneCardName,
             callback: function($$v) {
-              _vm.className = $$v
+              _vm.cloneCardName = $$v
             },
-            expression: "className"
+            expression: "cloneCardName"
           }
         }),
         _vm._v(" "),
@@ -63135,10 +63190,10 @@ exports.default = void 0;
 //
 var _default = {
   name: 'CardC',
-  props: ['className'],
+  props: ['cardName'],
   methods: {
     clickCard: function clickCard() {
-      this.$emit('class-on-click', this.className);
+      this.$emit('card-on-click', this.cardName);
       $('.js-card-class-b:not(.B-class)').removeClass('active');
       $('.js-card-class-c').removeClass('active');
       $(this.$el).addClass('active');
@@ -63154,7 +63209,7 @@ var _default = {
 
       if (name == "delete") {
         console.log('cardC', name);
-        this.$emit('class-delete', this.className);
+        this.$emit('class-delete', this.cardName);
         return;
       }
     },
@@ -63194,7 +63249,7 @@ exports.default = _default;
       [
         _c("Icon", { attrs: { type: "md-print" } }),
         _vm._v(" "),
-        _c("h3", [_vm._v(_vm._s(_vm.className))]),
+        _c("h3", [_vm._v(_vm._s(_vm.cardName))]),
         _vm._v(" "),
         _c("Input", {
           staticClass: "hide",
@@ -63205,11 +63260,11 @@ exports.default = _default;
             }
           },
           model: {
-            value: _vm.className,
+            value: _vm.cardName,
             callback: function($$v) {
-              _vm.className = $$v
+              _vm.cardName = $$v
             },
-            expression: "className"
+            expression: "cardName"
           }
         }),
         _vm._v(" "),
@@ -63339,176 +63394,198 @@ var _default = {
   },
   data: function data() {
     return {
+      currentACardName: '無',
       currentBClass: [],
-      currentBClassName: '無',
+      currentBCardName: '無',
       currentBItem: [],
       currentBItemName: '無',
       currentCItem: []
     };
   },
-  mounted: function mounted() {// 找 setClass中第一個name 來當初始值
-    // console.log('mounted1');
-    // // 第一個即是A區塊的預設值的第一個
-    // let result = $.map(this.setItem, function(item, index) {
-    //     return item.level
-    // }).indexOf('A');
-    // let firstClass = this.setItem[result].name[0];
-    // // 先執行一次點了cardA
-    // this.changeBClass(firstClass);
-    // console.log('mounted2');
+  mounted: function mounted() {
+    // 設定B塊的預設值`，先找出setAClass第一個class的第一個名字
+    var Bdefault = this.setAClass[0].name[0]; // 給B區塊標題名字
+
+    this.currentACardName = Bdefault;
+    this.changeBClass(Bdefault);
+    this.changeBItem(Bdefault);
   },
-  computed: _objectSpread({}, (0, _vuex.mapGetters)(['User', 'setItem', 'rules']), {
-    currentSetClass: function currentSetClass() {
+  computed: _objectSpread({}, (0, _vuex.mapGetters)(['User', 'setAClass', 'setBClass', 'setBItem', 'setCItem', 'rules']), {
+    currentAClass: function currentAClass() {
       // A區塊的預設值
-      var result = $.map(this.setItem, function (item, index) {
-        return item.level;
-      }).indexOf('A');
-      return this.setItem[result].name;
+      return this.setAClass[0].name;
     }
   }),
+  watch: {},
   // 改进vue的初始化数据调用时机 --
   // https://www.jianshu.com/p/2048f1a66c33
   methods: {
-    AClassOnClick: function AClassOnClick(setClass) {
-      console.log('哪張卡備點了', setClass); // 給B區塊名字
+    AClassOnClick: function AClassOnClick(ACardName) {
+      console.log('點了A區哪張卡', ACardName); // 給B區塊標題名字
 
-      this.currentBItemName = setClass; // 清空C區塊
+      this.currentACardName = ACardName; // 清空C區塊
 
       this.currentCItem = '';
-      this.changeBClass(setClass);
-      this.changeBItem(setClass);
+      this.changeBClass(ACardName);
+      this.changeBItem(ACardName);
     },
-    BClassOnClick: function BClassOnClick(BClass) {
-      console.log('B Class OnClick', BClass); // 給C區塊名字
+    BClassOnClick: function BClassOnClick(BCardName) {
+      console.log('點了B區哪張卡', BCardName); // 給C區塊名字
 
-      this.currentBClassName = BClass;
-      this.changeCItem(BClass);
+      this.currentBCardName = BCardName;
+      this.changeCItem(BCardName);
     },
+    //         onCardChangeName: function(newName, oldName, index, currentClass, currentItemName) {
+    //             // 改變這個名字
+    //             // currentClass[index] = newName;
+    //             // 改變state
+    //             // // 找到當前項目的類型在'當前陣列'的第幾個
+    //             // let cArrayIndex = $.map(this.setItem, function(item, index) {
+    //             //     return item
+    //             // }).indexOf(currentItemName);
+    //             // console.log('cArrayIndexcArrayIndex',cArrayIndex);
+    //             // 找到當前項目的類型在'setItem陣列'的第幾個obj組別
+    //             let result = $.map(this.setItem, function(item, index) {
+    //                 return item.types
+    //             }).indexOf(oldName);
+    //             console.log('resultresult', result);
+    //             // 對複製的陣列刪去項目
+    //             let cloneItem = this.setItem;
+    //             console.log('1110 =====', cloneItem[result]);
+    //             // 克隆的陣列移除到某個在'當前陣列'的第X個被選取的東西
+    //             console.log('1110 =====', cloneItem[result].type);
+    //             cloneItem[result].type = newName;
+    //             console.log('1110 cloneItem =====', cloneItem[result].type);
+    //             this.$store.commit({
+    //                 type: 'changeCardName',
+    //                 newArray: cloneItem,
+    //             });
+    //             console.log('9955 =====', this.setItem);
+    //             //刷新這個陣列
+    //             this.currentBClass[index] = newName;
+    //             this.changeBClass(this.currentBItemName);
+    //         },
     BItemOnClick: function BItemOnClick(BItem) {
       console.log('B Item OnClick', BItem);
     },
     CItemOnClick: function CItemOnClick(CITem) {
       console.log('C Item OnClick', CITem);
     },
-    changeBClass: function changeBClass(setClass) {
+    changeBClass: function changeBClass(ACardName) {
       // 先篩上層是setClass的陣列
-      var filterArray = _.filter(this.setItem, {
-        parent: setClass
-      }); //只要 type的值
+      var filterArray = _.filter(this.setBClass, {
+        parent: ACardName
+      }); //只要 name 的陣列
 
 
-      var findTypesValue = _.partial(_.map, _, 'types'); // Render currentBClass 的值
+      this.currentBClass = filterArray[0].name; // 這個this.currentBClass完全沒有更新到 可能是findTypesValue的問題
 
-
-      this.currentBClass = findTypesValue(filterArray);
       console.log('this currentB Class ======', this.currentBClass);
     },
-    changeBItem: function changeBItem(setClass) {
-      var filterArray = _.filter(this.setItem, {
-        types: setClass
+    changeBItem: function changeBItem(ACardName) {
+      var filterArray = _.filter(this.setBItem, {
+        parent: ACardName
       });
 
       this.currentBItem = filterArray[0].name;
       console.log('this currentB Item =======', this.currentBItem);
     },
-    changeCItem: function changeCItem(setSubClass) {
-      console.log('改變第三欄的項目'); //find object in list
-
-      var result = $.map(this.setItem, function (item, index) {
-        return item.types;
-      }).indexOf(setSubClass);
-      this.currentCItem = this.setItem[result].name;
-    },
-    addNewC: function addNewC($event, parentName) {
-      console.log('如果parentName----------?', parentName); // vuex 控制 陣列
-
-      var cloneItem = this.setItem;
-      cloneItem.push({
-        parent: parentName,
-        types: '新項目',
-        level: 'C',
-        name: []
+    changeCItem: function changeCItem(BCardName) {
+      // 用ACardName 跟 BCardName 找出Ctiem
+      var pfilterArray = _.filter(this.setCItem, {
+        parent: this.currentACardName
       });
-      this.$store.commit({
-        type: 'addNewItem',
-        newArray: cloneItem
+
+      var filterArray = _.filter(pfilterArray[0].class, {
+        parent: BCardName
       });
-      this.changeBClass(parentName);
+
+      this.currentCItem = filterArray[0].name;
+      console.log('this currentC Item =======', this.currentBItem);
     },
-    addNewItem: function addNewItem($event, typeName) {
-      // 如果沒有su 類別的話?
-      console.log('如果沒有su 類別的話?', typeName);
-      console.log('currentType', typeName); //find object in list
-
-      var result = $.map(this.setItem, function (item, index) {
-        return item.types;
-      }).indexOf(typeName); // vuex 控制 陣列
-
-      var cloneItem = this.setItem;
-      cloneItem[result].name.push('新項目');
-      this.$store.commit({
-        type: 'addNewItem',
-        newArray: cloneItem
-      });
-      console.log('addNewItem~~');
-      console.log('this.currentCItem', this.currentCItem);
-      console.log(this.setItem);
-    },
-    deleteC: function deleteC($event, typeName, currentArray) {
-      var currentClassName = $event;
-      console.log('A', currentClassName);
-      console.log('B', typeName);
-      console.log('C', currentArray); // 先篩當前子分類在'setItem' 第幾個
-      // let filterArray =  _.filter(this.setItem, {parent: typeName} );
-      // 找到當前項目的類型在'setItem陣列'的第幾個obj組別並全部刪除
-      // 到時候要加確認的 light box
-
-      var cArrayIndex = $.map(this.setItem, function (item, index) {
-        return item.types;
-      }).indexOf(currentClassName);
-      console.log('-------------------', cArrayIndex); // 對複製的陣列刪去項目
-
-      var cloneItem = this.setItem;
-      cloneItem.splice(cArrayIndex, 1);
-      this.$store.commit({
-        type: 'deleteItem',
-        newArray: cloneItem
-      });
-      console.log(this.setItem); // why 這個要手動?
-
-      this.changeBClass(typeName);
-      console.log('------- end ------------');
-    },
-    deleteItem: function deleteItem($event, typeName, currentArray) {
-      // 得到當前項目的類型 -- typeName
-      // 得到當前項目的名字
-      var currentItem = $event;
-      console.log('A', currentItem);
-      console.log('B', typeName);
-      console.log('C', currentArray); // 找到當前項目的類型在'當前陣列'的第幾個
-
-      var cArrayIndex = $.map(currentArray, function (item, index) {
+    addNewClass: function addNewClass($event, parentName) {
+      // 找出當前父級的在AClass的index直接套近來
+      var parentArrayIndex = $.map(this.setAClass[0].name, function (item, index) {
         return item;
-      }).indexOf(currentItem);
-      console.log('cArrayIndex indexof', cArrayIndex); // 找到當前項目的類型在'setItem陣列'的第幾個obj組別
+      }).indexOf(parentName); // 去改變 BClass
 
-      var result = $.map(this.setItem, function (item, index) {
-        return item.types;
-      }).indexOf(typeName);
-      console.log('result indexof', result); // 對複製的陣列刪去項目
+      var cloneItem = this.setBClass;
+      cloneItem[parentArrayIndex].name.push('新項目');
+      console.log('addNewClass cloneItem  =======', cloneItem);
+      this.$store.commit({
+        type: 'addNewClass',
+        newArray: cloneItem
+      });
+    },
+    addNewItem: function addNewItem($event, parentName) {
+      // 找出當前父級的在AClass的index直接套近來
+      var parentArrayIndex = $.map(this.setAClass[0].name, function (item, index) {
+        return item;
+      }).indexOf(parentName); // 去改變 BItem
 
-      var cloneItem = this.setItem; // 克隆的陣列移除到某個在'當前陣列'的第X個被選取的東西
+      var cloneItem = this.setBItem;
+      cloneItem[parentArrayIndex].name.push('新項目');
+      console.log('addNewItem cloneItem  =======', cloneItem);
+      this.$store.commit({
+        type: 'addNewItem',
+        newArray: cloneItem
+      });
+    },
+    addNewItemC: function addNewItemC($event, parentName, parentparentName) {
+      // 找出BClass的在AClass的 parentparentArrayIndex
+      var ppArrayIndex = $.map(this.setAClass[0].name, function (item, index) {
+        return item;
+      }).indexOf(parentparentName); // 找出CItem在BClass的在index直接套近來
 
-      console.log('999995 =====', cloneItem[result].name);
-      cloneItem[result].name.splice(cArrayIndex, 1);
-      console.log('cloneItem =====', cloneItem[result].name);
+      var parentArrayIndex = $.map(this.setBClass[ppArrayIndex].name, function (item, index) {
+        return item;
+      }).indexOf(parentName); // 去改變 CItem
+
+      var cloneItem = this.setCItem;
+      cloneItem[ppArrayIndex].class[parentArrayIndex].name.push('新項目');
+      console.log('addNewItem cloneItem  =======', cloneItem);
+      this.$store.commit({
+        type: 'addNewItem',
+        newArray: cloneItem
+      });
+    },
+    deleteClass: function deleteClass($event, parentName) {
+      var currentCardName = $event; // 找出當前父級的在AClass的index直接套近來
+
+      var parentArrayIndex = $.map(this.setAClass[0].name, function (item, index) {
+        return item;
+      }).indexOf(parentName); // 找到 這個在setBClass 的哪裡
+
+      var cArrayIndex = $.map(this.setBClass[parentArrayIndex].name, function (item, index) {
+        return item;
+      }).indexOf(currentCardName); // 對複製的陣列刪去項目
+
+      var cloneItem = this.setBClass;
+      cloneItem[parentArrayIndex].name.splice(cArrayIndex, 1);
+      console.log('deleteClass  =======', cloneItem);
       this.$store.commit({
         type: 'deleteItem',
         newArray: cloneItem
-      }); // 這邊要把更改狀態的東西一並處理好，這邊太瑣碎了 
-      // 偵測哪邊的東西被改了才改哪邊
+      });
+    },
+    deleteItem: function deleteItem($event, parentName) {
+      var currentCardName = $event; // 找出當前父級的在AClass的index直接套近來
 
-      console.log(this.setItem);
+      var parentArrayIndex = $.map(this.setAClass[0].name, function (item, index) {
+        return item;
+      }).indexOf(parentName); // 找到 這個在setBItem 的哪裡
+
+      var cArrayIndex = $.map(this.setBItem[parentArrayIndex].name, function (item, index) {
+        return item;
+      }).indexOf(currentCardName); // 對複製的陣列刪去項目
+
+      var cloneItem = this.setBItem;
+      cloneItem[parentArrayIndex].name.splice(cArrayIndex, 1);
+      console.log('deleteItem  =======', cloneItem);
+      this.$store.commit({
+        type: 'deleteItem',
+        newArray: cloneItem
+      });
     }
   }
 };
@@ -63612,10 +63689,11 @@ exports.default = _default;
             _c(
               "div",
               { staticClass: "union" },
-              _vm._l(_vm.currentSetClass, function(item, index) {
+              _vm._l(_vm.currentAClass, function(item, index) {
                 return _c("CardA", {
-                  attrs: { "class-name": item },
-                  on: { "class-on-click": _vm.AClassOnClick }
+                  class: { active: index === 0 },
+                  attrs: { "card-name": item },
+                  on: { "card-on-click": _vm.AClassOnClick }
                 })
               })
             )
@@ -63626,7 +63704,7 @@ exports.default = _default;
               "div",
               { staticClass: "title" },
               [
-                _vm._v(_vm._s(_vm.currentBItemName) + "\n                "),
+                _vm._v(_vm._s(_vm.currentACardName) + "\n                "),
                 _c(
                   "Dropdown",
                   { attrs: { trigger: "click" } },
@@ -63706,15 +63784,20 @@ exports.default = _default;
                   return _c("CardB", {
                     staticClass: "B-class",
                     class: { lastcard: index === _vm.currentBClass.length - 1 },
-                    attrs: { "class-name": item },
+                    attrs: { "card-name": item },
                     on: {
-                      "class-on-click": _vm.BClassOnClick,
-                      "class-delete": function($event) {
-                        _vm.deleteC(
+                      "card-change-name": function($event) {
+                        _vm.onCardChangeName(
                           $event,
-                          _vm.currentBItemName,
-                          _vm.currentBClass
+                          item,
+                          index,
+                          _vm.currentBClass,
+                          _vm.currentBItemName
                         )
+                      },
+                      "card-on-click": _vm.BClassOnClick,
+                      "card-delete": function($event) {
+                        _vm.deleteClass($event, _vm.currentACardName)
                       }
                     }
                   })
@@ -63734,7 +63817,7 @@ exports.default = _default;
                     staticClass: "add-new-card",
                     on: {
                       click: function($event) {
-                        _vm.addNewC($event, _vm.currentBItemName)
+                        _vm.addNewClass($event, _vm.currentACardName)
                       }
                     }
                   },
@@ -63750,15 +63833,11 @@ exports.default = _default;
                 _vm._l(_vm.currentBItem, function(item, index) {
                   return _c("CardB", {
                     class: { lastcard: index === _vm.currentBItem.length - 1 },
-                    attrs: { "class-name": item },
+                    attrs: { "card-name": item },
                     on: {
-                      "class-on-click": _vm.BItemOnClick,
-                      "class-delete": function($event) {
-                        _vm.deleteItem(
-                          $event,
-                          _vm.currentBItemName,
-                          _vm.currentBItem
-                        )
+                      "card-on-click": _vm.BItemOnClick,
+                      "card-delete": function($event) {
+                        _vm.deleteItem($event, _vm.currentACardName)
                       }
                     }
                   })
@@ -63778,7 +63857,7 @@ exports.default = _default;
                     staticClass: "add-new-card",
                     on: {
                       click: function($event) {
-                        _vm.addNewItem($event, _vm.currentBItemName)
+                        _vm.addNewItem($event, _vm.currentACardName)
                       }
                     }
                   },
@@ -63798,7 +63877,7 @@ exports.default = _default;
               "div",
               { staticClass: "title" },
               [
-                _vm._v(_vm._s(_vm.currentBClassName) + "\n                "),
+                _vm._v(_vm._s(_vm.currentBCardName) + "\n                "),
                 _c(
                   "Dropdown",
                   { attrs: { trigger: "click" } },
@@ -63877,9 +63956,10 @@ exports.default = _default;
                 _vm._l(_vm.currentCItem, function(item, index) {
                   return _c("CardC", {
                     class: { lastcard: index === _vm.currentCItem.length - 1 },
-                    attrs: { "class-name": item },
+                    attrs: { "card-name": item },
                     on: {
-                      "class-delete": function($event) {
+                      "card-on-click": _vm.CItemOnClick,
+                      "card-delete": function($event) {
                         _vm.deleteItem(
                           $event,
                           _vm.currentBClassName,
@@ -63904,9 +63984,12 @@ exports.default = _default;
                     staticClass: "add-new-card",
                     on: {
                       click: function($event) {
-                        _vm.addNewItem($event, _vm.currentBClassName)
-                      },
-                      "class-on-click": _vm.CItemOnClick
+                        _vm.addNewItemC(
+                          $event,
+                          _vm.currentBCardName,
+                          _vm.currentACardName
+                        )
+                      }
                     }
                   },
                   [
@@ -115907,7 +115990,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61084" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50053" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

@@ -18,15 +18,16 @@
                 </div>
                 <div style="margin-bottom:40px"></div>
                 <div class="union">
-                    <CardA v-for="(item, index) in currentSetClass"
-                           :class-name="item"
-                           @class-on-click="AClassOnClick"
+                    <CardA v-for="(item, index) in currentAClass"
+                           :card-name="item"
+                           :class="{ active: index === 0 }"
+                           @card-on-click="AClassOnClick"
                     >
                     </CardA>
                 </div>
             </Col>
             <Col span="6">
-                <div class="title">{{currentBItemName}}
+                <div class="title">{{currentACardName}}
                     <Dropdown trigger="click">
                         <a href="javascript:void(0)">
                             <Icon type="md-create"></Icon>
@@ -44,13 +45,14 @@
                     <h4>類別</h4>
                     <CardB v-for="(item, index) in currentBClass"
                            class="B-class"
-                           :class-name="item"
+                           :card-name="item"
                            :class="{ lastcard: index === (currentBClass.length-1) }"
-                           @class-on-click="BClassOnClick"
-                           @class-delete="deleteC($event, currentBItemName, currentBClass)"
+                           @card-change-name="onCardChangeName($event, item, index, currentBClass, currentBItemName)"
+                           @card-on-click="BClassOnClick"
+                           @card-delete="deleteClass($event, currentACardName)"
                     >
                     </CardB>
-                    <div @click="addNewC($event, currentBItemName)"
+                    <div @click="addNewClass($event, currentACardName)"
                          class="add-new-card"
                          v-show="currentBClass.length >= 0"
                          >
@@ -59,13 +61,13 @@
                     </CardA>
                     <h4>項目</h4>
                     <CardB v-for="(item, index) in currentBItem"
-                           :class-name="item" 
+                           :card-name="item" 
                            :class="{ lastcard: index === (currentBItem.length-1) }"
-                           @class-on-click="BItemOnClick"
-                           @class-delete="deleteItem($event, currentBItemName, currentBItem)"
+                           @card-on-click="BItemOnClick"
+                           @card-delete="deleteItem($event, currentACardName)"
                     >
                     </CardB>
-                    <div @click="addNewItem($event, currentBItemName)"
+                    <div @click="addNewItem($event, currentACardName)"
                          class="add-new-card"
                          v-show="currentBItem.length >= 0"
                          >
@@ -74,7 +76,7 @@
                 </div>
             </Col>
             <Col span="6">
-                <div class="title">{{currentBClassName}}
+                <div class="title">{{currentBCardName}}
                     <Dropdown trigger="click">
                         <a href="javascript:void(0)">
                             <Icon type="md-create"></Icon>
@@ -91,13 +93,13 @@
                 <div class="union">
                     <h4>項目</h4>                    
                     <CardC v-for="(item, index) in currentCItem"
-                           :class-name="item" 
+                           :card-name="item" 
                            :class="{ lastcard: index === (currentCItem.length-1) }"
-                           @class-delete="deleteItem($event, currentBClassName, currentCItem)"
+                           @card-on-click="CItemOnClick"
+                           @card-delete="deleteItem($event, currentBClassName, currentCItem)"
                     >
                     </CardC>
-                    <div @click="addNewItem($event, currentBClassName)"
-                         @class-on-click="CItemOnClick"
+                    <div @click="addNewItemC($event, currentBCardName, currentACardName)"                         
                          class="add-new-card"
                          v-show="currentCItem.length > 0"
                          >
@@ -141,59 +143,95 @@ import CardC from './cardC.vue';
     },
     data() {
         return {
+            currentACardName: '無',
             currentBClass: [],
-            currentBClassName: '無',
+            currentBCardName: '無',
             currentBItem: [],
             currentBItemName: '無',
             currentCItem: []
         }
     },
     mounted: function() {
+        // 設定B塊的預設值`，先找出setAClass第一個class的第一個名字
+        let Bdefault = this.setAClass[0].name[0];
 
-        // 找 setClass中第一個name 來當初始值
-        // console.log('mounted1');
-        // // 第一個即是A區塊的預設值的第一個
-        // let result = $.map(this.setItem, function(item, index) {
-        //     return item.level
-        // }).indexOf('A');
-
-        // let firstClass = this.setItem[result].name[0];
-        // // 先執行一次點了cardA
-        // this.changeBClass(firstClass);
-        // console.log('mounted2');
+        // 給B區塊標題名字
+        this.currentACardName = Bdefault;
+        this.changeBClass(Bdefault);
+        this.changeBItem(Bdefault);
     },
     computed: {
       ...mapGetters([
         'User',
-        'setItem',
+        'setAClass',
+        'setBClass',
+        'setBItem',
+        'setCItem',
         'rules'
       ]),
-      currentSetClass: function() {// A區塊的預設值
-        let result = $.map(this.setItem, function(item, index) {
-            return item.level
-        }).indexOf('A');
-        return this.setItem[result].name;
-      },
+      currentAClass: function() {
+        // A區塊的預設值
+        return this.setAClass[0].name;
+      }
+    },
+    watch: {
     },
     // 改进vue的初始化数据调用时机 --
     // https://www.jianshu.com/p/2048f1a66c33
     methods: {
-        AClassOnClick: function(setClass) {
-            console.log('哪張卡備點了', setClass);
+        AClassOnClick: function(ACardName) {
+            console.log('點了A區哪張卡', ACardName);
 
-            // 給B區塊名字
-            this.currentBItemName = setClass;
+            // 給B區塊標題名字
+            this.currentACardName = ACardName;
             // 清空C區塊
             this.currentCItem = '';
-            this.changeBClass(setClass);
-            this.changeBItem(setClass);
+            this.changeBClass(ACardName);
+            this.changeBItem(ACardName);
         },
-        BClassOnClick: function(BClass) {
-            console.log('B Class OnClick', BClass);
+        BClassOnClick: function(BCardName) {
+            console.log('點了B區哪張卡', BCardName);
             // 給C區塊名字
-            this.currentBClassName = BClass;
-            this.changeCItem(BClass);
+            this.currentBCardName = BCardName;
+            this.changeCItem(BCardName);
         },
+//         onCardChangeName: function(newName, oldName, index, currentClass, currentItemName) {
+
+//             // 改變這個名字
+//             // currentClass[index] = newName;
+
+//             // 改變state
+//             // // 找到當前項目的類型在'當前陣列'的第幾個
+//             // let cArrayIndex = $.map(this.setItem, function(item, index) {
+//             //     return item
+//             // }).indexOf(currentItemName);
+//             // console.log('cArrayIndexcArrayIndex',cArrayIndex);
+
+//             // 找到當前項目的類型在'setItem陣列'的第幾個obj組別
+//             let result = $.map(this.setItem, function(item, index) {
+//                 return item.types
+//             }).indexOf(oldName);
+//             console.log('resultresult', result);
+            
+//             // 對複製的陣列刪去項目
+//             let cloneItem = this.setItem;
+//             console.log('1110 =====', cloneItem[result]);
+//             // 克隆的陣列移除到某個在'當前陣列'的第X個被選取的東西
+//             console.log('1110 =====', cloneItem[result].type);
+//             cloneItem[result].type = newName;
+//             console.log('1110 cloneItem =====', cloneItem[result].type);
+
+//             this.$store.commit({
+//                 type: 'changeCardName',
+//                 newArray: cloneItem,
+//             });
+//             console.log('9955 =====', this.setItem);
+//             //刷新這個陣列
+//             this.currentBClass[index] = newName;
+
+//             this.changeBClass(this.currentBItemName);
+
+//         },
         BItemOnClick: function(BItem) {
             console.log('B Item OnClick', BItem);
         },
@@ -201,141 +239,140 @@ import CardC from './cardC.vue';
             console.log('C Item OnClick', CITem);
         },
 
-        changeBClass: function(setClass) {
-            // 先篩上層是setClass的陣列
-            let filterArray =  _.filter(this.setItem, {parent: setClass} );
-            //只要 type的值
-            let findTypesValue = _.partial(_.map, _, 'types');
-            // Render currentBClass 的值
-            this.currentBClass = findTypesValue( filterArray );
+        changeBClass: function(ACardName) {
 
+            // 先篩上層是setClass的陣列
+            let filterArray =  _.filter(this.setBClass, {parent: ACardName} );
+            //只要 name 的陣列
+            this.currentBClass = filterArray[0].name;
+
+            // 這個this.currentBClass完全沒有更新到 可能是findTypesValue的問題
             console.log('this currentB Class ======', this.currentBClass);
 
         },
-        changeBItem: function(setClass) {
+        changeBItem: function(ACardName) {
 
-            let filterArray =  _.filter(this.setItem, {types: setClass} );
+            let filterArray =  _.filter(this.setBItem, {parent: ACardName} );
             this.currentBItem = filterArray[0].name;
 
             console.log('this currentB Item =======',  this.currentBItem);
         },
-        changeCItem: function(setSubClass) {
-
-            console.log('改變第三欄的項目');                  
-            //find object in list
-            let result = $.map(this.setItem, function(item, index) {
-                return item.types
-            }).indexOf(setSubClass);
+        changeCItem: function(BCardName) {
             
-            this.currentCItem = this.setItem[result].name;
+            // 用ACardName 跟 BCardName 找出Ctiem
+            let pfilterArray = _.filter(this.setCItem, {parent: this.currentACardName} );
+            let filterArray =  _.filter(pfilterArray[0].class, {parent: BCardName} );
+
+            this.currentCItem = filterArray[0].name;
+
+            console.log('this currentC Item =======',  this.currentBItem);
         },
-        addNewC: function($event, parentName) {
+        addNewClass: function($event, parentName) {
 
-            console.log('如果parentName----------?', parentName);
+            // 找出當前父級的在AClass的index直接套近來
+            let parentArrayIndex = $.map(this.setAClass[0].name, function(item, index) {
+                return item
+            }).indexOf(parentName);
 
-            // vuex 控制 陣列
-            let cloneItem = this.setItem;
-            cloneItem.push({
-                parent: parentName,
-                types:'新項目',
-                level: 'C',
-                name: []
-            });
-
+            // 去改變 BClass
+            let cloneItem = this.setBClass;            
+            cloneItem[parentArrayIndex].name.push('新項目');
+            
+            console.log('addNewClass cloneItem  =======',  cloneItem);
             this.$store.commit({
-                type: 'addNewItem',
+                type: 'addNewClass',
                 newArray: cloneItem,
             });
-            this.changeBClass(parentName);
         },        
-        addNewItem: function($event, typeName) {
+        addNewItem: function($event, parentName) {
 
-            // 如果沒有su 類別的話?
-            console.log('如果沒有su 類別的話?',typeName);
-            console.log('currentType', typeName);
+            // 找出當前父級的在AClass的index直接套近來
+            let parentArrayIndex = $.map(this.setAClass[0].name, function(item, index) {
+                return item
+            }).indexOf(parentName);
 
-            //find object in list
-            let result = $.map(this.setItem, function(item, index) {
-                return item.types
-            }).indexOf(typeName);
+            // 去改變 BItem
+            let cloneItem = this.setBItem;
+            cloneItem[parentArrayIndex].name.push('新項目');
 
-            // vuex 控制 陣列
-            let cloneItem = this.setItem;
-            cloneItem[result].name.push('新項目');
-
+            console.log('addNewItem cloneItem  =======',  cloneItem);
             this.$store.commit({
                 type: 'addNewItem',
                 newArray: cloneItem,
             });
-            console.log('addNewItem~~');
-            console.log('this.currentCItem',this.currentCItem);
-            console.log(this.setItem);
         },
-        deleteC: function($event, typeName, currentArray) {
+        addNewItemC: function($event, parentName, parentparentName) {
 
-            let currentClassName = $event;
-console.log('A',currentClassName);
-console.log('B',typeName);
-console.log('C',currentArray);
-            // 先篩當前子分類在'setItem' 第幾個
-            // let filterArray =  _.filter(this.setItem, {parent: typeName} );
+            // 找出BClass的在AClass的 parentparentArrayIndex
+            let ppArrayIndex = $.map(this.setAClass[0].name, function(item, index) {
+                return item
+            }).indexOf(parentparentName);
 
-            // 找到當前項目的類型在'setItem陣列'的第幾個obj組別並全部刪除
-            // 到時候要加確認的 light box
-            let cArrayIndex = $.map(this.setItem, function(item, index) {
-                return item.types
-            }).indexOf(currentClassName);
-            console.log('-------------------',cArrayIndex);
+            // 找出CItem在BClass的在index直接套近來
+            let parentArrayIndex = $.map(this.setBClass[ppArrayIndex].name, function(item, index) {
+                return item
+            }).indexOf(parentName);
+
+            // 去改變 CItem
+            let cloneItem = this.setCItem;
+            cloneItem[ppArrayIndex].class[parentArrayIndex].name.push('新項目');
+
+            console.log('addNewItem cloneItem  =======',  cloneItem);
+            this.$store.commit({
+                type: 'addNewItem',
+                newArray: cloneItem,
+            });
+        },
+        deleteClass: function($event, parentName) {
+
+            let currentCardName = $event;
+
+            // 找出當前父級的在AClass的index直接套近來
+            let parentArrayIndex = $.map(this.setAClass[0].name, function(item, index) {
+                return item
+            }).indexOf(parentName);
+
+            // 找到 這個在setBClass 的哪裡
+            let cArrayIndex = $.map(this.setBClass[parentArrayIndex].name, function(item, index) {
+                return item
+            }).indexOf(currentCardName);
 
              // 對複製的陣列刪去項目
-            let cloneItem = this.setItem;
-            cloneItem.splice(cArrayIndex, 1);
+            let cloneItem = this.setBClass;
+            cloneItem[parentArrayIndex].name.splice(cArrayIndex, 1);
+
+            console.log('deleteClass  =======', cloneItem);
 
             this.$store.commit({
                 type: 'deleteItem',
                 newArray: cloneItem,
             });
-            console.log(this.setItem);
-            // why 這個要手動?
-            this.changeBClass(typeName);
-            console.log('------- end ------------');
-
         },
-        deleteItem: function($event, typeName, currentArray) {
-
-            // 得到當前項目的類型 -- typeName
-            // 得到當前項目的名字
+        deleteItem: function($event, parentName) {
             
-            let currentItem = $event;
-console.log('A',currentItem);
-console.log('B',typeName);
-console.log('C',currentArray);
-            // 找到當前項目的類型在'當前陣列'的第幾個
-            let cArrayIndex = $.map(currentArray, function(item, index) {
+            let currentCardName = $event;
+
+            // 找出當前父級的在AClass的index直接套近來
+            let parentArrayIndex = $.map(this.setAClass[0].name, function(item, index) {
                 return item
-            }).indexOf(currentItem);
-            console.log('cArrayIndex indexof',cArrayIndex);
+            }).indexOf(parentName);
 
-            // 找到當前項目的類型在'setItem陣列'的第幾個obj組別
-            let result = $.map(this.setItem, function(item, index) {
-                return item.types
-            }).indexOf(typeName);
-            console.log('result indexof',result);
-            
-            // 對複製的陣列刪去項目
-            let cloneItem = this.setItem;
-            // 克隆的陣列移除到某個在'當前陣列'的第X個被選取的東西
-            console.log('999995 =====', cloneItem[result].name);
-            cloneItem[result].name.splice(cArrayIndex, 1)
-            console.log('cloneItem =====', cloneItem[result].name);
+            // 找到 這個在setBItem 的哪裡
+            let cArrayIndex = $.map(this.setBItem[parentArrayIndex].name, function(item, index) {
+                return item
+            }).indexOf(currentCardName);
+
+             // 對複製的陣列刪去項目
+            let cloneItem = this.setBItem;
+            cloneItem[parentArrayIndex].name.splice(cArrayIndex, 1);
+
+            console.log('deleteItem  =======', cloneItem);
 
             this.$store.commit({
                 type: 'deleteItem',
                 newArray: cloneItem,
             });
-            // 這邊要把更改狀態的東西一並處理好，這邊太瑣碎了 
-            // 偵測哪邊的東西被改了才改哪邊
-            console.log(this.setItem);
+
         }
     }
   }

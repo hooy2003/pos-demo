@@ -30,100 +30,7 @@ const state = {
         "規則1",
         "規則2",
         "規則3"
-    ],
-    setItem: [
-        {
-            types:'套餐',
-            level: 'A',
-            name: [
-                '沙拉套餐',
-                '串炸套餐',
-                '海鮮套餐',
-                '牛排套餐'
-            ]
-        },
-        {
-            types:'沙拉套餐',
-            level: 'B',
-            name: [
-                '千島沙拉',
-                '凱薩沙拉',
-                '日式沙拉'
-            ]
-        },
-        {
-            parent:'沙拉套餐',
-            types:'沙拉A套餐',
-            level: 'C',
-            name: [
-                '沙拉A',
-                '沙拉B',
-                '沙拉C'
-            ]
-        },
-        {
-            parent:'沙拉套餐',
-            types:'沙拉B套餐',
-            level: 'C',
-            name: [
-                '沙拉D',
-                '沙拉E',
-                '沙拉F'
-            ]
-        },
-        {
-            types:'串炸套餐',
-            level: 'B',
-            name: [
-                '起司球',
-                '泡菜起司球',
-                '寧波年糕'
-            ]
-        },
-        {
-            parent:'串炸套餐',
-            types:'肉串炸',
-            level: 'C',
-            name: [
-                '豬肉',
-                '牛肉',
-            ]
-        },
-        {
-            parent:'串炸套餐',
-            types:'蔬菜串炸',
-            level: 'C',
-            name: [
-                '花椰菜',
-                '高麗菜',
-            ]
-        },
-        {
-            parent:'串炸套餐',
-            types:'天婦羅串炸',
-            level: 'C',
-            name: [
-                '蝦',
-                '花枝',
-                '蛋'
-            ]
-        },
-        {
-            types:'海鮮套餐',
-            level: 'B',
-            name: [
-                '烤蝦',
-                '秋刀魚',
-            ]
-        },
-        {
-            types:'牛排套餐',
-            level: 'B',
-            name: [
-            ]
-        },
-
-    ]
+    ]    
 };
 
 
@@ -132,7 +39,6 @@ const getters = {
     errorState: state => state.errorState,
     isLoading: state => state.isLoading,
     billing: state => state.billing,
-    setItem: state => state.setItem,
     rules: state => state.rules
 };
 
@@ -157,13 +63,6 @@ const mutations = {
     isLoading (state) {
         state.isLoading = !state.isLoading
     },
-
-    addNewItem (state, { newArray } ) {
-        state.setItem = newArray;
-    },
-    deleteItem (state, { newArray }) {
-        state.setItem = newArray;
-    }
 };
 
 const actions = {

@@ -3,8 +3,8 @@
          >
         <div class="content" @click.self="clickCard()">
             <Icon type="md-print"></Icon>
-            <h3>{{className}}</h3>
-            <Input v-model="className"
+            <h3>{{cardName}}</h3>
+            <Input v-model="cardName"
                    @on-click="addedName()"
                    class="hide"
                    placeholder="Something"
@@ -27,10 +27,10 @@
 <script>
     export default {
         name: 'CardC',
-        props: ['className'],
+        props: ['cardName'],
         methods: {
             clickCard: function() {
-                this.$emit('class-on-click', this.className);
+                this.$emit('card-on-click', this.cardName);
                 $('.js-card-class-b:not(.B-class)').removeClass('active');
                 $('.js-card-class-c').removeClass('active');
                 $(this.$el).addClass('active');
@@ -43,9 +43,9 @@
                     $(this.$el).find('h3').addClass('hide');
                     $(this.$el).find('.ivu-input-wrapper').removeClass('hide');
                 }
-                 if (name == "delete") {
+                if (name == "delete") {
                     console.log('cardC', name);
-                    this.$emit('class-delete', this.className);   
+                    this.$emit('class-delete', this.cardName);   
                     return;                
                 }
             },
