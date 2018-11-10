@@ -35,16 +35,13 @@
                 $('.js-card-class-c').removeClass('active');
                 $(this.$el).addClass('active');
             },
-            handleDropDownClick: function (name) {
+            handleDropDownClick: function ($event) {
                 // https://github.com/iview/iview/issues/493
-                if (name == "edit") {
-                    console.log(name);
-                    console.log($(this.$el).find('h3'));
+                if ($event == "edit") {
                     $(this.$el).find('h3').addClass('hide');
                     $(this.$el).find('.ivu-input-wrapper').removeClass('hide');
                 }
-                if (name == "delete") {
-                    console.log('cardC', name);
+                if ($event == "delete") {
                     this.$emit('class-delete', this.cardName);   
                     return;                
                 }

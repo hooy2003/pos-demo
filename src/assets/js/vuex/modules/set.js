@@ -113,17 +113,28 @@ const getters = {
 };
 
 const mutations = {
+
+    // 好像有問題
     changeCardName (state, { newArray } ) {
         state.setItem = newArray;
     },
-    addNewClass (state, { newArray } ) {
-        state.setItem = newArray;
+    BClassAddNewClass (state, { newArray } ) {
+        state.setBClass = newArray;
     },
-    addNewItem (state, { newArray } ) {
-        state.setItem = newArray;
+    CItemAddNewItem (state, { newArray } ) {
+        state.setCItem = newArray;
     },
-    deleteItem (state, { newArray }) {
-        state.setItem = newArray;
+    BItemAddNewItem (state, { newArray } ) {
+        state.setBItem = newArray;
+    },
+    BClassDeleteItem (state, { newArray }) {
+        state.setBClass = newArray;
+    },
+    BItemDeleteItem (state, { newArray }) {
+        state.setBItem = newArray;
+    },
+    CItemDeleteItem (state, { newArray }) {
+        state.setCItem = newArray;
     }
 };
 

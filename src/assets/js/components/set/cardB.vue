@@ -30,8 +30,8 @@
         props: ['cardName'],
         data() {
             return {
-                // 把父的抓下來改成自己的
-                innerCardcardName: this.cardName
+                // 無須通知父組件 madeFrom 異動資訊
+                innerCardcardName: this.cardName,
             }
         },
         computed: {
@@ -42,10 +42,13 @@
                 },
                 set: function(newValue) {
                     //把input值傳給父
+                    console.log('in cardB newValue', newValue);
                     this.$emit('card-change-name', newValue);
+                    return this.cardName;
                 }
-            }
+            },
         },
+
         methods: {
             clickCard: function() {
                 this.$emit('card-on-click', this.cardName);

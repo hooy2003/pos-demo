@@ -47,7 +47,7 @@
                            class="B-class"
                            :card-name="item"
                            :class="{ lastcard: index === (currentBClass.length-1) }"
-                           @card-change-name="onCardChangeName($event, item, index, currentBClass, currentBItemName)"
+                           @card-change-name="onCardChangeName($event, index)"
                            @card-on-click="BClassOnClick"
                            @card-delete="deleteClass($event, currentACardName)"
                     >
@@ -63,6 +63,7 @@
                     <CardB v-for="(item, index) in currentBItem"
                            :card-name="item" 
                            :class="{ lastcard: index === (currentBItem.length-1) }"
+                           @card-change-name="onCardChangeName2($event, index)"
                            @card-on-click="BItemOnClick"
                            @card-delete="deleteItem($event, currentACardName)"
                     >
@@ -96,7 +97,7 @@
                            :card-name="item" 
                            :class="{ lastcard: index === (currentCItem.length-1) }"
                            @card-on-click="CItemOnClick"
-                           @card-delete="deleteItem($event, currentBClassName, currentCItem)"
+                           @card-delete="deleteItemC($event, currentBClassName)"
                     >
                     </CardC>
                     <div @click="addNewItemC($event, currentBCardName, currentACardName)"                         
@@ -195,50 +196,12 @@ import CardC from './cardC.vue';
             this.currentBCardName = BCardName;
             this.changeCItem(BCardName);
         },
-//         onCardChangeName: function(newName, oldName, index, currentClass, currentItemName) {
-
-//             // 改變這個名字
-//             // currentClass[index] = newName;
-
-//             // 改變state
-//             // // 找到當前項目的類型在'當前陣列'的第幾個
-//             // let cArrayIndex = $.map(this.setItem, function(item, index) {
-//             //     return item
-//             // }).indexOf(currentItemName);
-//             // console.log('cArrayIndexcArrayIndex',cArrayIndex);
-
-//             // 找到當前項目的類型在'setItem陣列'的第幾個obj組別
-//             let result = $.map(this.setItem, function(item, index) {
-//                 return item.types
-//             }).indexOf(oldName);
-//             console.log('resultresult', result);
-            
-//             // 對複製的陣列刪去項目
-//             let cloneItem = this.setItem;
-//             console.log('1110 =====', cloneItem[result]);
-//             // 克隆的陣列移除到某個在'當前陣列'的第X個被選取的東西
-//             console.log('1110 =====', cloneItem[result].type);
-//             cloneItem[result].type = newName;
-//             console.log('1110 cloneItem =====', cloneItem[result].type);
-
-//             this.$store.commit({
-//                 type: 'changeCardName',
-//                 newArray: cloneItem,
-//             });
-//             console.log('9955 =====', this.setItem);
-//             //刷新這個陣列
-//             this.currentBClass[index] = newName;
-
-//             this.changeBClass(this.currentBItemName);
-
-//         },
         BItemOnClick: function(BItem) {
             console.log('B Item OnClick', BItem);
         },
         CItemOnClick: function(CITem) {
             console.log('C Item OnClick', CITem);
         },
-
         changeBClass: function(ACardName) {
 
             // 先篩上層是setClass的陣列
@@ -258,7 +221,6 @@ import CardC from './cardC.vue';
             console.log('this currentB Item =======',  this.currentBItem);
         },
         changeCItem: function(BCardName) {
-            
             // 用ACardName 跟 BCardName 找出Ctiem
             let pfilterArray = _.filter(this.setCItem, {parent: this.currentACardName} );
             let filterArray =  _.filter(pfilterArray[0].class, {parent: BCardName} );
@@ -266,6 +228,13 @@ import CardC from './cardC.vue';
             this.currentCItem = filterArray[0].name;
 
             console.log('this currentC Item =======',  this.currentBItem);
+        },        
+        onCardChangeName: function(newName, index) {
+            this.currentBClass.splice(index, 1, newName);
+        },
+        onCardChangeName2: function(newName, index) {
+            console.log('this.currentBItem');
+            this.currentBItem.splice(index, 1, newName);
         },
         addNewClass: function($event, parentName) {
 
@@ -277,11 +246,24 @@ import CardC from './cardC.vue';
             // 去改變 BClass
             let cloneItem = this.setBClass;            
             cloneItem[parentArrayIndex].name.push('新項目');
+
+            // 幫CItem加上新的空陣列
+
+            let cloneItemClass = this.setCItem;
+            cloneItemClass[parentArrayIndex].class.push({
+                parent:'新項目',
+                name: ['新項目']
+            },);
             
             console.log('addNewClass cloneItem  =======',  cloneItem);
             this.$store.commit({
-                type: 'addNewClass',
+                type: 'BClassAddNewClass',
                 newArray: cloneItem,
+            });
+
+            this.$store.commit({
+                type: 'CItemAddNewItem',
+                newArray: cloneItemClass,
             });
         },        
         addNewItem: function($event, parentName) {
@@ -297,7 +279,7 @@ import CardC from './cardC.vue';
 
             console.log('addNewItem cloneItem  =======',  cloneItem);
             this.$store.commit({
-                type: 'addNewItem',
+                type: 'BItemAddNewItem',
                 newArray: cloneItem,
             });
         },
@@ -319,7 +301,7 @@ import CardC from './cardC.vue';
 
             console.log('addNewItem cloneItem  =======',  cloneItem);
             this.$store.commit({
-                type: 'addNewItem',
+                type: 'CItemAddNewItem',
                 newArray: cloneItem,
             });
         },
@@ -344,7 +326,7 @@ import CardC from './cardC.vue';
             console.log('deleteClass  =======', cloneItem);
 
             this.$store.commit({
-                type: 'deleteItem',
+                type: 'BClassDeleteItem',
                 newArray: cloneItem,
             });
         },
@@ -369,7 +351,33 @@ import CardC from './cardC.vue';
             console.log('deleteItem  =======', cloneItem);
 
             this.$store.commit({
-                type: 'deleteItem',
+                type: 'BItemDeleteItem',
+                newArray: cloneItem,
+            });
+
+        },
+        deleteItemC: function($event, parentName) {
+            
+            let currentCardName = $event;
+
+            // 找出當前父級的在AClass的index直接套近來
+            let parentArrayIndex = $.map(this.setAClass[0].name, function(item, index) {
+                return item
+            }).indexOf(parentName);
+
+            // 找到 這個在setBItem 的哪裡
+            let cArrayIndex = $.map(this.setBItem[parentArrayIndex].name, function(item, index) {
+                return item
+            }).indexOf(currentCardName);
+
+             // 對複製的陣列刪去項目
+            let cloneItem = this.setBItem;
+            cloneItem[parentArrayIndex].name.splice(cArrayIndex, 1);
+
+            console.log('deleteItemC  =======', cloneItem);
+
+            this.$store.commit({
+                type: 'CItemDeleteItem',
                 newArray: cloneItem,
             });
 
