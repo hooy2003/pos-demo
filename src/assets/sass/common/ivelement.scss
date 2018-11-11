@@ -13,7 +13,7 @@ $links-color: #0179fe;
         border-top: 0;
 		&.active {
 			background-color: transparent;
-			i {
+			h3 {
 				color: $links-color;
 			}
 		}
@@ -58,15 +58,29 @@ $links-color: #0179fe;
     border-top: 1px solid #e7e7e7;
 	box-shadow: inset 1px 0 0 rgba(0, 0, 0, 0.1);
     background-color: #fff;
-    cursor: pointer;
+	cursor: pointer;
+	padding: 0 15px;
+	box-sizing: border-box;
     margin-top: 6px;
-    height: 50px;
+	height: 40px;
+	line-height: 40px;
     transition: all .2s ease;
     position: relative;
-    .ivu-icon {
-        font-size: 50px
-    }
 }
+
+// .ivu-dropdown {
+// 	.ivu-dropdown-rel {
+// 		opacity: 0;
+// 		transition: all ease 0.3s;
+// 	}
+// }
+// .card-class:hover {
+// 	.ivu-dropdown {
+// 		.ivu-dropdown-rel {
+// 			opacity: 1;
+// 		}
+// 	}
+// }
 
 
 

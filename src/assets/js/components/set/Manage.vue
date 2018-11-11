@@ -1,21 +1,8 @@
 <template>
     <section class="content">
         <Row>
-            <Col span="6">
-                <div class="title">套餐
-                    <Dropdown trigger="click">
-                        <a href="javascript:void(0)">
-                            <Icon type="md-create"></Icon>
-                        </a>
-                        <DropdownMenu slot="list">
-                            <DropdownItem><Icon type="ios-add-circle"></Icon>新增廚房聯規則</DropdownItem>
-                            <DropdownItem><Icon type="ios-add-circle"></Icon>新增標籤貼紙規則</DropdownItem>
-                            <DropdownItem><Icon type="ios-add-circle"></Icon>新增客戶聯規則</DropdownItem>
-                            <DropdownItem><Icon type="md-create"></Icon>編輯出單名稱</DropdownItem>
-                            <DropdownItem><Icon type="md-copy"></Icon>複製此出單機</DropdownItem>
-                        </DropdownMenu>
-                    </Dropdown>
-                </div>
+            <Col span="5">
+                <div class="title">套餐</div>
                 <div style="margin-bottom:40px"></div>
                 <div class="union">
                     <CardA v-for="(item, index) in currentAClass"
@@ -26,37 +13,25 @@
                     </CardA>
                 </div>
             </Col>
-            <Col span="6">
-                <div class="title">{{currentACardName}}
-                    <Dropdown trigger="click">
-                        <a href="javascript:void(0)">
-                            <Icon type="md-create"></Icon>
-                        </a>
-                        <DropdownMenu slot="list">
-                            <DropdownItem><Icon type="ios-add-circle"></Icon>新增廚房聯規則</DropdownItem>
-                            <DropdownItem><Icon type="ios-add-circle"></Icon>新增標籤貼紙規則</DropdownItem>
-                            <DropdownItem><Icon type="ios-add-circle"></Icon>新增客戶聯規則</DropdownItem>
-                            <DropdownItem><Icon type="md-create"></Icon>編輯出單名稱</DropdownItem>
-                            <DropdownItem><Icon type="md-copy"></Icon>複製此出單機</DropdownItem>
-                        </DropdownMenu>
-                    </Dropdown>
-                </div>
+            <Col span="5">
+                <div class="title">{{currentACardName}}</div>
                 <div class="union">
                     <h4>類別</h4>
                     <CardB v-for="(item, index) in currentBClass"
-                           class="B-class"
                            :card-name="item"
+                           :is-class="true"
                            :class="{ lastcard: index === (currentBClass.length-1) }"
                            @card-change-name="onCardChangeName($event, index)"
                            @card-on-click="BClassOnClick"
                            @card-delete="deleteClass($event, currentACardName)"
+                           class="B-class"
                     >
                     </CardB>
                     <div @click="addNewClass($event, currentACardName)"
                          class="add-new-card"
                          v-show="currentBClass.length >= 0"
                          >
-                         <Icon type="ios-add" /></Icon>新增項目
+                         <Icon type="ios-add-circle-outline" size="20" /></Icon>新增類別
                     </div>
                     </CardA>
                     <h4>項目</h4>
@@ -72,25 +47,12 @@
                          class="add-new-card"
                          v-show="currentBItem.length >= 0"
                          >
-                         <Icon type="ios-add" /></Icon>新增項目
+                         <Icon type="ios-add-circle-outline" size="20" /></Icon>新增項目
                     </div>
                 </div>
             </Col>
-            <Col span="6">
-                <div class="title">{{currentBCardName}}
-                    <Dropdown trigger="click">
-                        <a href="javascript:void(0)">
-                            <Icon type="md-create"></Icon>
-                        </a>
-                        <DropdownMenu slot="list">
-                            <DropdownItem><Icon type="ios-add-circle"></Icon>新增廚房規則</DropdownItem>
-                            <DropdownItem><Icon type="ios-add-circle"></Icon>新增標籤貼紙規則</DropdownItem>
-                            <DropdownItem><Icon type="ios-add-circle"></Icon>新增客戶聯規則</DropdownItem>
-                            <DropdownItem><Icon type="md-create"></Icon>編輯出單名稱</DropdownItem>
-                            <DropdownItem><Icon type="md-copy"></Icon>複製此出單機</DropdownItem>
-                        </DropdownMenu>
-                    </Dropdown>
-                </div>
+            <Col span="5">
+                <div class="title">{{currentBCardName}}</div>
                 <div class="union">
                     <h4>項目</h4>                    
                     <CardC v-for="(item, index) in currentCItem"
@@ -104,34 +66,21 @@
                          class="add-new-card"
                          v-show="currentCItem.length > 0"
                          >
-                         <Icon type="ios-add" /></Icon>新增項目
+                         <Icon type="ios-add-circle-outline" size="20" /></Icon>新增項目
                     </div>
                 </div>
             </Col>
-            <Col span="6">
-                <div class="title">餐點名
-                    <Dropdown trigger="click">
-                        <a href="javascript:void(0)">
-                            <Icon type="md-create"></Icon>
-                        </a>
-                        <DropdownMenu slot="list">
-                            <DropdownItem><Icon type="ios-add-circle"></Icon>新增廚房聯規則</DropdownItem>
-                            <DropdownItem><Icon type="ios-add-circle"></Icon>新增標籤貼紙規則</DropdownItem>
-                            <DropdownItem><Icon type="ios-add-circle"></Icon>新增客戶聯規則</DropdownItem>
-                            <DropdownItem><Icon type="md-create"></Icon>編輯出單名稱</DropdownItem>
-                            <DropdownItem><Icon type="md-copy"></Icon>複製此出單機</DropdownItem>
-                        </DropdownMenu>
-                    </Dropdown>
-                </div>
+            <Col span="9">
+                <div class="title">{{currentCItemName}}</div>
             </Col>
         </Row>        
     </section>
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import CardA from './card.vue';
-import CardB from './cardB.vue';
-import CardC from './cardC.vue';
+import CardA from '../utils/card.vue';
+import CardB from '../utils/cardB.vue';
+import CardC from '../utils/cardC.vue';
 
 // let WebHelper = require('../../utils/wehelper');
 
@@ -146,10 +95,11 @@ import CardC from './cardC.vue';
         return {
             currentACardName: '無',
             currentBClass: [],
-            currentBCardName: '無',
+            currentBCardName: '尚無類別',
             currentBItem: [],
-            currentBItemName: '無',
-            currentCItem: []
+            currentBItemName: '尚無項目',
+            currentCItem: [],
+            currentCItemName: '餐點名',
         }
     },
     mounted: function() {
@@ -201,6 +151,7 @@ import CardC from './cardC.vue';
         },
         CItemOnClick: function(CITem) {
             console.log('C Item OnClick', CITem);
+            this.currentCItemName =  CITem;
         },
         changeBClass: function(ACardName) {
 

@@ -61424,6 +61424,165 @@ var _default = {
   mutations: mutations
 };
 exports.default = _default;
+},{}],"src/assets/js/vuex/modules/food.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var state = {
+  foodAClass: [{
+    parent: '食材',
+    level: 'A',
+    name: ['牛肉類', '豬肉類', '羊肉類', '雞肉類', '蔬菜類', '飲料類']
+  }],
+  foodBClass: [{
+    parent: '牛肉類',
+    level: 'B',
+    name: ['牛肉分布', '牛內臟類', '再製品']
+  }, {
+    parent: '豬肉類',
+    level: 'B',
+    name: ['豬肉分布', '豬內臟類', '再製品']
+  }, {
+    parent: '羊肉類',
+    level: 'B',
+    name: []
+  }, {
+    parent: '雞肉類',
+    level: 'B',
+    name: []
+  }, {
+    parent: '蔬菜類',
+    level: 'B',
+    name: []
+  }, {
+    parent: '飲料類',
+    level: 'B',
+    name: []
+  }],
+  foodBItem: [{
+    parent: '牛肉類',
+    level: 'B',
+    name: ['超級牛肉', '次等牛肉', '牛肉丸']
+  }, {
+    parent: '豬肉類',
+    level: 'B',
+    name: ['藍帶豬排起司', '藍帶培根', '肉圓']
+  }, {
+    parent: '羊肉類',
+    level: 'B',
+    name: []
+  }, {
+    parent: '雞肉類',
+    level: 'B',
+    name: []
+  }, {
+    parent: '蔬菜類',
+    level: 'B',
+    name: []
+  }, {
+    parent: '飲料類',
+    level: 'B',
+    name: []
+  }],
+  foodCItem: [{
+    parent: '牛肉類',
+    level: 'C',
+    class: [{
+      parent: '牛肉分布',
+      name: ['牛肩膀', '牛肚子', '牛舌頭', '牛肩膀', '牛肚子', '牛舌頭', '牛肩膀', '牛肚子', '牛舌頭', '牛肩膀', '牛肚子', '牛舌頭', '牛肩膀', '牛肚子', '牛舌頭', '牛肩膀', '牛肚子', '牛舌頭']
+    }, {
+      parent: '牛內臟類',
+      name: ['牛肝臟', '牛油脂', '牛心臟']
+    }, {
+      parent: '再製品',
+      name: ['再製品A', '再製品B', '再製品C']
+    }]
+  }, {
+    parent: '豬肉類',
+    level: 'C',
+    class: [{
+      parent: '豬肉分布',
+      name: ['豬肩膀', '豬肚子', '豬舌頭']
+    }, {
+      parent: '豬內臟類',
+      name: ['豬肝臟', '豬油脂', '豬心臟']
+    }, {
+      parent: '再製品',
+      name: ['再製品D', '再製品E', '再製品F']
+    }]
+  }, {
+    parent: '羊肉類',
+    level: 'C',
+    class: []
+  }, {
+    parent: '雞肉類',
+    level: 'C',
+    class: []
+  }, {
+    parent: '蔬菜類',
+    level: 'C',
+    class: []
+  }, {
+    parent: '飲料類',
+    level: 'C',
+    class: []
+  }]
+};
+var getters = {
+  foodAClass: function foodAClass(state) {
+    return state.foodAClass;
+  },
+  foodBClass: function foodBClass(state) {
+    return state.foodBClass;
+  },
+  foodBItem: function foodBItem(state) {
+    return state.foodBItem;
+  },
+  foodCItem: function foodCItem(state) {
+    return state.foodCItem;
+  }
+};
+var mutations = {
+  // 好像有問題
+  changeCardName: function changeCardName(state, _ref) {
+    var newArray = _ref.newArray;
+    state.foodItem = newArray;
+  },
+  BClassAddNewClass: function BClassAddNewClass(state, _ref2) {
+    var newArray = _ref2.newArray;
+    state.foodBClass = newArray;
+  },
+  CItemAddNewItem: function CItemAddNewItem(state, _ref3) {
+    var newArray = _ref3.newArray;
+    state.foodCItem = newArray;
+  },
+  BItemAddNewItem: function BItemAddNewItem(state, _ref4) {
+    var newArray = _ref4.newArray;
+    state.foodBItem = newArray;
+  },
+  BClassDeleteItem: function BClassDeleteItem(state, _ref5) {
+    var newArray = _ref5.newArray;
+    state.foodBClass = newArray;
+  },
+  BItemDeleteItem: function BItemDeleteItem(state, _ref6) {
+    var newArray = _ref6.newArray;
+    state.foodBItem = newArray;
+  },
+  CItemDeleteItem: function CItemDeleteItem(state, _ref7) {
+    var newArray = _ref7.newArray;
+    state.foodCItem = newArray;
+  }
+};
+var actions = {};
+var _default = {
+  state: state,
+  getters: getters,
+  mutations: mutations
+};
+exports.default = _default;
 },{}],"src/assets/js/vuex/modules/set.js":[function(require,module,exports) {
 "use strict";
 
@@ -61546,6 +61705,8 @@ var _vuex = _interopRequireDefault(require("vuex"));
 
 var _app = _interopRequireDefault(require("./modules/app"));
 
+var _food = _interopRequireDefault(require("./modules/food"));
+
 var _set = _interopRequireDefault(require("./modules/set"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -61555,12 +61716,13 @@ _vue.default.use(_vuex.default);
 var store = new _vuex.default.Store({
   modules: {
     app: _app.default,
+    food: _food.default,
     set: _set.default
   }
 });
 var _default = store;
 exports.default = _default;
-},{"vue":"node_modules/vue/dist/vue.runtime.esm.js","vuex":"node_modules/vuex/dist/vuex.esm.js","./modules/app":"src/assets/js/vuex/modules/app.js","./modules/set":"src/assets/js/vuex/modules/set.js"}],"src/assets/js/utils/form.js":[function(require,module,exports) {
+},{"vue":"node_modules/vue/dist/vue.runtime.esm.js","vuex":"node_modules/vuex/dist/vuex.esm.js","./modules/app":"src/assets/js/vuex/modules/app.js","./modules/food":"src/assets/js/vuex/modules/food.js","./modules/set":"src/assets/js/vuex/modules/set.js"}],"src/assets/js/utils/form.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -62208,7 +62370,7 @@ exports.default = _default;
         ? _c(
             "ul",
             [
-              _c("router-link", { attrs: { to: "/home", tag: "li" } }, [
+              _c("router-link", { attrs: { to: "/food", tag: "li" } }, [
                 _vm._v("食材管理")
               ]),
               _vm._v(" "),
@@ -62850,7 +63012,7 @@ render._withStripped = true
         
       }
     })();
-},{"../utils/form":"src/assets/js/utils/form.js","vuex":"node_modules/vuex/dist/vuex.esm.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/assets/js/components/set/card.vue":[function(require,module,exports) {
+},{"../utils/form":"src/assets/js/utils/form.js","vuex":"node_modules/vuex/dist/vuex.esm.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/assets/js/components/utils/card.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -62873,19 +63035,21 @@ var _default = {
     clickCard: function clickCard() {
       this.$emit('card-on-click', this.cardName);
       $('.js-card-class-a').removeClass('active');
+      $('.js-card-class-b').removeClass('active');
+      $('.js-card-class-c').removeClass('active');
       $(this.$el).addClass('active');
     }
   }
 };
 exports.default = _default;
-        var $f23912 = exports.default || module.exports;
+        var $e802d4 = exports.default || module.exports;
       
-      if (typeof $f23912 === 'function') {
-        $f23912 = $f23912.options;
+      if (typeof $e802d4 === 'function') {
+        $e802d4 = $e802d4.options;
       }
     
         /* template */
-        Object.assign($f23912, (function () {
+        Object.assign($e802d4, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -62905,7 +63069,9 @@ exports.default = _default;
         }
       },
       [
-        _c("Icon", { attrs: { type: "md-print" } }),
+        _c("Icon", {
+          attrs: { type: "ios-folder", size: "20", color: "#56baed" }
+        }),
         _vm._v(" "),
         _c("h3", [_vm._v(_vm._s(_vm.cardName))])
       ],
@@ -62933,9 +63099,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$f23912', $f23912);
+            api.createRecord('$e802d4', $e802d4);
           } else {
-            api.reload('$f23912', $f23912);
+            api.reload('$e802d4', $e802d4);
           }
         }
 
@@ -62946,13 +63112,15 @@ render._withStripped = true
       
       }
     })();
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/assets/js/components/set/cardB.vue":[function(require,module,exports) {
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/assets/js/components/utils/cardB.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+//
+//
 //
 //
 //
@@ -62981,7 +63149,7 @@ exports.default = void 0;
 //
 var _default = {
   name: 'CardB',
-  props: ['cardName'],
+  props: ['cardName', 'isClass'],
   data: function data() {
     return {
       // 無須通知父組件 madeFrom 異動資訊
@@ -63027,14 +63195,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $3e85de = exports.default || module.exports;
+        var $df7944 = exports.default || module.exports;
       
-      if (typeof $3e85de === 'function') {
-        $3e85de = $3e85de.options;
+      if (typeof $df7944 === 'function') {
+        $df7944 = $df7944.options;
       }
     
         /* template */
-        Object.assign($3e85de, (function () {
+        Object.assign($df7944, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -63054,7 +63222,13 @@ exports.default = _default;
         }
       },
       [
-        _c("Icon", { attrs: { type: "md-print" } }),
+        _vm.isClass
+          ? _c("Icon", {
+              attrs: { type: "ios-folder", size: "20", color: "#56baed" }
+            })
+          : _c("Icon", {
+              attrs: { type: "ios-document", size: "20", color: "#56baed" }
+            }),
         _vm._v(" "),
         _c("h3", [_vm._v(_vm._s(_vm.cloneCardName))]),
         _vm._v(" "),
@@ -63089,7 +63263,15 @@ exports.default = _default;
             _c(
               "a",
               { attrs: { href: "javascript:void(0)" } },
-              [_c("Icon", { attrs: { type: "md-create" } })],
+              [
+                _c("Icon", {
+                  attrs: {
+                    type: "ios-create-outline",
+                    size: "20",
+                    color: "#56baed"
+                  }
+                })
+              ],
               1
             ),
             _vm._v(" "),
@@ -63157,9 +63339,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$3e85de', $3e85de);
+            api.createRecord('$df7944', $df7944);
           } else {
-            api.reload('$3e85de', $3e85de);
+            api.reload('$df7944', $df7944);
           }
         }
 
@@ -63170,7 +63352,7 @@ render._withStripped = true
       
       }
     })();
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/assets/js/components/set/cardC.vue":[function(require,module,exports) {
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/assets/js/components/utils/cardC.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -63232,14 +63414,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $1d3877 = exports.default || module.exports;
+        var $e7ca11 = exports.default || module.exports;
       
-      if (typeof $1d3877 === 'function') {
-        $1d3877 = $1d3877.options;
+      if (typeof $e7ca11 === 'function') {
+        $e7ca11 = $e7ca11.options;
       }
     
         /* template */
-        Object.assign($1d3877, (function () {
+        Object.assign($e7ca11, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -63259,7 +63441,9 @@ exports.default = _default;
         }
       },
       [
-        _c("Icon", { attrs: { type: "md-print" } }),
+        _c("Icon", {
+          attrs: { type: "ios-document", size: "20", color: "#56baed" }
+        }),
         _vm._v(" "),
         _c("h3", [_vm._v(_vm._s(_vm.cardName))]),
         _vm._v(" "),
@@ -63294,7 +63478,15 @@ exports.default = _default;
             _c(
               "a",
               { attrs: { href: "javascript:void(0)" } },
-              [_c("Icon", { attrs: { type: "md-create" } })],
+              [
+                _c("Icon", {
+                  attrs: {
+                    type: "ios-create-outline",
+                    size: "20",
+                    color: "#56baed"
+                  }
+                })
+              ],
               1
             ),
             _vm._v(" "),
@@ -63362,9 +63554,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$1d3877', $1d3877);
+            api.createRecord('$e7ca11', $e7ca11);
           } else {
-            api.reload('$1d3877', $1d3877);
+            api.reload('$e7ca11', $e7ca11);
           }
         }
 
@@ -63375,7 +63567,7 @@ render._withStripped = true
       
       }
     })();
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/assets/js/components/set/Manage.vue":[function(require,module,exports) {
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/assets/js/components/food/Manage.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -63385,11 +63577,11 @@ exports.default = void 0;
 
 var _vuex = require("vuex");
 
-var _card = _interopRequireDefault(require("./card.vue"));
+var _card = _interopRequireDefault(require("../utils/card.vue"));
 
-var _cardB = _interopRequireDefault(require("./cardB.vue"));
+var _cardB = _interopRequireDefault(require("../utils/cardB.vue"));
 
-var _cardC = _interopRequireDefault(require("./cardC.vue"));
+var _cardC = _interopRequireDefault(require("../utils/cardC.vue"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -63408,10 +63600,491 @@ var _default = {
     return {
       currentACardName: '無',
       currentBClass: [],
-      currentBCardName: '無',
+      currentBCardName: '尚無類別',
       currentBItem: [],
-      currentBItemName: '無',
-      currentCItem: []
+      currentBItemName: '尚無項目',
+      currentCItem: [],
+      currentCItemName: '餐點名'
+    };
+  },
+  mounted: function mounted() {
+    // 設定B塊的預設值`，先找出foodAClass第一個class的第一個名字
+    var Bdefault = this.foodAClass[0].name[0]; // 給B區塊標題名字
+
+    this.currentACardName = Bdefault;
+    this.changeBClass(Bdefault);
+    this.changeBItem(Bdefault);
+  },
+  computed: _objectSpread({}, (0, _vuex.mapGetters)(['User', 'foodAClass', 'foodBClass', 'foodBItem', 'foodCItem', 'rules']), {
+    currentAClass: function currentAClass() {
+      // A區塊的預設值
+      return this.foodAClass[0].name;
+    }
+  }),
+  watch: {},
+  // 改进vue的初始化数据调用时机 --
+  // https://www.jianshu.com/p/2048f1a66c33
+  methods: {
+    AClassOnClick: function AClassOnClick(ACardName) {
+      console.log('點了A區哪張卡', ACardName); // 給B區塊標題名字
+
+      this.currentACardName = ACardName; // 清空C區塊
+
+      this.currentCItem = '';
+      this.changeBClass(ACardName);
+      this.changeBItem(ACardName);
+    },
+    BClassOnClick: function BClassOnClick(BCardName) {
+      console.log('點了B區哪張卡', BCardName); // 給C區塊名字
+
+      this.currentBCardName = BCardName;
+      this.changeCItem(BCardName);
+    },
+    BItemOnClick: function BItemOnClick(BItem) {
+      console.log('B Item OnClick', BItem);
+    },
+    CItemOnClick: function CItemOnClick(CITem) {
+      console.log('C Item OnClick', CITem);
+      this.currentCItemName = CITem;
+    },
+    changeBClass: function changeBClass(ACardName) {
+      // 先篩上層是foodClass的陣列
+      var filterArray = _.filter(this.foodBClass, {
+        parent: ACardName
+      }); //只要 name 的陣列
+
+
+      this.currentBClass = filterArray[0].name; // 這個this.currentBClass完全沒有更新到 可能是findTypesValue的問題
+
+      console.log('this currentB Class ======', this.currentBClass);
+    },
+    changeBItem: function changeBItem(ACardName) {
+      var filterArray = _.filter(this.foodBItem, {
+        parent: ACardName
+      });
+
+      this.currentBItem = filterArray[0].name;
+      console.log('this currentB Item =======', this.currentBItem);
+    },
+    changeCItem: function changeCItem(BCardName) {
+      // 用ACardName 跟 BCardName 找出Ctiem
+      var pfilterArray = _.filter(this.foodCItem, {
+        parent: this.currentACardName
+      });
+
+      var filterArray = _.filter(pfilterArray[0].class, {
+        parent: BCardName
+      });
+
+      this.currentCItem = filterArray[0].name;
+      console.log('this currentC Item =======', this.currentBItem);
+    },
+    onCardChangeName: function onCardChangeName(newName, index) {
+      this.currentBClass.splice(index, 1, newName);
+    },
+    onCardChangeName2: function onCardChangeName2(newName, index) {
+      console.log('this.currentBItem');
+      this.currentBItem.splice(index, 1, newName);
+    },
+    addNewClass: function addNewClass($event, parentName) {
+      // 找出當前父級的在AClass的index直接套近來
+      var parentArrayIndex = $.map(this.foodAClass[0].name, function (item, index) {
+        return item;
+      }).indexOf(parentName); // 去改變 BClass
+
+      var cloneItem = this.foodBClass;
+      cloneItem[parentArrayIndex].name.push('新項目'); // 幫CItem加上新的空陣列
+
+      var cloneItemClass = this.foodCItem;
+      cloneItemClass[parentArrayIndex].class.push({
+        parent: '新項目',
+        name: ['新項目']
+      });
+      console.log('addNewClass cloneItem  =======', cloneItem);
+      this.$store.commit({
+        type: 'BClassAddNewClass',
+        newArray: cloneItem
+      });
+      this.$store.commit({
+        type: 'CItemAddNewItem',
+        newArray: cloneItemClass
+      });
+    },
+    addNewItem: function addNewItem($event, parentName) {
+      // 找出當前父級的在AClass的index直接套近來
+      var parentArrayIndex = $.map(this.foodAClass[0].name, function (item, index) {
+        return item;
+      }).indexOf(parentName); // 去改變 BItem
+
+      var cloneItem = this.foodBItem;
+      cloneItem[parentArrayIndex].name.push('新項目');
+      console.log('addNewItem cloneItem  =======', cloneItem);
+      this.$store.commit({
+        type: 'BItemAddNewItem',
+        newArray: cloneItem
+      });
+    },
+    addNewItemC: function addNewItemC($event, parentName, parentparentName) {
+      // 找出BClass的在AClass的 parentparentArrayIndex
+      var ppArrayIndex = $.map(this.foodAClass[0].name, function (item, index) {
+        return item;
+      }).indexOf(parentparentName); // 找出CItem在BClass的在index直接套近來
+
+      var parentArrayIndex = $.map(this.foodBClass[ppArrayIndex].name, function (item, index) {
+        return item;
+      }).indexOf(parentName); // 去改變 CItem
+
+      var cloneItem = this.foodCItem;
+      cloneItem[ppArrayIndex].class[parentArrayIndex].name.push('新項目');
+      console.log('addNewItem cloneItem  =======', cloneItem);
+      this.$store.commit({
+        type: 'CItemAddNewItem',
+        newArray: cloneItem
+      });
+    },
+    deleteClass: function deleteClass($event, parentName) {
+      var currentCardName = $event; // 找出當前父級的在AClass的index直接套近來
+
+      var parentArrayIndex = $.map(this.foodAClass[0].name, function (item, index) {
+        return item;
+      }).indexOf(parentName); // 找到 這個在foodBClass 的哪裡
+
+      var cArrayIndex = $.map(this.foodBClass[parentArrayIndex].name, function (item, index) {
+        return item;
+      }).indexOf(currentCardName); // 對複製的陣列刪去項目
+
+      var cloneItem = this.foodBClass;
+      cloneItem[parentArrayIndex].name.splice(cArrayIndex, 1);
+      console.log('deleteClass  =======', cloneItem);
+      this.$store.commit({
+        type: 'BClassDeleteItem',
+        newArray: cloneItem
+      });
+    },
+    deleteItem: function deleteItem($event, parentName) {
+      var currentCardName = $event; // 找出當前父級的在AClass的index直接套近來
+
+      var parentArrayIndex = $.map(this.foodAClass[0].name, function (item, index) {
+        return item;
+      }).indexOf(parentName); // 找到 這個在foodBItem 的哪裡
+
+      var cArrayIndex = $.map(this.foodBItem[parentArrayIndex].name, function (item, index) {
+        return item;
+      }).indexOf(currentCardName); // 對複製的陣列刪去項目
+
+      var cloneItem = this.foodBItem;
+      cloneItem[parentArrayIndex].name.splice(cArrayIndex, 1);
+      console.log('deleteItem  =======', cloneItem);
+      this.$store.commit({
+        type: 'BItemDeleteItem',
+        newArray: cloneItem
+      });
+    },
+    deleteItemC: function deleteItemC($event, parentName) {
+      var currentCardName = $event; // 找出當前父級的在AClass的index直接套近來
+
+      var parentArrayIndex = $.map(this.foodAClass[0].name, function (item, index) {
+        return item;
+      }).indexOf(parentName); // 找到 這個在foodBItem 的哪裡
+
+      var cArrayIndex = $.map(this.foodBItem[parentArrayIndex].name, function (item, index) {
+        return item;
+      }).indexOf(currentCardName); // 對複製的陣列刪去項目
+
+      var cloneItem = this.foodBItem;
+      cloneItem[parentArrayIndex].name.splice(cArrayIndex, 1);
+      console.log('deleteItemC  =======', cloneItem);
+      this.$store.commit({
+        type: 'CItemDeleteItem',
+        newArray: cloneItem
+      });
+    }
+  }
+};
+exports.default = _default;
+        var $44d5c7 = exports.default || module.exports;
+      
+      if (typeof $44d5c7 === 'function') {
+        $44d5c7 = $44d5c7.options;
+      }
+    
+        /* template */
+        Object.assign($44d5c7, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "section",
+    { staticClass: "content" },
+    [
+      _c(
+        "Row",
+        [
+          _c("Col", { attrs: { span: "5" } }, [
+            _c("div", { staticClass: "title" }, [_vm._v("套餐")]),
+            _vm._v(" "),
+            _c("div", { staticStyle: { "margin-bottom": "40px" } }),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "union" },
+              _vm._l(_vm.currentAClass, function(item, index) {
+                return _c("CardA", {
+                  class: { active: index === 0 },
+                  attrs: { "card-name": item },
+                  on: { "card-on-click": _vm.AClassOnClick }
+                })
+              })
+            )
+          ]),
+          _vm._v(" "),
+          _c("Col", { attrs: { span: "5" } }, [
+            _c("div", { staticClass: "title" }, [
+              _vm._v(_vm._s(_vm.currentACardName))
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "union" },
+              [
+                _c("h4", [_vm._v("類別")]),
+                _vm._v(" "),
+                _vm._l(_vm.currentBClass, function(item, index) {
+                  return _c("CardB", {
+                    staticClass: "B-class",
+                    class: { lastcard: index === _vm.currentBClass.length - 1 },
+                    attrs: { "card-name": item, "is-class": true },
+                    on: {
+                      "card-change-name": function($event) {
+                        _vm.onCardChangeName($event, index)
+                      },
+                      "card-on-click": _vm.BClassOnClick,
+                      "card-delete": function($event) {
+                        _vm.deleteClass($event, _vm.currentACardName)
+                      }
+                    }
+                  })
+                }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.currentBClass.length >= 0,
+                        expression: "currentBClass.length >= 0"
+                      }
+                    ],
+                    staticClass: "add-new-card",
+                    on: {
+                      click: function($event) {
+                        _vm.addNewClass($event, _vm.currentACardName)
+                      }
+                    }
+                  },
+                  [
+                    _c("Icon", {
+                      attrs: { type: "ios-add-circle-outline", size: "20" }
+                    }),
+                    _vm._v("新增類別\n                ")
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("h4", [_vm._v("項目")]),
+                _vm._v(" "),
+                _vm._l(_vm.currentBItem, function(item, index) {
+                  return _c("CardB", {
+                    class: { lastcard: index === _vm.currentBItem.length - 1 },
+                    attrs: { "card-name": item },
+                    on: {
+                      "card-change-name": function($event) {
+                        _vm.onCardChangeName2($event, index)
+                      },
+                      "card-on-click": _vm.BItemOnClick,
+                      "card-delete": function($event) {
+                        _vm.deleteItem($event, _vm.currentACardName)
+                      }
+                    }
+                  })
+                }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.currentBItem.length >= 0,
+                        expression: "currentBItem.length >= 0"
+                      }
+                    ],
+                    staticClass: "add-new-card",
+                    on: {
+                      click: function($event) {
+                        _vm.addNewItem($event, _vm.currentACardName)
+                      }
+                    }
+                  },
+                  [
+                    _c("Icon", {
+                      attrs: { type: "ios-add-circle-outline", size: "20" }
+                    }),
+                    _vm._v("新增項目\n                ")
+                  ],
+                  1
+                )
+              ],
+              2
+            )
+          ]),
+          _vm._v(" "),
+          _c("Col", { attrs: { span: "5" } }, [
+            _c("div", { staticClass: "title" }, [
+              _vm._v(_vm._s(_vm.currentBCardName))
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "union" },
+              [
+                _c("h4", [_vm._v("項目")]),
+                _vm._v(" "),
+                _vm._l(_vm.currentCItem, function(item, index) {
+                  return _c("CardC", {
+                    class: { lastcard: index === _vm.currentCItem.length - 1 },
+                    attrs: { "card-name": item },
+                    on: {
+                      "card-on-click": _vm.CItemOnClick,
+                      "card-delete": function($event) {
+                        _vm.deleteItemC($event, _vm.currentBClassName)
+                      }
+                    }
+                  })
+                }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.currentCItem.length > 0,
+                        expression: "currentCItem.length > 0"
+                      }
+                    ],
+                    staticClass: "add-new-card",
+                    on: {
+                      click: function($event) {
+                        _vm.addNewItemC(
+                          $event,
+                          _vm.currentBCardName,
+                          _vm.currentACardName
+                        )
+                      }
+                    }
+                  },
+                  [
+                    _c("Icon", {
+                      attrs: { type: "ios-add-circle-outline", size: "20" }
+                    }),
+                    _vm._v("新增項目\n                ")
+                  ],
+                  1
+                )
+              ],
+              2
+            )
+          ]),
+          _vm._v(" "),
+          _c("Col", { attrs: { span: "9" } }, [
+            _c("div", { staticClass: "title" }, [
+              _vm._v(_vm._s(_vm.currentCItemName))
+            ])
+          ])
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$44d5c7', $44d5c7);
+          } else {
+            api.reload('$44d5c7', $44d5c7);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"vuex":"node_modules/vuex/dist/vuex.esm.js","../utils/card.vue":"src/assets/js/components/utils/card.vue","../utils/cardB.vue":"src/assets/js/components/utils/cardB.vue","../utils/cardC.vue":"src/assets/js/components/utils/cardC.vue","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/assets/js/components/set/Manage.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _vuex = require("vuex");
+
+var _card = _interopRequireDefault(require("../utils/card.vue"));
+
+var _cardB = _interopRequireDefault(require("../utils/cardB.vue"));
+
+var _cardC = _interopRequireDefault(require("../utils/cardC.vue"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+// let WebHelper = require('../../utils/wehelper');
+var _default = {
+  components: {
+    CardA: _card.default,
+    CardB: _cardB.default,
+    CardC: _cardC.default
+  },
+  data: function data() {
+    return {
+      currentACardName: '無',
+      currentBClass: [],
+      currentBCardName: '尚無類別',
+      currentBItem: [],
+      currentBItemName: '尚無項目',
+      currentCItem: [],
+      currentCItemName: '餐點名'
     };
   },
   mounted: function mounted() {
@@ -63452,6 +64125,7 @@ var _default = {
     },
     CItemOnClick: function CItemOnClick(CITem) {
       console.log('C Item OnClick', CITem);
+      this.currentCItemName = CITem;
     },
     changeBClass: function changeBClass(ACardName) {
       // 先篩上層是setClass的陣列
@@ -63627,80 +64301,8 @@ exports.default = _default;
       _c(
         "Row",
         [
-          _c("Col", { attrs: { span: "6" } }, [
-            _c(
-              "div",
-              { staticClass: "title" },
-              [
-                _vm._v("套餐\n                "),
-                _c(
-                  "Dropdown",
-                  { attrs: { trigger: "click" } },
-                  [
-                    _c(
-                      "a",
-                      { attrs: { href: "javascript:void(0)" } },
-                      [_c("Icon", { attrs: { type: "md-create" } })],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "DropdownMenu",
-                      { attrs: { slot: "list" }, slot: "list" },
-                      [
-                        _c(
-                          "DropdownItem",
-                          [
-                            _c("Icon", { attrs: { type: "ios-add-circle" } }),
-                            _vm._v("新增廚房聯規則")
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "DropdownItem",
-                          [
-                            _c("Icon", { attrs: { type: "ios-add-circle" } }),
-                            _vm._v("新增標籤貼紙規則")
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "DropdownItem",
-                          [
-                            _c("Icon", { attrs: { type: "ios-add-circle" } }),
-                            _vm._v("新增客戶聯規則")
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "DropdownItem",
-                          [
-                            _c("Icon", { attrs: { type: "md-create" } }),
-                            _vm._v("編輯出單名稱")
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "DropdownItem",
-                          [
-                            _c("Icon", { attrs: { type: "md-copy" } }),
-                            _vm._v("複製此出單機")
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
+          _c("Col", { attrs: { span: "5" } }, [
+            _c("div", { staticClass: "title" }, [_vm._v("套餐")]),
             _vm._v(" "),
             _c("div", { staticStyle: { "margin-bottom": "40px" } }),
             _vm._v(" "),
@@ -63717,80 +64319,10 @@ exports.default = _default;
             )
           ]),
           _vm._v(" "),
-          _c("Col", { attrs: { span: "6" } }, [
-            _c(
-              "div",
-              { staticClass: "title" },
-              [
-                _vm._v(_vm._s(_vm.currentACardName) + "\n                "),
-                _c(
-                  "Dropdown",
-                  { attrs: { trigger: "click" } },
-                  [
-                    _c(
-                      "a",
-                      { attrs: { href: "javascript:void(0)" } },
-                      [_c("Icon", { attrs: { type: "md-create" } })],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "DropdownMenu",
-                      { attrs: { slot: "list" }, slot: "list" },
-                      [
-                        _c(
-                          "DropdownItem",
-                          [
-                            _c("Icon", { attrs: { type: "ios-add-circle" } }),
-                            _vm._v("新增廚房聯規則")
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "DropdownItem",
-                          [
-                            _c("Icon", { attrs: { type: "ios-add-circle" } }),
-                            _vm._v("新增標籤貼紙規則")
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "DropdownItem",
-                          [
-                            _c("Icon", { attrs: { type: "ios-add-circle" } }),
-                            _vm._v("新增客戶聯規則")
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "DropdownItem",
-                          [
-                            _c("Icon", { attrs: { type: "md-create" } }),
-                            _vm._v("編輯出單名稱")
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "DropdownItem",
-                          [
-                            _c("Icon", { attrs: { type: "md-copy" } }),
-                            _vm._v("複製此出單機")
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
+          _c("Col", { attrs: { span: "5" } }, [
+            _c("div", { staticClass: "title" }, [
+              _vm._v(_vm._s(_vm.currentACardName))
+            ]),
             _vm._v(" "),
             _c(
               "div",
@@ -63802,7 +64334,7 @@ exports.default = _default;
                   return _c("CardB", {
                     staticClass: "B-class",
                     class: { lastcard: index === _vm.currentBClass.length - 1 },
-                    attrs: { "card-name": item },
+                    attrs: { "card-name": item, "is-class": true },
                     on: {
                       "card-change-name": function($event) {
                         _vm.onCardChangeName($event, index)
@@ -63834,8 +64366,10 @@ exports.default = _default;
                     }
                   },
                   [
-                    _c("Icon", { attrs: { type: "ios-add" } }),
-                    _vm._v("新增項目\n                ")
+                    _c("Icon", {
+                      attrs: { type: "ios-add-circle-outline", size: "20" }
+                    }),
+                    _vm._v("新增類別\n                ")
                   ],
                   1
                 ),
@@ -63877,7 +64411,9 @@ exports.default = _default;
                     }
                   },
                   [
-                    _c("Icon", { attrs: { type: "ios-add" } }),
+                    _c("Icon", {
+                      attrs: { type: "ios-add-circle-outline", size: "20" }
+                    }),
                     _vm._v("新增項目\n                ")
                   ],
                   1
@@ -63887,80 +64423,10 @@ exports.default = _default;
             )
           ]),
           _vm._v(" "),
-          _c("Col", { attrs: { span: "6" } }, [
-            _c(
-              "div",
-              { staticClass: "title" },
-              [
-                _vm._v(_vm._s(_vm.currentBCardName) + "\n                "),
-                _c(
-                  "Dropdown",
-                  { attrs: { trigger: "click" } },
-                  [
-                    _c(
-                      "a",
-                      { attrs: { href: "javascript:void(0)" } },
-                      [_c("Icon", { attrs: { type: "md-create" } })],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "DropdownMenu",
-                      { attrs: { slot: "list" }, slot: "list" },
-                      [
-                        _c(
-                          "DropdownItem",
-                          [
-                            _c("Icon", { attrs: { type: "ios-add-circle" } }),
-                            _vm._v("新增廚房規則")
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "DropdownItem",
-                          [
-                            _c("Icon", { attrs: { type: "ios-add-circle" } }),
-                            _vm._v("新增標籤貼紙規則")
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "DropdownItem",
-                          [
-                            _c("Icon", { attrs: { type: "ios-add-circle" } }),
-                            _vm._v("新增客戶聯規則")
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "DropdownItem",
-                          [
-                            _c("Icon", { attrs: { type: "md-create" } }),
-                            _vm._v("編輯出單名稱")
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "DropdownItem",
-                          [
-                            _c("Icon", { attrs: { type: "md-copy" } }),
-                            _vm._v("複製此出單機")
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
+          _c("Col", { attrs: { span: "5" } }, [
+            _c("div", { staticClass: "title" }, [
+              _vm._v(_vm._s(_vm.currentBCardName))
+            ]),
             _vm._v(" "),
             _c(
               "div",
@@ -64004,7 +64470,9 @@ exports.default = _default;
                     }
                   },
                   [
-                    _c("Icon", { attrs: { type: "ios-add" } }),
+                    _c("Icon", {
+                      attrs: { type: "ios-add-circle-outline", size: "20" }
+                    }),
                     _vm._v("新增項目\n                ")
                   ],
                   1
@@ -64014,80 +64482,10 @@ exports.default = _default;
             )
           ]),
           _vm._v(" "),
-          _c("Col", { attrs: { span: "6" } }, [
-            _c(
-              "div",
-              { staticClass: "title" },
-              [
-                _vm._v("餐點名\n                "),
-                _c(
-                  "Dropdown",
-                  { attrs: { trigger: "click" } },
-                  [
-                    _c(
-                      "a",
-                      { attrs: { href: "javascript:void(0)" } },
-                      [_c("Icon", { attrs: { type: "md-create" } })],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "DropdownMenu",
-                      { attrs: { slot: "list" }, slot: "list" },
-                      [
-                        _c(
-                          "DropdownItem",
-                          [
-                            _c("Icon", { attrs: { type: "ios-add-circle" } }),
-                            _vm._v("新增廚房聯規則")
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "DropdownItem",
-                          [
-                            _c("Icon", { attrs: { type: "ios-add-circle" } }),
-                            _vm._v("新增標籤貼紙規則")
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "DropdownItem",
-                          [
-                            _c("Icon", { attrs: { type: "ios-add-circle" } }),
-                            _vm._v("新增客戶聯規則")
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "DropdownItem",
-                          [
-                            _c("Icon", { attrs: { type: "md-create" } }),
-                            _vm._v("編輯出單名稱")
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "DropdownItem",
-                          [
-                            _c("Icon", { attrs: { type: "md-copy" } }),
-                            _vm._v("複製此出單機")
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              ],
-              1
-            )
+          _c("Col", { attrs: { span: "9" } }, [
+            _c("div", { staticClass: "title" }, [
+              _vm._v(_vm._s(_vm.currentCItemName))
+            ])
           ])
         ],
         1
@@ -64129,7 +64527,7 @@ render._withStripped = true
       
       }
     })();
-},{"vuex":"node_modules/vuex/dist/vuex.esm.js","./card.vue":"src/assets/js/components/set/card.vue","./cardB.vue":"src/assets/js/components/set/cardB.vue","./cardC.vue":"src/assets/js/components/set/cardC.vue","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/assets/js/components/store/card.vue":[function(require,module,exports) {
+},{"vuex":"node_modules/vuex/dist/vuex.esm.js","../utils/card.vue":"src/assets/js/components/utils/card.vue","../utils/cardB.vue":"src/assets/js/components/utils/cardB.vue","../utils/cardC.vue":"src/assets/js/components/utils/cardC.vue","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/assets/js/components/store/card.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -64647,9 +65045,11 @@ var _UserInfo = _interopRequireDefault(require("./components/UserInfo.vue"));
 
 var _search_password = _interopRequireDefault(require("./components/search_password.vue"));
 
-var _Manage = _interopRequireDefault(require("./components/set/Manage.vue"));
+var _Manage = _interopRequireDefault(require("./components/food/Manage.vue"));
 
-var _Manage2 = _interopRequireDefault(require("./components/store/Manage.vue"));
+var _Manage2 = _interopRequireDefault(require("./components/set/Manage.vue"));
+
+var _Manage3 = _interopRequireDefault(require("./components/store/Manage.vue"));
 
 var _vue = _interopRequireDefault(require("vue"));
 
@@ -64690,15 +65090,21 @@ var routes = [{
     header: _Header.default
   }
 }, {
-  path: '/set',
+  path: '/food',
   components: {
     default: _Manage.default,
     header: _Nav.default
   }
 }, {
-  path: '/store',
+  path: '/set',
   components: {
     default: _Manage2.default,
+    header: _Nav.default
+  }
+}, {
+  path: '/store',
+  components: {
+    default: _Manage3.default,
     header: _Nav.default
   }
 }, {
@@ -64706,7 +65112,7 @@ var routes = [{
   redirect: '/'
 }];
 exports.routes = routes;
-},{"./components/Login.vue":"src/assets/js/components/Login.vue","./components/Signup.vue":"src/assets/js/components/Signup.vue","./components/Header.vue":"src/assets/js/components/Header.vue","./components/Nav.vue":"src/assets/js/components/Nav.vue","./components/Home.vue":"src/assets/js/components/Home.vue","./components/UserInfo.vue":"src/assets/js/components/UserInfo.vue","./components/search_password.vue":"src/assets/js/components/search_password.vue","./components/set/Manage.vue":"src/assets/js/components/set/Manage.vue","./components/store/Manage.vue":"src/assets/js/components/store/Manage.vue","vue":"node_modules/vue/dist/vue.runtime.esm.js","vue-router":"node_modules/vue-router/dist/vue-router.esm.js"}],"node_modules/iview/dist/iview.js":[function(require,module,exports) {
+},{"./components/Login.vue":"src/assets/js/components/Login.vue","./components/Signup.vue":"src/assets/js/components/Signup.vue","./components/Header.vue":"src/assets/js/components/Header.vue","./components/Nav.vue":"src/assets/js/components/Nav.vue","./components/Home.vue":"src/assets/js/components/Home.vue","./components/UserInfo.vue":"src/assets/js/components/UserInfo.vue","./components/search_password.vue":"src/assets/js/components/search_password.vue","./components/food/Manage.vue":"src/assets/js/components/food/Manage.vue","./components/set/Manage.vue":"src/assets/js/components/set/Manage.vue","./components/store/Manage.vue":"src/assets/js/components/store/Manage.vue","vue":"node_modules/vue/dist/vue.runtime.esm.js","vue-router":"node_modules/vue-router/dist/vue-router.esm.js"}],"node_modules/iview/dist/iview.js":[function(require,module,exports) {
 var define;
 var global = arguments[3];
 var process = require("process");
@@ -116001,7 +116407,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60049" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64274" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

@@ -1,68 +1,6 @@
 nav button {
   position: absolute;
   right: 0; }
-.card-class {
-  border: 1px solid #dcdee2;
-  border-color: #e8eaec;
-  background: #fff;
-  font-size: 14px;
-  position: relative;
-  cursor: pointer;
-  transition: all .2s ease-in-out; }
-  .card-class .content {
-    padding: 16px; }
-  .card-class h3 {
-    display: inline-block; }
-  .card-class::after {
-    content: '>';
-    display: block;
-    position: absolute;
-    right: 10px;
-    top: 15px; }
-  .card-class.active {
-    background: red; }
-.card-class {
-  border: 1px solid #dcdee2;
-  border-color: #e8eaec;
-  background: #fff;
-  font-size: 14px;
-  position: relative;
-  cursor: pointer;
-  transition: all .2s ease-in-out; }
-  .card-class .content {
-    padding: 16px; }
-  .card-class h3 {
-    display: inline-block; }
-  .card-class::after {
-    content: '>';
-    display: block;
-    position: absolute;
-    right: 10px;
-    top: 15px; }
-  .card-class.active {
-    background: red; }
-.card-class {
-  border: 1px solid #dcdee2;
-  border-color: #e8eaec;
-  background: #fff;
-  font-size: 14px;
-  position: relative;
-  cursor: pointer;
-  transition: all .2s ease-in-out; }
-  .card-class .content {
-    padding: 16px; }
-  .card-class h3 {
-    display: inline-block; }
-    .card-class h3.hide {
-      display: none; }
-  .card-class::after {
-    content: '>';
-    display: block;
-    position: absolute;
-    right: 10px;
-    top: 15px; }
-  .card-class.active {
-    background: red; }
 .ivu-card-body h3 {
   display: inline-block; }
 
@@ -806,8 +744,8 @@ main.mamager {
   width: 100%;
   box-sizing: border-box; }
   .content .ivu-col {
-    height: 100vh;
-    overflow: visible;
+    height: calc(100vh - 76px);
+    overflow: auto;
     border-right: 1px #0d0d0d solid;
     background-color: #f6f6f6; }
     .content .ivu-col:last-child {
@@ -819,11 +757,31 @@ main.mamager {
       border-bottom: 1px #0d0d0d solid; }
     .content .ivu-col .ivu-dropdown {
       position: absolute;
-      right: 20px; }
+      right: 30px; }
     .content .ivu-col .union h4 {
       padding: 10px; }
     .content .ivu-col .union .setting p {
       display: inline-block; }
+
+.card-class {
+  border: 1px solid #dcdee2;
+  border-color: #e8eaec;
+  background: #fff;
+  font-size: 14px;
+  position: relative;
+  cursor: pointer;
+  transition: all .2s ease-in-out; }
+  .card-class .content {
+    padding: 16px; }
+  .card-class h3 {
+    display: inline-block; }
+  .card-class::after {
+    content: '>';
+    display: block;
+    position: absolute;
+    font-weight: bold;
+    right: 10px;
+    top: 20px; }
 
 .ivu-input-wrapper {
   width: 75%; }
@@ -834,7 +792,7 @@ main.mamager {
   border-top: 0; }
   .union .card-class.active {
     background-color: transparent; }
-    .union .card-class.active i {
+    .union .card-class.active h3 {
       color: #0179fe; }
   .union .card-class.card-class-a:first-child {
     border-top: 1px solid #dcdee2; }
@@ -866,9 +824,10 @@ main.mamager {
   box-shadow: inset 1px 0 0 rgba(0, 0, 0, 0.1);
   background-color: #fff;
   cursor: pointer;
+  padding: 0 15px;
+  box-sizing: border-box;
   margin-top: 6px;
-  height: 50px;
+  height: 40px;
+  line-height: 40px;
   transition: all .2s ease;
   position: relative; }
-  .add-new-card .ivu-icon {
-    font-size: 50px; }

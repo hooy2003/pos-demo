@@ -7,6 +7,7 @@ import Navbar from './components/Nav.vue';
 import Home from './components/Home.vue';
 import UserInfo from './components/UserInfo.vue';
 import SearchPassword from './components/search_password.vue';
+import FoodManage from './components/food/Manage.vue';
 import SetManage from './components/set/Manage.vue';
 import StoreManage from './components/store/Manage.vue';
 
@@ -48,6 +49,13 @@ export const routes = [
     components: {
       default: SearchPassword,
       header: Header
+    }
+  },
+  {
+    path: '/food',
+    components: {
+      default: FoodManage,
+      header: Navbar
     }
   },
   {
