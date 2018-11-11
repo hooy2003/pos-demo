@@ -39,7 +39,6 @@
         computed: {
             cloneCardName : {
                 get: function() {
-                    console.log('in card b');
                     return this.cardName;
                 },
                 set: function(newValue) {

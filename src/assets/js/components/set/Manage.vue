@@ -1,5 +1,5 @@
 <template>
-    <section class="content">
+    <section class="content page">
         <Row>
             <Col span="5">
                 <div class="title">套餐</div>

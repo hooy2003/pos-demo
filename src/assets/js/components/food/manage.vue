@@ -1,5 +1,5 @@
 <template>
-    <section class="content">
+    <section class="content page">
         <Row>
             <Col span="5">
                 <div class="title">套餐</div>
@@ -72,6 +72,9 @@
             </Col>
             <Col span="9">
                 <div class="title">{{currentCItemName}}</div>
+                <div class="union">
+                    <CardFood></CardFood>
+                </div>
             </Col>
         </Row>        
     </section>
@@ -81,6 +84,7 @@ import { mapGetters } from 'vuex';
 import CardA from '../utils/card.vue';
 import CardB from '../utils/cardB.vue';
 import CardC from '../utils/cardC.vue';
+import CardFood from '../utils/cardFood.vue';
 
 // let WebHelper = require('../../utils/wehelper');
 
@@ -90,6 +94,7 @@ import CardC from '../utils/cardC.vue';
         CardA, 
         CardB,
         CardC,
+        CardFood,
     },
     data() {
         return {

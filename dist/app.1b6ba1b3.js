@@ -62471,6 +62471,133 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var _default = {
+  data: function data() {
+    return {
+      columns1: [{
+        title: '#',
+        key: 'Header0'
+      }, {
+        title: 'Header',
+        key: 'Header1'
+      }, {
+        title: 'Header',
+        key: 'Header2'
+      }, {
+        title: 'Header',
+        key: 'Header3'
+      }, {
+        title: 'Header',
+        key: 'Header4'
+      }],
+      data1: [{
+        Header0: '1,001',
+        Header1: 'John Brown',
+        Header2: 'consectetur',
+        Header3: 'Praesent',
+        Header4: '2016-10-03'
+      }, {
+        Header0: '1,002',
+        Header1: 'John Brown',
+        Header2: 'consectetur',
+        Header3: 'Praesent',
+        Header4: '2016-10-03'
+      }, {
+        Header0: '1,003',
+        Header1: 'John Brown',
+        Header2: 'consectetur',
+        Header3: 'Praesent',
+        Header4: '2016-10-03'
+      }, {
+        Header0: '1,004',
+        Header1: 'John Brown',
+        Header2: 'consectetur',
+        Header3: 'Praesent',
+        Header4: '2016-10-03'
+      }, {
+        Header0: '1,005',
+        Header1: 'John Brown',
+        Header2: 'consectetur',
+        Header3: 'Praesent',
+        Header4: '2016-10-03'
+      }],
+      columns2: [{
+        title: '#',
+        key: 'Header0'
+      }, {
+        title: 'Header',
+        key: 'Header1'
+      }, {
+        title: 'Header',
+        key: 'Header2'
+      }, {
+        title: 'Header',
+        key: 'Header3'
+      }, {
+        title: 'Header',
+        key: 'Header4'
+      }],
+      data2: [{
+        Header0: '1,001',
+        Header1: 'John Brown',
+        Header2: 'consectetur',
+        Header3: 'Praesent',
+        Header4: '2016-10-03'
+      }, {
+        Header0: '1,002',
+        Header1: 'John Brown',
+        Header2: 'consectetur',
+        Header3: 'Praesent',
+        Header4: '2016-10-03'
+      }, {
+        Header0: '1,003',
+        Header1: 'John Brown',
+        Header2: 'consectetur',
+        Header3: 'Praesent',
+        Header4: '2016-10-03'
+      }, {
+        Header0: '1,004',
+        Header1: 'John Brown',
+        Header2: 'consectetur',
+        Header3: 'Praesent',
+        Header4: '2016-10-03'
+      }, {
+        Header0: '1,005',
+        Header1: 'John Brown',
+        Header2: 'consectetur',
+        Header3: 'Praesent',
+        Header4: '2016-10-03'
+      }]
+    };
+  },
+  mounted: function mounted() {
+    var ctx = document.getElementById("myChart");
+    var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        datasets: [{
+          data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
+          lineTension: 0,
+          backgroundColor: 'transparent',
+          borderColor: '#007bff',
+          borderWidth: 4,
+          pointBackgroundColor: '#007bff'
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: false
+            }
+          }]
+        },
+        legend: {
+          display: false
+        }
+      }
+    });
+  },
   computed: _objectSpread({}, (0, _vuex.mapGetters)(['User']), {
     userName: function userName() {
       return this.User.name;
@@ -62490,8 +62617,197 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("section", { staticClass: "content" }, [
-    _c("h1", [_vm._v("Home " + _vm._s(_vm.userName))])
+  return _c("section", { staticClass: "content home" }, [
+    _c(
+      "main",
+      [
+        _c(
+          "Row",
+          [
+            _c("Col", { attrs: { span: "16" } }, [
+              _c("h2", [_vm._v("Current Status")])
+            ]),
+            _vm._v(" "),
+            _c(
+              "Col",
+              { staticStyle: { "text-align": "right" }, attrs: { span: "8" } },
+              [
+                _c(
+                  "ButtonGroup",
+                  [
+                    _c("Button", [_vm._v("Share")]),
+                    _vm._v(" "),
+                    _c("Button", [_vm._v("Export")])
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "Button",
+                  [
+                    _c("Icon", { attrs: { type: "ios-calendar" } }),
+                    _vm._v("\n            This Week\n        ")
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "Row",
+          { staticClass: "top" },
+          [
+            _c(
+              "Col",
+              { attrs: { span: "8" } },
+              [
+                _c("div", { staticClass: "title" }, [_vm._v("Sales revenue")]),
+                _vm._v(" "),
+                _c(
+                  "Row",
+                  [
+                    _c("Col", { attrs: { span: "16" } }, [_vm._v("$10000")]),
+                    _vm._v(" "),
+                    _c(
+                      "Col",
+                      { attrs: { span: "8" } },
+                      [_c("Button", [_vm._v("button")])],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "Col",
+              { attrs: { span: "8" } },
+              [
+                _c("div", { staticClass: "title" }, [
+                  _vm._v("Sales per customer")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "Row",
+                  [
+                    _c("Col", { attrs: { span: "16" } }, [_vm._v("$5000")]),
+                    _vm._v(" "),
+                    _c(
+                      "Col",
+                      { attrs: { span: "8" } },
+                      [_c("Button", [_vm._v("button")])],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "Col",
+              { attrs: { span: "8" } },
+              [
+                _c("div", { staticClass: "title" }, [_vm._v("Sales revenue")]),
+                _vm._v(" "),
+                _c(
+                  "Row",
+                  [
+                    _c("Col", { attrs: { span: "16" } }, [_vm._v("$10000")]),
+                    _vm._v(" "),
+                    _c(
+                      "Col",
+                      { attrs: { span: "8" } },
+                      [_c("Button", [_vm._v("button")])],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "Row",
+          [
+            _c(
+              "Col",
+              { attrs: { span: "8" } },
+              [
+                _c("div", { staticClass: "title" }, [
+                  _vm._v("Sales per customer")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "Row",
+                  [
+                    _c("Col", { attrs: { span: "16" } }, [_vm._v("$5000")]),
+                    _vm._v(" "),
+                    _c(
+                      "Col",
+                      { attrs: { span: "8" } },
+                      [_c("Button", [_vm._v("button")])],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("Col", { attrs: { span: "16" } }, [
+              _c("canvas", {
+                attrs: { id: "myChart", width: "900", height: "200" }
+              })
+            ])
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("h2", [_vm._v("Section title")]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "table-responsive" },
+          [
+            _c("Table", {
+              attrs: { stripe: "", columns: _vm.columns1, data: _vm.data1 }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticStyle: { "padding-bottom": "30px", width: "100%" } }),
+        _vm._v(" "),
+        _c("h2", [_vm._v("Section title")]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "table-responsive" },
+          [
+            _c("Table", {
+              attrs: { stripe: "", columns: _vm.columns2, data: _vm.data2 }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticStyle: { "padding-bottom": "30px", width: "100%" } })
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = []
@@ -62521,9 +62837,13 @@ render._withStripped = true
         }
 
         
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
       }
     })();
-},{"vuex":"node_modules/vuex/dist/vuex.esm.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/assets/js/components/UserInfo.vue":[function(require,module,exports) {
+},{"vuex":"node_modules/vuex/dist/vuex.esm.js","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/assets/js/components/UserInfo.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -63159,7 +63479,6 @@ var _default = {
   computed: {
     cloneCardName: {
       get: function get() {
-        console.log('in card b');
         return this.cardName;
       },
       set: function set(newValue) {
@@ -63567,6 +63886,207 @@ render._withStripped = true
       
       }
     })();
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/assets/js/components/utils/cardFood.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: 'CardFood',
+  props: ['cardName'],
+  data: function data() {
+    return {
+      value: '招牌總會',
+      value2: 280,
+      value3: 8,
+      select3: 'com'
+    };
+  },
+  methods: {}
+};
+exports.default = _default;
+        var $70dae2 = exports.default || module.exports;
+      
+      if (typeof $70dae2 === 'function') {
+        $70dae2 = $70dae2.options;
+      }
+    
+        /* template */
+        Object.assign($70dae2, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "card-food" }, [
+    _c("div", { staticClass: "content" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "left" }, [
+        _c(
+          "div",
+          { staticClass: "input-wrap" },
+          [
+            _c("p", [_vm._v("商品名稱")]),
+            _vm._v(" "),
+            _c("Input", {
+              attrs: { placeholder: "Enter something..." },
+              model: {
+                value: _vm.value,
+                callback: function($$v) {
+                  _vm.value = $$v
+                },
+                expression: "value"
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "input-wrap" },
+          [
+            _c("p", [_vm._v("價位")]),
+            _vm._v(" "),
+            _c("Input", {
+              attrs: { placeholder: "Enter something..." },
+              model: {
+                value: _vm.value2,
+                callback: function($$v) {
+                  _vm.value2 = $$v
+                },
+                expression: "value2"
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "input-wrap" },
+          [
+            _c("p", [_vm._v("單位")]),
+            _vm._v(" "),
+            _c(
+              "Input",
+              {
+                model: {
+                  value: _vm.value3,
+                  callback: function($$v) {
+                    _vm.value3 = $$v
+                  },
+                  expression: "value3"
+                }
+              },
+              [
+                _c(
+                  "Select",
+                  {
+                    staticStyle: { width: "70px" },
+                    attrs: { slot: "append" },
+                    slot: "append",
+                    model: {
+                      value: _vm.select3,
+                      callback: function($$v) {
+                        _vm.select3 = $$v
+                      },
+                      expression: "select3"
+                    }
+                  },
+                  [
+                    _c("Option", { attrs: { value: "com" } }, [_vm._v("條")]),
+                    _vm._v(" "),
+                    _c("Option", { attrs: { value: "org" } }, [_vm._v("顆")]),
+                    _vm._v(" "),
+                    _c("Option", { attrs: { value: "io" } }, [_vm._v("盒")])
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "right" }, [
+      _c("img", { attrs: { src: "https://fakeimg.pl/300x300/?text=FakeImg" } })
+    ])
+  }
+]
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$70dae2', $70dae2);
+          } else {
+            api.reload('$70dae2', $70dae2);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
 },{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/assets/js/components/food/Manage.vue":[function(require,module,exports) {
 "use strict";
 
@@ -63583,6 +64103,8 @@ var _cardB = _interopRequireDefault(require("../utils/cardB.vue"));
 
 var _cardC = _interopRequireDefault(require("../utils/cardC.vue"));
 
+var _cardFood = _interopRequireDefault(require("../utils/cardFood.vue"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
@@ -63594,7 +64116,8 @@ var _default = {
   components: {
     CardA: _card.default,
     CardB: _cardB.default,
-    CardC: _cardC.default
+    CardC: _cardC.default,
+    CardFood: _cardFood.default
   },
   data: function data() {
     return {
@@ -63816,7 +64339,7 @@ exports.default = _default;
   var _c = _vm._self._c || _h
   return _c(
     "section",
-    { staticClass: "content" },
+    { staticClass: "content page" },
     [
       _c(
         "Row",
@@ -64005,7 +64528,9 @@ exports.default = _default;
           _c("Col", { attrs: { span: "9" } }, [
             _c("div", { staticClass: "title" }, [
               _vm._v(_vm._s(_vm.currentCItemName))
-            ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "union" }, [_c("CardFood")], 1)
           ])
         ],
         1
@@ -64047,7 +64572,7 @@ render._withStripped = true
       
       }
     })();
-},{"vuex":"node_modules/vuex/dist/vuex.esm.js","../utils/card.vue":"src/assets/js/components/utils/card.vue","../utils/cardB.vue":"src/assets/js/components/utils/cardB.vue","../utils/cardC.vue":"src/assets/js/components/utils/cardC.vue","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/assets/js/components/set/Manage.vue":[function(require,module,exports) {
+},{"vuex":"node_modules/vuex/dist/vuex.esm.js","../utils/card.vue":"src/assets/js/components/utils/card.vue","../utils/cardB.vue":"src/assets/js/components/utils/cardB.vue","../utils/cardC.vue":"src/assets/js/components/utils/cardC.vue","../utils/cardFood.vue":"src/assets/js/components/utils/cardFood.vue","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/assets/js/components/set/Manage.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -64296,7 +64821,7 @@ exports.default = _default;
   var _c = _vm._self._c || _h
   return _c(
     "section",
-    { staticClass: "content" },
+    { staticClass: "content page" },
     [
       _c(
         "Row",
@@ -116407,7 +116932,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64274" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54561" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

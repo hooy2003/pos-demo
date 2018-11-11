@@ -3,9 +3,9 @@ $links-color: #0179fe;
 
 .ivu-input-wrapper {
 	width: 75%;
-	&.hide {
-		display: none;
-	}
+}
+.union .hide {
+	display: none;
 }
 
 .union {
@@ -38,7 +38,7 @@ $links-color: #0179fe;
     }
 }
 
-.content {
+.content.page {
 	.ivu-col {
 		border-right: 0;
 		box-shadow: inset 1px 0 0 rgba(0, 0, 0, .1);
