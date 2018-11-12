@@ -116869,7 +116869,7 @@ require('./vender');
 
 var router = new _vueRouter.default({
   routes: _routes.routes,
-  mode: 'history',
+  //   mode: 'history',
   linkActiveClass: 'active',
   linkExactActiveClass: 'active'
 });
@@ -116932,7 +116932,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51433" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57672" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

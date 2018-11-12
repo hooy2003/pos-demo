@@ -17,7 +17,7 @@ import '../sass/app.scss';
 
 const router = new VueRouter({
   routes,
-  mode: 'history',
+//   mode: 'history',
   linkActiveClass: 'active',
   linkExactActiveClass: 'active',
 });
