@@ -17,7 +17,6 @@
                 </a>
                 <DropdownMenu slot="list">
                     <DropdownItem name="edit"><Icon type="ios-add-circle"></Icon>編輯名稱</DropdownItem>
-                    <DropdownItem name="copy"><Icon type="md-copy"></Icon>複製項目</DropdownItem>
                     <DropdownItem name="delete"><Icon type="ios-add-circle"></Icon>刪除項目</DropdownItem>
                 </DropdownMenu>
             </Dropdown>

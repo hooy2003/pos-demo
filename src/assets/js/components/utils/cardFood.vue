@@ -3,12 +3,15 @@
          >
         <div class="content">
             <div class="right">
-               <img src="https://fakeimg.pl/300x300/?text=FakeImg">
+               <image-uploader
+                  :src="imgSrc2"
+                  :maxSize="10"
+                ></image-uploader>
             </div>
             <div class="left">
                 <div class="input-wrap">
                     <p>商品名稱</p>
-                    <Input v-model="value" placeholder="Enter something..."></Input>
+                    <Input v-model="cardName" placeholder="Enter something..."></Input>
                 </div>
                 <div class="input-wrap">
                     <p>價位</p>
@@ -29,15 +32,28 @@
     </div>
 </template>
 <script>
+import { mapGetters } from 'vuex';
+import ImageUploader from '../ImageUploader.vue';
+
     export default {
+        components: {
+            ImageUploader
+        },
         name: 'CardFood',
         props: ['cardName'],
         data() {
             return {
-                value: '招牌總會',
                 value2: 280,
                 value3: 8,
                 select3: 'com'
+            }
+        },
+        computed: {
+            ...mapGetters([
+                'imgSrc'
+            ]),
+            imgSrc2 () {
+                return this.imgSrc;
             }
         },
         methods: {

@@ -202,6 +202,7 @@ const state = {
             ]
         }
     ],
+    imgSrc: ''
 };
 
 
@@ -209,14 +210,18 @@ const getters = {
     foodAClass: state => state.foodAClass,
     foodBClass: state => state.foodBClass,
     foodBItem: state => state.foodBItem,
-    foodCItem: state => state.foodCItem
+    foodCItem: state => state.foodCItem,
+    imgSrc: state => state.imgSrc
 };
 
 const mutations = {
 
     // 好像有問題
     changeCardName (state, { newArray } ) {
-        state.foodItem = newArray;
+        state.foodAClass = newArray;
+    },
+    AClassAddNewClass(state, { newArray } ) {
+        state.foodAClass = newArray;
     },
     BClassAddNewClass (state, { newArray } ) {
         state.foodBClass = newArray;

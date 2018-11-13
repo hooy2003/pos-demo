@@ -8,9 +8,15 @@
                     <CardA v-for="(item, index) in currentAClass"
                            :card-name="item"
                            :class="{ active: index === 0 }"
+                           @card-change-name="onCardChangeName0($event, index)"
                            @card-on-click="AClassOnClick"
                     >
                     </CardA>
+                    <div @click="addNewClassA($event)"
+                         class="add-new-card"
+                         >
+                         <Icon type="ios-add-circle-outline" size="20" /></Icon>新增類別
+                    </div>
                 </div>
             </Col>
             <Col span="5">
@@ -73,7 +79,10 @@
             <Col span="9">
                 <div class="title">{{currentCItemName}}</div>
                 <div class="union">
-                    <CardFood></CardFood>
+                    <CardFood
+                        v-show="DCardShow"
+                        :card-name="currentCItemName"
+                    ></CardFood>                    
                 </div>
             </Col>
         </Row>        
@@ -105,6 +114,7 @@ import CardFood from '../utils/cardFood.vue';
             currentBItemName: '尚無項目',
             currentCItem: [],
             currentCItemName: '餐點名',
+            DCardShow: false,
         }
     },
     mounted: function() {
@@ -137,7 +147,7 @@ import CardFood from '../utils/cardFood.vue';
     methods: {
         AClassOnClick: function(ACardName) {
             console.log('點了A區哪張卡', ACardName);
-
+            this.DCardShow = false;
             // 給B區塊標題名字
             this.currentACardName = ACardName;
             // 清空C區塊
@@ -147,15 +157,19 @@ import CardFood from '../utils/cardFood.vue';
         },
         BClassOnClick: function(BCardName) {
             console.log('點了B區哪張卡', BCardName);
+            this.DCardShow = false;
             // 給C區塊名字
             this.currentBCardName = BCardName;
             this.changeCItem(BCardName);
         },
         BItemOnClick: function(BItem) {
             console.log('B Item OnClick', BItem);
+            this.DCardShow = true;
+            this.currentCItemName =  BItem;
         },
         CItemOnClick: function(CITem) {
             console.log('C Item OnClick', CITem);
+            this.DCardShow = true;
             this.currentCItemName =  CITem;
         },
         changeBClass: function(ACardName) {
@@ -184,13 +198,26 @@ import CardFood from '../utils/cardFood.vue';
             this.currentCItem = filterArray[0].name;
 
             console.log('this currentC Item =======',  this.currentBItem);
-        },        
+        },
+        onCardChangeName0: function(newName, index) {
+            this.currentAClass.splice(index, 1, newName);
+        }, 
         onCardChangeName: function(newName, index) {
             this.currentBClass.splice(index, 1, newName);
         },
         onCardChangeName2: function(newName, index) {
             console.log('this.currentBItem');
             this.currentBItem.splice(index, 1, newName);
+        },
+        addNewClassA: function($event) {
+            let cloneItem = this.foodAClass;            
+            cloneItem[0].name.push('新項目');
+            console.log('cloneItem');
+
+            this.$store.commit({
+                type: 'AClassAddNewClass',
+                newArray: cloneItem,
+            });
         },
         addNewClass: function($event, parentName) {
 
